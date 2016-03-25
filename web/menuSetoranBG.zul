@@ -5,7 +5,7 @@
         <center>
             <tabbox id="tb" height="100%">
                 <tabs id="tabs">
-                    <tab id="A" label="GIRO BARU" />
+                    <tab id="A" label="GIRO PENDING" />
                     <tab id="B" label="PROSES KLIRING" />
                 </tabs>
                 <tabpanels>
@@ -21,7 +21,7 @@
                                    if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
                             <auxhead>
-                                <auxheader colspan="10">
+                                <auxheader colspan="12">
                                     <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-file" label="BUAT GIRO BARU" onClick="@command('buatGiroBaru')" 
                                 if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
                                 </auxheader>
@@ -29,11 +29,13 @@
                         
                             <listhead sizable="true" visible="true" >
                                 <listheader width="30px" />
-                                <listheader sort="auto(nomor)" label="NOMOR"/>
+                                <listheader sort="auto(nomor)" label="ID"/>
+                                <listheader sort="auto(nomorGiro)" label="NO GIRO"/>
+                                <listheader sort="auto(bank)" label="NAMA BANK"/>
                                 <listheader sort="auto(nilai)" label="NILAI"/>
-                                <listheader sort="auto(namaPenyetor)" label="PENERIMA"/>
+                                <listheader sort="auto(namaPenyetor)" label="PENYETOR"/>
                                 <listheader sort="tag" label="TAG"/>
-                                <listheader sort="auto(DKLK)" label="DK/LK"/>
+                                <listheader sort="auto(DKLK)" label="DK/LK" width="50px"/>
                                 <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
                                 <listheader sort="auto(tglJtTempo)" label="TGL JT TEMPO"/>
                                 <listheader sort="auto(status)" label="STATUS"/>
@@ -48,6 +50,12 @@
                                     <textbox instant="true" value="@bind(vm.filterNomor)" hflex="3" onChange="@command('saring')"/>
                                 </auxheader>
                                 <auxheader>
+                                    <textbox instant="true" value="@bind(vm.filterNomorGiro)" hflex="3" onChange="@command('saring')"/>
+                                </auxheader>
+                                <auxheader>
+                                    <textbox instant="true" value="@bind(vm.filterBank)" hflex="3" onChange="@command('saring')"/>
+                                </auxheader>
+                                <auxheader>
                                     <textbox instant="true" value="@bind(vm.filterNilai)" hflex="3" onChange="@command('saring')"/>
                                 </auxheader>
                                 <auxheader>
@@ -57,7 +65,7 @@
                                     <textbox instant="true" value="@bind(vm.filterTag)" hflex="3" onChange="@command('saring')"/>
                                 </auxheader>
                                 <auxheader>
-                                    <button popup="popupDKLK" iconSclass="glyphicon glyphicon-filter" label="FILTER" onClick="" sclass="btn-info btn-xs" hflex="3" />
+                                    <button popup="popupDKLK" iconSclass="glyphicon glyphicon-filter" label="" onClick="" sclass="btn-info btn-xs" hflex="3" />
                           
                                     <popup id="popupDKLK" width="250px" style="word-wrap">
                                         <vlayout>
@@ -139,12 +147,14 @@
                                 <listitem sclass="mainList" onClick="@command('showDetail', giro=g)">
                                     <listcell />
                                     <listcell label="@load(g.nomor)"/>
+                                    <listcell label="@load(g.nomorGiro)"/>
+                                    <listcell label="@load(g.bank)"/>
                                     <listcell label="@load(vm.format(g.nilai))"/>
                                     <listcell label="@load(g.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
                                     <listcell label="@load(g.tag)"/>
                                     <listcell label="@load(g.DKLK)"/>
                                     <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                                        <label value="@load(g.wktTerima)"/>
+                                        <label value="@load(g.wktTerima) @converter('formatedDate', format='yyyy/MM/dd hh:mm')"/>
                                     </listcell>
                                     <listcell style="text-overflow: ellipsis; white-space: nowrap;">
                                         <label value="@load(g.tglJtTempo) @converter('formatedDate', format='yyyy/MM/dd')"/>
@@ -158,7 +168,7 @@
                             </template>
                     
                             <listfoot>
-                                <listfooter span="6" valign="middle">
+                                <listfooter span="12" valign="middle">
                                     <div style="float:left;">
                                         <button onClick="@command('hapusSelectedGiro')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
                                     if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>

@@ -23,15 +23,21 @@ public class AddNewGiro {
     private Combobox cmb;
     @Wire("#tag")
     private Combobox cmbTag;
+    @Wire("#banks")
+    private Combobox cmbBank;
     Giro giro;
     List<DsPenyetor> listPenyetor;
-    List<Giro> listTag;
+    List<String> listTag;
+    List<String> listBank;
+    List<String> listStatus;
     User userLogin;
     String DKLK;
 
     public AddNewGiro() {
         this.listPenyetor = new ArrayList<>();
         this.listTag = new ArrayList<>();
+        this.listBank = new ArrayList<>();
+        this.listStatus = new ArrayList<>();
     }
 
     @AfterCompose
@@ -40,7 +46,9 @@ public class AddNewGiro {
         this.giro = new Giro();
         this.giro.setNomor(Long.parseLong(this.giro.getLastNomor()) + 1L);
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
-        this.listTag = (List<Giro>) Ebean.find((Class) Giro.class).select("tag").setDistinct(true).findList();
+        this.listTag = Ebean.find((Class) Giro.class).select("tag").setDistinct(true).findList();
+        this.listBank = Ebean.find((Class) Giro.class).select("bank").setDistinct(true).findList();
+        this.listStatus = Ebean.find((Class) Giro.class).select("status").setDistinct(true).findList();
         Selectors.wireComponents(view, this, false);
     }
 
@@ -114,11 +122,11 @@ public class AddNewGiro {
         this.giro = giro;
     }
 
-    public List<Giro> getListTag() {
+    public List<String> getListTag() {
         return listTag;
     }
 
-    public void setListTag(List<Giro> listTag) {
+    public void setListTag(List<String> listTag) {
         this.listTag = listTag;
     }
 
@@ -128,6 +136,30 @@ public class AddNewGiro {
 
     public void setDKLK(String DKLK) {
         this.DKLK = DKLK;
+    }
+
+    public Combobox getCmbBank() {
+        return cmbBank;
+    }
+
+    public void setCmbBank(Combobox cmbBank) {
+        this.cmbBank = cmbBank;
+    }
+
+    public List<String> getListBank() {
+        return listBank;
+    }
+
+    public void setListBank(List<String> listBank) {
+        this.listBank = listBank;
+    }
+
+    public List<String> getListStatus() {
+        return listStatus;
+    }
+
+    public void setListStatus(List<String> listStatus) {
+        this.listStatus = listStatus;
     }
 
 

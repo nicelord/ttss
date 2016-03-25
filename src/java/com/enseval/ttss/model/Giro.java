@@ -13,6 +13,8 @@ public class Giro implements Serializable
     @Id
     private Long nomor;
     Long nilai;
+    Long nomorGiro;
+    String bank;
     @ManyToOne
     User userLogin;
     String namaPenyetor;
@@ -148,6 +150,22 @@ public class Giro implements Serializable
 
     public void setProsesKliring(Boolean prosesKliring) {
         this.prosesKliring = prosesKliring;
+    }
+
+    public Long getNomorGiro() {
+        return nomorGiro;
+    }
+
+    public void setNomorGiro(Long nomorGiro) {
+        this.nomorGiro = nomorGiro;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
     }
     
     

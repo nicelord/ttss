@@ -23,6 +23,8 @@ public class MenuSetoranBGVM {
     Giro giro;
     Long totalNilai;
     String filterNomor;
+    String filterNomorGiro;
+    String filterBank;
     String filterNilai;
     String filterPenyetor;
     String filterTag;
@@ -42,6 +44,8 @@ public class MenuSetoranBGVM {
         this.listGiro = new ArrayList<>();
         this.totalNilai = 0L;
         this.filterNomor = "";
+        this.filterNomorGiro = "";
+        this.filterBank = "";
         this.filterNilai = "";
         this.filterPenyetor = "";
         this.filterTag = "";
@@ -374,4 +378,21 @@ public class MenuSetoranBGVM {
         this.tglJtTempoAkhir = tglJtTempoAkhir;
     }
 
+    public String getFilterNomorGiro() {
+        return filterNomorGiro;
+    }
+
+    public void setFilterNomorGiro(String filterNomorGiro) {
+        this.filterNomorGiro = filterNomorGiro;
+    }
+
+    public String getFilterBank() {
+        return filterBank;
+    }
+
+    public void setFilterBank(String filterBank) {
+        this.filterBank = filterBank;
+    }
+
+    
 }
