@@ -1,0 +1,54 @@
+<?init class="com.enseval.ttss.util.AuthenticationInit"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div>
+        <tabbox mold="accordion" style="border: 0; border-bottom: 1px solid #cfcfcf;">
+            <tabs>
+                <tab label="USER MENU"/>
+            </tabs>
+            <tabpanels>
+                <tabpanel style="padding: 0px; border: 0;">
+                    <listbox id="sidebar" zclass="mylist-cell">
+                        <listhead>
+                            <listheader label="" width="35px"/>
+                            <listheader label=""/>
+                        </listhead>
+                        <listitem id="defaultMenu" style="border-bottom: 1px dotted #cfcfcf;" 
+                                  onClick="@command('changePage', page='menuSetoran.zul')">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="SETORAN MASUK"/>
+                        </listitem>	
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  onClick="@command('changePage', page='menuSetoranKeluar.zul')">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="SETORAN KELUAR"/>
+                        </listitem>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  onClick="@command('changePage', page='menuSetoranBG.zul')">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="BON GIRO"/>
+                        </listitem>	
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" onClick="@command('changePage', page='menuUserSetting.zul')">
+                            <listcell iconSclass="z-icon-cogs"/>
+                            <listcell label="PENGATURAN"/>
+                        </listitem>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" onClick="@command('changePage', page='menuUserManager.zul')"
+                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                            <listcell iconSclass="z-icon-cogs"/>
+                            <listcell label="ATUR PENGGUNA"/>
+                        </listitem>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" onClick="@command('changePage', page='menuPrinterManager.zul')"
+                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                            <listcell iconSclass="z-icon-cogs"/>
+                            <listcell label="ATUR PRINTER"/>
+                        </listitem>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;">
+                            <listcell iconSclass="glyphicon glyphicon-log-out"/>
+                            <listcell label="LOGOUT" onClick="@command('logout')" style="font-weight: bold;"/>
+                        </listitem>		
+                    </listbox>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+    </div>
+</zk>

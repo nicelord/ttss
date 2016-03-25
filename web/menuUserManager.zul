@@ -1,0 +1,129 @@
+<?init class="com.enseval.ttss.util.AuthenticationInit"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <div self="@define(content)" vflex="3">
+        <window title="PENGATURAN PENGGUNA" vflex="1" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuUserManagerVM')">
+            <borderlayout>
+                <center>
+                    <listbox id="listTtss" mold="paging" width="100%" vflex="1" pageSize="10" 
+                             checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+                             multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+                             selectedItems="@bind(vm.selectedUsers)"
+                             emptyMessage="Kosong euy!"
+                             model="@load(vm.users)">        
+                                             
+                        <custom-attributes org.zkoss.zul.listbox.rod="false"/>
+                        
+                        <auxhead>
+                            <auxheader colspan="4">
+                                <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-user" label="TAMBAH PENGGUNA" onClick="@command('tambahUser')"/>
+                            </auxheader>
+                        </auxhead>
+                        
+                        <listhead sizable="true" visible="true" >
+                            <listheader width="30px" />
+                            <listheader sort="auto(id)" label="USER ID" width="70px"/>
+                            <listheader sort="auto(username)" label="USERNAME"/>
+                            <listheader sort="auto(akses)" label="AKSES"/>
+                        </listhead>
+                        
+                        <auxhead>
+                            <auxheader>
+                                <image id="" src="img/filter.png" width=""  height=""/>
+                            </auxheader>
+                            <auxheader>
+                                <textbox instant="true" value="@bind(vm.filterID)" hflex="3" onChange="@command('saring')"/>
+                            </auxheader>
+                            <auxheader>
+                                <textbox instant="true" value="@bind(vm.filterUsername)" hflex="3" onChange="@command('saring')"/>
+                            </auxheader>
+                             <auxheader>
+                                <textbox instant="true" value="@bind(vm.filterAkses)" hflex="3" onChange="@command('saring')"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <template name="model" var="s">
+                            <listitem sclass="mainList" onClick="@command('showDetail', user=s)">
+                                <listcell />
+                                <listcell label="@load(s.id)"/>
+                                <listcell label="@load(s.username)"/>
+                                <listcell label="@load(s.akses)"/>
+                            </listitem>
+                        </template>
+                    
+                        <listfoot>
+                            <listfooter span="5" valign="middle">
+                                <div style="float:left;">
+                                    <button onClick="@command('hapusSelectedUsers')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
+                                             if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                                </div>
+                            </listfooter>
+                        </listfoot>		
+                    </listbox>
+                
+                </center>
+                <east title="DETAIL USER" size="50%" splittable="true" collapsible="true">
+                    <div vflex="3" hflex="3">
+                        <vbox align="center" hflex="3" vflex="3">
+                            <grid hflex="3" vflex="3">
+                                <columns>
+                                    <column align="left" width="25%"/>
+                                    <column/>
+                                </columns>
+                                <rows>
+                                    <row>
+                                        USER ID
+                                        <div>
+                                            <label value="@load(vm.user.id)"/>
+                                        </div>
+                                        
+                                    </row>
+                                    
+                                    <row>
+                                        NAMA
+                                        <textbox value="@bind(vm.user.nama)" sclass="form-control input-primary"/>
+                                    </row>
+                                     <row>
+                                        USERNAME
+                                        <textbox value="@bind(vm.user.username)" sclass="form-control input-primary"/>
+                                    </row>
+                                    <row>
+                                        PASSWORD
+                                        <textbox value="@bind(vm.user.password)" sclass="form-control input-primary"/>
+                                    </row> 
+                                    <row>
+                                        AKSES
+                                        <combobox hflex="3" value="@bind(vm.user.akses)" readonly="true">
+                                            <comboitem label="KASIR"/>
+                                            <comboitem label="SUPERVISOR"/>
+                                            <comboitem label="ADMINISTRATOR"/>
+                                        </combobox>
+                                    </row> 
+                                    
+                                    <row>
+                                        DEFAULT PRINTER
+                                        <combobox id="printer"  model="@load(vm.printers)" selectedItem="@bind(vm.user.defPrinter)" hflex="3" vflex="3" readonly="true" constraint="no empty">
+                                            <template name="model">
+                                                <comboitem label="@load(each.namaPrinter)" value="@load(each.namaPrinter)"/>
+                                            </template>
+                                        </combobox>
+                                    </row>
+                                </rows>
+                                <foot>
+                                    <footer span="2">
+                                        <hlayout>
+                                            <button onClick="@command('simpan')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-floppy-disk" label="SIMPAN" 
+                                                    if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                                        </hlayout>
+                                    </footer>
+                                </foot>
+                            </grid>
+                        </vbox>
+                      
+                    </div>
+                </east>
+            </borderlayout>
+        </window>
+    </div>
+   
+</zk>
