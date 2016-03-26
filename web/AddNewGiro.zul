@@ -28,10 +28,10 @@
                             </row>
                             <row>
                                 Nomor Giro
-                                <intbox id="nomorGiro" hflex="3" value="@bind(vm.giro.nomorGiro)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                <textbox id="nomorGiro" hflex="3" value="@bind(vm.giro.nomorGiro)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
                             </row>
                             <row>
-                                NAMA BANK
+                                Nama Bank
                                 <combobox id="banks"  model="@load(vm.listBank)" autodrop="true" buttonVisible="false" value="@bind(vm.giro.bank)" width="100%" constraint="no empty,/^[a-zA-Z ]*$/">
                                     <template name="model">
                                         <comboitem label="@load(each.bank.toUpperCase())"/>
@@ -49,7 +49,7 @@
                             </row> 
                             <row>
                                 Tgl Jatuh Tempo
-                               <datebox id="db5" cols="12" format="yyyy/MM/dd" onCreate="self.value = new Date()" value="@bind(vm.giro.tglJtTempo)"/>
+                                <datebox id="jttmp" cols="12" format="yyyy/MM/dd" onCreate="self.value = new Date()" value="@bind(vm.giro.tglJtTempo)"/>
 
                             </row> 
                             <row>
@@ -62,7 +62,7 @@
                             </row> 
                             <row>
                                 TAG
-                                <combobox id="tag"  model="@load(vm.listTag)" autodrop="true" buttonVisible="false" value="@bind(vm.giro.tag)" width="100%" constraint="no empty">
+                                <combobox id="tag"  model="@load(vm.listTag)" autodrop="true" buttonVisible="false" value="@bind(vm.giro.tag)" width="100%">
                                     <template name="model">
                                         <comboitem label="@load(each.tag.toUpperCase())"/>
                                     </template>
@@ -70,7 +70,7 @@
                             </row> 
                             <row>
                                 DK/LK
-                                <groupbox id="gb" width="100%">
+                                <groupbox id="dklk" width="100%">
                                     <radiogroup selectedItem="@bind(vm.giro.DKLK)">
                                         <radio label="DK" value="DK"/>
                                         <radio label="LK" value="LK"/>
@@ -83,7 +83,7 @@
                             </row> 
                             <row>
                                 Status
-                                <combobox id="status"  model="@load(vm.listStatus)" autodrop="true" buttonVisible="false" value="@bind(vm.giro.status)" width="100%" constraint="no empty">
+                                <combobox id="status"  model="@load(vm.listStatus)" autodrop="true" buttonVisible="false" value="@bind(vm.giro.status)" width="100%" constraint="no empty" maxlength="15">
                                     <template name="model">
                                         <comboitem label="@load(each.status.toUpperCase())"/>
                                     </template>
@@ -110,9 +110,20 @@
                                 
                                
                                 <div class="btn-group" style="float:right;">
-                                    <button onClick="@command('saveNewGiro')">SIMPAN</button>
+                                    <button onClick="@command('saveNewGiro')" label="SIMPAN">
+                                        <attribute name="onClick">
+                                            nomor.getValue();
+                                            nomorGiro.getValue();
+                                            banks.getValue();
+                                            nilai.getValue();
+                                            jttmp.getValue();
+                                            penyetor.getValue();
+                                            status.getValue();
+                                            
+                                        </attribute>
+                                    </button>
                                     
-                                    <button onClick="addTTSS.detach()">BATAL</button>
+                                    <button onClick="addGiro.detach()">BATAL</button>
                                 </div>
                             </footer>
                         </foot>

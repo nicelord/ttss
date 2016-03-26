@@ -20,8 +20,10 @@ import java.sql.Timestamp;
 public class MenuSetoranBGVM {
 
     List<Giro> listGiro;
+    List<Giro> listGiroKliring;
     Giro giro;
     Long totalNilai;
+    Long totalNilai2;
     String filterNomor;
     String filterNomorGiro;
     String filterBank;
@@ -43,6 +45,7 @@ public class MenuSetoranBGVM {
     public MenuSetoranBGVM() {
         this.listGiro = new ArrayList<>();
         this.totalNilai = 0L;
+        this.totalNilai2 = 0L;
         this.filterNomor = "";
         this.filterNomorGiro = "";
         this.filterBank = "";
@@ -56,13 +59,21 @@ public class MenuSetoranBGVM {
 
     @AfterCompose
     public void initSetup() {
-        this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listGiro = (List<Giro>) Ebean.find((Class) Giro.class).where().setMaxRows(50).orderBy("wktTerima desc").findList();
+        this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+        this.listGiro = Ebean.find(Giro.class).where().eq("tglKliring", null).setMaxRows(50).orderBy("nomor desc").findList();
+        this.listGiroKliring = Ebean.find(Giro.class).where().ne("tglKliring", null).setMaxRows(50).orderBy("nomor desc").findList();
+        
         Long nilai = 0L;
-        for (final Giro giro1 : this.listGiro) {
+        for (Giro giro1 : this.listGiro) {
             nilai += giro1.getNilai();
         }
         this.totalNilai = nilai;
+        
+        Long nilai2 = 0L;
+        for (Giro giro2 : this.listGiroKliring) {
+            nilai2 += giro2.getNilai();
+        }
+        this.totalNilai2 = nilai2;
     }
 
     @Command
@@ -110,13 +121,16 @@ public class MenuSetoranBGVM {
     }
 
     @GlobalCommand
-    @NotifyChange({"listGiro", "totalNilai"})
+    @NotifyChange({"listGiro", "totalNilai", "listGiroKliring", "totalNilai2"})
     public void refresh() {
         if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listGiro = (List<Giro>) Ebean.find((Class) Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
+            this.listGiro = Ebean.find(Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
         } else {
-            this.listGiro = (List<Giro>) Ebean.find((Class) Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%'").orderBy("wktTerima desc").findList();
+            this.listGiro = Ebean.find(Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%'").orderBy("wktTerima desc").findList();
         }
+        
+    
+        
         Long nilai = 0L;
         for (final Giro giro1 : this.listGiro) {
             nilai += giro1.getNilai();
@@ -168,43 +182,52 @@ public class MenuSetoranBGVM {
     }
 
     @Command
-    @NotifyChange({"listGiro"})
+    @NotifyChange({"listGiro","listGiroKliring"})
     public void downloadXLS() {
-        final File filenya = new File("D://giro-reports.xls");
-        try {
-            final InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/giro.jasper");
-            final JRDataSource datasource = (JRDataSource) new JRBeanCollectionDataSource((Collection) this.listGiro);
-            final Map map = new HashMap();
-            map.put("REPORT_DATA_SOURCE", datasource);
-            map.put("TOTAL", this.totalNilai);
-            final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
-            final OutputStream outputStream = new FileOutputStream(filenya);
-            final JRXlsExporter exporterXLS = new JRXlsExporter();
-            exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, (Object) report);
-            exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, (Object) outputStream);
-            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, (Object) Boolean.FALSE);
-            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_DETECT_CELL_TYPE, (Object) Boolean.TRUE);
-            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, (Object) Boolean.FALSE);
-            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, (Object) Boolean.TRUE);
-            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, (Object) Boolean.TRUE);
-            exporterXLS.exportReport();
-            streamReport.close();
-            outputStream.close();
-        } catch (JRException | FileNotFoundException ex4) {
-            Logger.getLogger(MenuSetoranBGVM.class.getName()).log(Level.SEVERE, null, ex4);
-        } catch (IOException ex2) {
-            Logger.getLogger(MenuSetoranBGVM.class.getName()).log(Level.SEVERE, null, ex2);
+//        final File filenya = new File("D://giro-reports.xls");
+//        try {
+//            final InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/giro.jasper");
+//            final JRDataSource datasource = (JRDataSource) new JRBeanCollectionDataSource((Collection) this.listGiro);
+//            final Map map = new HashMap();
+//            map.put("REPORT_DATA_SOURCE", datasource);
+//            map.put("TOTAL", this.totalNilai);
+//            final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
+//            final OutputStream outputStream = new FileOutputStream(filenya);
+//            final JRXlsExporter exporterXLS = new JRXlsExporter();
+//            exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, (Object) report);
+//            exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, (Object) outputStream);
+//            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, (Object) Boolean.FALSE);
+//            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_DETECT_CELL_TYPE, (Object) Boolean.TRUE);
+//            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, (Object) Boolean.FALSE);
+//            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, (Object) Boolean.TRUE);
+//            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, (Object) Boolean.TRUE);
+//            exporterXLS.exportReport();
+//            streamReport.close();
+//            outputStream.close();
+//        } catch (JRException | FileNotFoundException ex4) {
+//            Logger.getLogger(MenuSetoranBGVM.class.getName()).log(Level.SEVERE, null, ex4);
+//        } catch (IOException ex2) {
+//            Logger.getLogger(MenuSetoranBGVM.class.getName()).log(Level.SEVERE, null, ex2);
+//        }
+//        FileInputStream inputStream = null;
+//        try {
+//            if (filenya.exists()) {
+//                inputStream = new FileInputStream(filenya);
+//                Filedownload.save((InputStream) inputStream, new MimetypesFileTypeMap().getContentType(filenya), filenya.getName());
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        filenya.delete();
+        
+        for (Giro giroSelected : selectedGiro) {
+            
+            giroSelected.setTglKliring(new Date());
+            Ebean.save(giroSelected);
+            refresh();
+            
         }
-        FileInputStream inputStream = null;
-        try {
-            if (filenya.exists()) {
-                inputStream = new FileInputStream(filenya);
-                Filedownload.save((InputStream) inputStream, new MimetypesFileTypeMap().getContentType(filenya), filenya.getName());
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        filenya.delete();
+        
     }
 
     @Command
@@ -392,6 +415,22 @@ public class MenuSetoranBGVM {
 
     public void setFilterBank(String filterBank) {
         this.filterBank = filterBank;
+    }
+
+    public List<Giro> getListGiroKliring() {
+        return listGiroKliring;
+    }
+
+    public void setListGiroKliring(List<Giro> listGiroKliring) {
+        this.listGiroKliring = listGiroKliring;
+    }
+
+    public Long getTotalNilai2() {
+        return totalNilai2;
+    }
+
+    public void setTotalNilai2(Long totalNilai2) {
+        this.totalNilai2 = totalNilai2;
     }
 
     

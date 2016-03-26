@@ -13,7 +13,7 @@ public class Giro implements Serializable
     @Id
     private Long nomor;
     Long nilai;
-    Long nomorGiro;
+    String nomorGiro;
     String bank;
     @ManyToOne
     User userLogin;
@@ -23,13 +23,12 @@ public class Giro implements Serializable
     @Temporal(javax.persistence.TemporalType.DATE)
     Date tglKliring;
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date tglJtTempo;
+    Date tglJtTempo = new Date();
     @Lob
     String keterangan;
     String tag;
-    String DKLK;
-    String status;
-    Boolean prosesKliring = false;
+    String DKLK = "DK";
+    String status = "OK";
     
     public Long getNomor() {
         return this.nomor;
@@ -144,19 +143,11 @@ public class Giro implements Serializable
         this.tglJtTempo = tglJtTempo;
     }
 
-    public Boolean getProsesKliring() {
-        return prosesKliring;
-    }
-
-    public void setProsesKliring(Boolean prosesKliring) {
-        this.prosesKliring = prosesKliring;
-    }
-
-    public Long getNomorGiro() {
+    public String getNomorGiro() {
         return nomorGiro;
     }
 
-    public void setNomorGiro(Long nomorGiro) {
+    public void setNomorGiro(String nomorGiro) {
         this.nomorGiro = nomorGiro;
     }
 
