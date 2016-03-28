@@ -52,6 +52,10 @@ and open the template in the editor.
     color: #FFFFFF;
 }
 
+.z-listbox-odd.z-listitem {
+    background: #ffffeb;
+}
+
 
 .btn,.form-control,.z-combobox-input,.z-combobox-popup,.z-combobox-button,.z-intbox, .z-intbox-invalid, .z-textbox, .z-textbox-invalid, .label,
 .z-datebox-input,.z-datebox-icon, .z-datebox-calendar, .z-datebox-button,.z-datebox-popup, .z-datebox-open, .z-datebox-shadow,

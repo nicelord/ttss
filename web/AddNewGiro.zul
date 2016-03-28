@@ -83,10 +83,10 @@
                             </row> 
                             <row>
                                 Status
-                                <combobox id="status"  model="@load(vm.listStatus)" autodrop="true" buttonVisible="false" value="@bind(vm.giro.status)" width="100%" constraint="no empty" maxlength="15">
-                                    <template name="model">
-                                        <comboitem label="@load(each.status.toUpperCase())"/>
-                                    </template>
+                                <combobox id="status" value="@bind(vm.giro.status)" width="90%" constraint="no empty">
+                                    
+                                        <comboitem label="ASDAS" width="100%"/>
+                                  
                                 </combobox>
                             </row>
                             <row>
