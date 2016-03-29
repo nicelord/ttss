@@ -24,11 +24,11 @@ public class MenuGiroPendingVM {
     String filterTag;
     String filterDKLK;
     String filterStatus;
-    Timestamp tsAwal;
-    Timestamp tsAkhir;
+    Timestamp tsAwal = null;
+    Timestamp tsAkhir = null;
     User userLogin;
-    Date tglJtTempoAwal;
-    Date tglJtTempoAkhir;
+    Date tglJtTempoAwal = null;
+    Date tglJtTempoAkhir = null;
     List<Giro> selectedGiro;
 
     public MenuGiroPendingVM() {
@@ -102,8 +102,19 @@ public class MenuGiroPendingVM {
     @GlobalCommand
     @NotifyChange({"listGiro", "totalNilai"})
     public void refresh() {
-        if (this.tsAwal != null | this.tsAkhir != null) {
-            
+        this.listGiro = Ebean.find(Giro.class)
+                .where().eq("tglKliring", null)
+                .where().like("nomor", "%" + this.filterNomor + "%")
+                .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                .where().like("bank", "%" + this.filterBank + "%")
+                .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                .where().like("tag", "%" + this.filterTag + "%")
+                .where().like("DKLK", "%" + this.filterDKLK + "%")
+                .where().like("status", "%" + this.filterStatus + "%")
+                .orderBy("nomor DESC")
+                .findList();
+
+        if (this.tsAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
                     .where().eq("tglKliring", null)
                     .where().like("nomor", "%" + this.filterNomor + "%")
@@ -116,7 +127,25 @@ public class MenuGiroPendingVM {
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .orderBy("nomor DESC")
                     .findList();
-        } else {
+        }
+
+        if (this.tglJtTempoAwal != null) {
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().eq("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
+
+        }
+
+        if (this.tsAwal != null && this.tglJtTempoAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
                     .where().eq("tglKliring", null)
@@ -127,9 +156,10 @@ public class MenuGiroPendingVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
                     .orderBy("nomor DESC")
                     .findList();
-
         }
 
         Long nilai = 0L;
@@ -153,9 +183,23 @@ public class MenuGiroPendingVM {
 
     @Command
     @NotifyChange({"listGiro", "totalNilai"})
+    public void saringTglJtTempo() {
+        refresh();
+    }
+
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
     public void resetSaringWkt() {
         this.tsAwal = null;
         this.tsAkhir = null;
+        refresh();
+    }
+
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void resetSaringTglJtTempo() {
+        this.tglJtTempoAwal = null;
+        this.tglJtTempoAkhir = null;
         refresh();
     }
 
@@ -241,6 +285,19 @@ public class MenuGiroPendingVM {
     public void resetFilterDKLK() {
         this.filterDKLK = "";
         this.refresh();
+    }
+
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void filterStatus(@BindingParam("status") String status) {
+        if (status.equals("ALL")) {
+            this.filterStatus = "";
+        } else {
+            this.filterStatus = status;
+        }
+
+        refresh();
+
     }
 
     public Long getTotalNilai() {

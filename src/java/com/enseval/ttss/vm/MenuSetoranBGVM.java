@@ -19,6 +19,7 @@ import java.sql.Timestamp;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 
 public class MenuSetoranBGVM {
 
@@ -32,8 +33,10 @@ public class MenuSetoranBGVM {
     
      @Command
     public void changePage(@BindingParam("page") final String page) {
+   
         final Map map = new HashMap();
         map.put("page", page);
         BindUtils.postGlobalCommand((String)null, (String)null, "doChangePage", map);
+
     }
 }

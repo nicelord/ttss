@@ -5,20 +5,20 @@
 <zk>
     <div self="@define(content)">
         <listbox id="listGiro" mold="paging" vflex="1" width="100%" pageSize="8" 
-                checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
-                multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
-                selectedItems="@bind(vm.selectedGiro)"
-                emptyMessage="Kosong euy!"
-                model="@load(vm.listGiro)"
-                apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuGiroPendingVM')">        
+                 checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+                 multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+                 selectedItems="@bind(vm.selectedGiro)"
+                 emptyMessage="Kosong euy!"
+                 model="@load(vm.listGiro)"
+                 apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuGiroPendingVM')">        
                                              
             <custom-attributes org.zkoss.zul.listbox.rod="true" 
-                                       if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
+                               if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
             <auxhead>
                 <auxheader colspan="12">
                     <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-file" label="BUAT GIRO BARU" onClick="@command('buatGiroBaru')" 
-                                    if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                            if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
                 </auxheader>
             </auxhead>
                         
@@ -123,10 +123,10 @@
                     <button popup="popStatus" iconSclass="glyphicon glyphicon-filter" label="FILTER" onClick="" sclass="btn-info btn-xs" hflex="3" />
                     <popup id="popStatus" width="150px" style="word-wrap">
                         <div class="btn-group-vertical" hflex="3">
-                            <button label="ALL" onClick="@command('resetFilterDKLK')" sclass="btn-info btn-xs"/>
-                            <button label="OK" onClick="@command('filterDK')" sclass="btn-default btn-xs" hflex="3" />
-                            <button label="LAMPIRAN KURANG" onClick="@command('filterLK')" sclass="btn-default btn-xs"/>
-                            <button label="DITOLAK" onClick="@command('filterLK')" sclass="btn-default btn-xs"/>
+                            <button label="ALL" onClick="@command('filterStatus',status='ALL')" sclass="btn-info btn-xs"/>
+                            <button label="OK" onClick="@command('filterStatus', status='OK')" sclass="btn-default btn-xs" hflex="3" />
+                            <button label="LAMPIRAN KURANG" onClick="@command('filterStatus', status='LAMPIRAN KURANG')" sclass="btn-default btn-xs"/>
+                            <button label="DITOLAK BANK" onClick="@command('filterStatus', status='DITOLAK BANK')" sclass="btn-default btn-xs"/>
                         </div>
                     </popup>
                 </auxheader>
@@ -163,10 +163,10 @@
                 <listfooter span="12" valign="middle">
                     <div style="float:left;">
                         <button onClick="@command('hapusSelectedGiro')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
-                                        if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                                if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
                                 
                         <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL DAN PROSES KLIRING" 
-                                        if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                                if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
                         </button>
                     </div>
                     <div style="float:right;">
