@@ -1,18 +1,10 @@
 <?init class="com.enseval.ttss.util.AuthenticationInit"?>
 
-<window id="mainWin" title="DAFTAR GIRO" vflex="1" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuSetoranBGVM')">
+<window id="mainWin" title="MANAJEMEN GIRO" vflex="true" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuSetoranBGVM')">
     <borderlayout>
-        <center>
-            <div>
-                <menubar id="menubar" width="100%">
-                    <menuitem label="PENDING" onClick="@command('changePage', page='menuGiroPending.zul')"/>
-                    <menuitem label="KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"/>
-                </menubar>
-                <div self="@insert(content)">
-                    
-                </div>
-                
-            </div>
+        <center self="@insert(content)">
+        
         </center>
     </borderlayout>
+
 </window>

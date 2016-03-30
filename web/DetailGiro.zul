@@ -14,7 +14,7 @@
 
     <hbox align="center" pack="center" spacing="20px">
         <vlayout>
-            <window id="addGiro"  style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;" mode="modal" width="500px" vflex="1" title="BUAT GIRO BARU" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.AddNewGiro')" closable="true">
+            <window id="addGiro"  style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;" mode="modal" width="500px" vflex="1" title="DETAIL GIRO BARU" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.DetailGiroVM')" closable="true">
                 <vbox align="center">
                     <grid>
                         <columns>
@@ -49,7 +49,7 @@
                             </row> 
                             <row>
                                 Tgl Jatuh Tempo
-                                <datebox id="jttmp" cols="12" format="yyyy/MM/dd" onCreate="self.value = new Date()" value="@bind(vm.giro.tglJtTempo)"/>
+                                <datebox id="jttmp" cols="12" format="yyyy/MM/dd" value="@bind(vm.giro.tglJtTempo)"/>
 
                             </row> 
                             <row>
@@ -100,19 +100,13 @@
                         </rows>
                         <foot>
                             <footer span="2" align="left">
-                                <!--                                <div style="float:left;">
-                                    <button onClick="@command('cetak')" sclass="btn-danger" iconSclass="glyphicon glyphicon-print" label="CETAK DAN SIMPAN">
-                                        <attribute name="onClick">
-                                            nomor.getValue();
-                                            nilai.getValue();
-                                            penyerah.getValue();
-                                        </attribute>
-                                    </button>
-                                </div>-->
+                                <div style="float:left;">
+                                    <checkbox id="chkKliring" label="Proses kliring"/>
+                                </div>
                                 
                                
                                 <div class="btn-group" style="float:right;">
-                                    <button onClick="@command('saveNewGiro')" label="SIMPAN">
+                                    <button onClick="@command('UpdateGiro')" label="SIMPAN">
                                         <attribute name="onClick">
                                             nomor.getValue();
                                             nomorGiro.getValue();

@@ -31,12 +31,5 @@ public class MenuSetoranBGVM {
 
     }
     
-     @Command
-    public void changePage(@BindingParam("page") final String page) {
-   
-        final Map map = new HashMap();
-        map.put("page", page);
-        BindUtils.postGlobalCommand((String)null, (String)null, "doChangePage", map);
-
-    }
+  
 }

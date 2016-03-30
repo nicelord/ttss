@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.logging.*;
 import org.zkoss.zul.*;
 import java.sql.Timestamp;
+import org.zkoss.bind.BindUtils;
 
 public class MenuGiroPendingVM {
 
@@ -60,11 +61,6 @@ public class MenuGiroPendingVM {
 
     }
 
-    @Command
-    @NotifyChange({"giro", "totalNilai"})
-    public void showDetail(@BindingParam("giro") Giro giro) {
-        this.giro = giro;
-    }
 
     @Command
     public String format(final long nilai) {
@@ -298,6 +294,24 @@ public class MenuGiroPendingVM {
 
         refresh();
 
+    }
+
+    @Command
+    public void changePage(@BindingParam("page") final String page) {
+
+        final Map map = new HashMap();
+        map.put("page", page);
+        BindUtils.postGlobalCommand((String) null, (String) null, "doChangePage", map);
+
+    }
+    
+    
+    @Command
+    @NotifyChange({"giro","listGiro"})
+    public void detailGiro(@BindingParam("giro") Giro giro ) {
+        final Map args = new HashMap();
+        args.put("gironya", giro);
+        Executions.createComponents("DetailGiro.zul", null, args);
     }
 
     public Long getTotalNilai() {
