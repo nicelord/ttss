@@ -1,6 +1,5 @@
 package com.enseval.ttss.vm;
 
-import java.sql.*;
 import com.enseval.ttss.model.*;
 import com.avaje.ebean.*;
 import java.text.*;
@@ -16,6 +15,7 @@ import javax.activation.*;
 import org.zkoss.zul.*;
 import net.sf.jasperreports.engine.*;
 import java.io.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MenuBalanceVM {
 
@@ -25,18 +25,18 @@ public class MenuBalanceVM {
     String filterNomor;
     String filterNilai;
     String filterPenyetor;
-    String filterJenisKas;
+    String filterJenisKas = "SEMUA";
     String filterTag;
-    Timestamp tsAwal;
-    Timestamp tsAkhir;
+    Date cutOffDate;
     List<Cetak> cetaks;
     User userLogin;
     List<TTSS> selectedTTSS;
     Long saldo;
     Setting set = new Setting();
+    Date filterCutoff;
 
     public MenuBalanceVM() {
-        this.listTTSS = new ArrayList<>();
+        this.listTTSS = new CopyOnWriteArrayList<>();
         this.totalNilai = 0L;
         this.filterNomor = "";
         this.filterNilai = "";
@@ -46,12 +46,13 @@ public class MenuBalanceVM {
         this.cetaks = new ArrayList<>();
         this.selectedTTSS = new ArrayList<>();
         this.saldo = 0L;
+        this.set = Ebean.find(Setting.class, 1);
     }
 
     @AfterCompose
     public void initSetup() {
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listTTSS = Ebean.find(TTSS.class).where().eq("jenisKas", "KAS TRANSFER").orderBy("wktTerima desc").findList();
+        this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", set.getTanggalSaldoAwal()).orderBy("wktTerima desc").findList();
 
         Long nilai = 0L;
         for (final TTSS ttss1 : this.listTTSS) {
@@ -59,7 +60,6 @@ public class MenuBalanceVM {
         }
         this.totalNilai = nilai;
 
-        set = Ebean.find(Setting.class, 1);
         Long nilaiSaldo = set.getSaldoAwal();
         for (int i = this.listTTSS.size() - 1; i >= 0; i--) {
             if (this.listTTSS.get(i).getWktTerima().after(set.getTanggalSaldoAwal())) {
@@ -124,62 +124,62 @@ public class MenuBalanceVM {
         }
     }
 
-    @GlobalCommand
+    @Command
     @NotifyChange({"listTTSS", "totalNilai"})
     public void refresh() {
-        if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
-        } else {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+         this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", set.getTanggalSaldoAwal()).orderBy("wktTerima desc").findList();
+
+        if (!this.filterJenisKas.equals("SEMUA")) {
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("jenisKas", filterJenisKas)
+                    .where().ge("wktTerima", set.getTanggalSaldoAwal())
+                    .orderBy("wktTerima desc").findList();
         }
-        Long nilai = 0L;
-        for (final TTSS ttss1 : this.listTTSS) {
-            nilai += ttss1.getNilai();
+        if (this.filterCutoff != null) {
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().le("wktTerima", filterCutoff)
+                    .where().ge("wktTerima", set.getTanggalSaldoAwal())
+                    .orderBy("wktTerima desc").findList();
         }
-        this.totalNilai = nilai;
+        
+        if (!this.filterJenisKas.equals("SEMUA") && this.filterCutoff != null) {
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("jenisKas", filterJenisKas)
+                    .where().le("wktTerima", filterCutoff)
+                    .where().ge("wktTerima", set.getTanggalSaldoAwal())
+                    .orderBy("wktTerima desc").findList();
+        }
+
+        Long nilaiSaldo = set.getSaldoAwal();
+        for (int i = this.listTTSS.size() - 1; i >= 0; i--) {
+            if (this.listTTSS.get(i).getWktTerima().after(set.getTanggalSaldoAwal())) {
+                if (this.listTTSS.get(i).getTipe().equals("masuk")) {
+                    this.listTTSS.get(i).setSaldo(nilaiSaldo += this.listTTSS.get(i).getNilai());
+                } else {
+                    this.listTTSS.get(i).setSaldo(nilaiSaldo -= this.listTTSS.get(i).getNilai());
+                }
+            }
+
+        }
+
     }
 
     @Command
     @NotifyChange({"listTTSS", "totalNilai"})
     public void saring() {
-        if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
-        } else {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
-        }
-        Long nilai = 0L;
-        for (final TTSS ttss1 : this.listTTSS) {
-            nilai += ttss1.getNilai();
-        }
-        this.totalNilai = nilai;
+
     }
 
     @Command
     @NotifyChange({"listTTSS", "totalNilai"})
     public void saringTgl() {
-        if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
-        } else {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%'  and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
-        }
-        Long nilai = 0L;
-        for (final TTSS ttss1 : this.listTTSS) {
-            nilai += ttss1.getNilai();
-        }
-        this.totalNilai = nilai;
+
     }
 
     @Command
     @NotifyChange({"listTTSS", "totalNilai"})
     public void resetSaringWkt() {
-        this.tsAwal = null;
-        this.tsAkhir = null;
-        this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
-        Long nilai = 0L;
-        for (final TTSS ttss1 : this.listTTSS) {
-            nilai += ttss1.getNilai();
-        }
-        this.totalNilai = nilai;
+
     }
 
     @Command
@@ -305,22 +305,6 @@ public class MenuBalanceVM {
         this.filterPenyetor = filterPenyetor;
     }
 
-    public Timestamp getTsAwal() {
-        return this.tsAwal;
-    }
-
-    public void setTsAwal(final Timestamp tsAwal) {
-        this.tsAwal = tsAwal;
-    }
-
-    public Timestamp getTsAkhir() {
-        return this.tsAkhir;
-    }
-
-    public void setTsAkhir(final Timestamp tsAkhir) {
-        this.tsAkhir = tsAkhir;
-    }
-
     public List<Cetak> getCetaks() {
         return this.cetaks;
     }
@@ -360,4 +344,37 @@ public class MenuBalanceVM {
     public void setFilterTag(final String filterTag) {
         this.filterTag = filterTag;
     }
+
+    public Date getCutOffDate() {
+        return cutOffDate;
+    }
+
+    public void setCutOffDate(Date cutOffDate) {
+        this.cutOffDate = cutOffDate;
+    }
+
+    public Long getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Long saldo) {
+        this.saldo = saldo;
+    }
+
+    public Setting getSet() {
+        return set;
+    }
+
+    public void setSet(Setting set) {
+        this.set = set;
+    }
+
+    public Date getFilterCutoff() {
+        return filterCutoff;
+    }
+
+    public void setFilterCutoff(Date filterCutoff) {
+        this.filterCutoff = filterCutoff;
+    }
+
 }

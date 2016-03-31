@@ -1,129 +1,77 @@
 <?init class="com.enseval.ttss.util.AuthenticationInit"?>
+<zk>
+    <style>
+        .z-datebox-input,.z-combobox-input,.z-combobox-button,.z-datebox-button{
+        height:30px;
+        }
+        
+    </style>
 
-<window id="mainWin" title="DAFTAR SERAH TERIMA SETORAN MASUK" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceVM')">
-    <borderlayout>
-        <center>
-            <listbox id="listTtss" mold="paging" width="100%" vflex="true" autopaging="true" 
-                     checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
-                     multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
-                     selectedItems="@bind(vm.selectedTTSS)"
-                     emptyMessage="Kosong euy!"
-                     model="@load(vm.listTTSS)">        
+    <window id="mainWin" title="SALDO BALANCE" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceVM')">
+        <borderlayout>
+            <center>
+                <listbox id="listTtss" mold="paging" width="100%" vflex="true" autopaging="true" 
+                         checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+                         multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+                         selectedItems="@bind(vm.selectedTTSS)"
+                         emptyMessage="Kosong euy!"
+                         model="@load(vm.listTTSS)">        
                                              
-                <custom-attributes org.zkoss.zul.listbox.rod="true" 
-                                   if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
+                    <custom-attributes org.zkoss.zul.listbox.rod="true" 
+                                       if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
-                <auxhead>
-                    <auxheader colspan="7">
-                        <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-file" label="BUAT SETORAN MASUK BARU" onClick="@command('buatSetoranBaru')" 
-                                if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-                    </auxheader>
-                </auxhead>
+               
                         
-                <listhead sizable="true" visible="true" >
-                    <listheader width="30px" />
-                    <listheader sort="auto(nomor)" label="NOMOR"/>
-                    <listheader sort="auto(nilai)" label="NILAI"/>
-                    <listheader sort="auto(namaPenyetor)" label="PENYETOR"/>
-                    <listheader sort="tag" label="TAG"/>
-                    <listheader sort="auto(jenisKas)" label="JENIS KAS"/>
-                    <listheader sort="auto(saldo)" label="SALDO"/>
-                    <listheader sort="auto(tipe)" label="TIPE"/>
-                    <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
-                </listhead>
-                        
-                <auxhead>
-                    <auxheader>
-                        <image id="" src="img/filter.png" width=""  height=""/>
-                    </auxheader>
-                    <auxheader>
-                        <textbox instant="true" value="@bind(vm.filterNomor)" hflex="3" onChange="@command('saring')"/>
-                    </auxheader>
-                    <auxheader>
-                        <textbox instant="true" value="@bind(vm.filterNilai)" hflex="3" onChange="@command('saring')"/>
-                    </auxheader>
-                    <auxheader>
-                        <textbox instant="true" value="@bind(vm.filterPenyetor)" hflex="3" onChange="@command('saring')"/>
-                    </auxheader>
-                    <auxheader>
-                        <textbox instant="true" value="@bind(vm.filterTag)" hflex="3" onChange="@command('saring')"/>
-                    </auxheader>
-                    <auxheader>
-                        <button popup="popupJenisKas" iconSclass="glyphicon glyphicon-filter" label="FILTER" onClick="" sclass="btn-info btn-xs" hflex="3" />
-                          
-                        <popup id="popupJenisKas" width="250px" style="word-wrap">
-                            <vlayout>
-                                <div class="btn-group" hflex="3">
-                                    <button label="ALL" onClick="@command('resetFilterKas')" sclass="btn-info btn-xs" hflex="3" />
-                                    <button label="TRANSFER" onClick="@command('filterKasTransfer')" sclass="btn-default btn-xs" hflex="3" />
-                                    <button label="DROPPING" onClick="@command('filterKasDropping')" sclass="btn-default btn-xs" hflex="3" />
-                                </div>
-                            </vlayout>
-                        </popup>
-                            
-                    </auxheader>
-                     <auxheader>
-                        <textbox instant="true" value="" hflex="3" onChange="@command('saring')"/>
-                    </auxheader>
-                    <auxheader>
-                        <button popup="popupTimeChooser" iconSclass="glyphicon glyphicon-filter" label="FILTER" onClick="" sclass="btn-info btn-xs" hflex="3" />
-                          
-                        <popup id="popupTimeChooser" width="200px" style="word-wrap">
-                            <vlayout>
-                                <label value="Dari :" />
-                                <datebox id="startDate" value="@bind(vm.tsAwal)" format="yyyy-MM-dd HH:mm" constraint="no future: now or never" readonly="true" hflex="3"/>
-                                <label value="Sampai :" />
-                                <datebox id="endDate" value="@bind(vm.tsAkhir)" format="yyyy-MM-dd HH:mm" constraint="no future: now or never" readonly="true" hflex="3"/>
-                                <div class="btn-group" hflex="3">
-                                    <button label="TAMPILKAN" onClick="@command('saringTgl')" sclass="btn-info btn-xs" hflex="3" />
-                                    <button label="RESET" onClick="@command('resetSaringWkt')" sclass="btn-default btn-xs" hflex="3" >
-                                        <attribute name="onClick">
-                                            startDate.setText("");
-                                            endDate.setText("");
-                                        </attribute>
-                                    </button>
-                                </div>
-                            </vlayout>
-                        </popup>
-                            
-                    </auxheader>
-                </auxhead>
+                    <listhead sizable="true" visible="true" >
+                        <listheader width="30px" />
+                        <listheader sort="auto(nomor)" label="NOMOR"/>
+                        <listheader sort="auto(nilai)" label="NILAI"/>
+                        <listheader sort="auto(namaPenyetor)" label="PENYETOR"/>
+                        <listheader sort="tag" label="TAG"/>
+                        <listheader sort="auto(jenisKas)" label="JENIS KAS"/>
+                        <listheader sort="auto(tipe)" label="TIPE"/>
+                        <listheader sort="auto(cutOffDate)" label="WAKTU"/>
+                        <listheader sort="auto(saldo)" label="SALDO"/>
+                    </listhead>
                     
-                <template name="model" var="s">
-                    <listitem sclass="mainList" onClick="@command('showDetail', TTSS=s)">
-                        <listcell />
-                        <listcell label="@load(s.nomor)"/>
-                        <listcell label="@load(vm.format(s.nilai))"/>
-                        <listcell label="@load(s.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                        <listcell label="@load(s.tag)"/>
-                        <listcell label="@load(s.jenisKas)"/>
-                        <listcell label="@load(vm.format(s.saldo))"/>
-                        <listcell label="@load(s.tipe)"/>
-                        <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                            <label value="@load(s.wktTerima)"/>
-                        </listcell>
-                    </listitem>
-                </template>
+                    <template name="model" var="s">
+                        <listitem sclass="mainList" onClick="@command('showDetail', TTSS=s)">
+                            <listcell />
+                            <listcell label="@load(s.nomor)"/>
+                            <listcell label="@load(vm.format(s.nilai))"/>
+                            <listcell label="@load(s.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.tag)"/>
+                            <listcell label="@load(s.jenisKas)"/>
+                            <listcell label="@load(s.tipe)"/>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <label value="@load(s.wktTerima)"/>
+                            </listcell>
+                            <listcell label="@load(vm.format(s.saldo))"/>
+                        </listitem>
+                    </template>
                     
-                <listfoot>
-                    <listfooter span="6" valign="middle">
-                        <div style="float:left;">
-                            <button onClick="@command('hapusSelectedTTSS')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
-                                    if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-                                
-                            <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL" 
-                                    if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
-                            </button>
-                        </div>
-                        <div style="float:right;">
-                            <label value="TOTAL NILAI "/>
-                            <label value="@load(vm.format(vm.totalNilai))"/>
-                            <label value=" "/>
-                        </div>
-                    </listfooter>
-                </listfoot>		
-            </listbox>
+                    <listfoot>
+                        <listfooter span="9" valign="middle">
+                            <div style="float:left;">
+                                <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL" 
+                                        if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                                </button>
+                                <space spacing="20px" />
+                                Jenis Kas : 
+                                <combobox id="filterJenis" hflex="3" readonly="true" value="@save(vm.filterJenisKas)">
+                                    <comboitem label="SEMUA"/>
+                                    <comboitem label="KAS TRANSFER"/>
+                                    <comboitem label="KAS DROPPING"/>
+                                </combobox>
+                                Tanggal Cut Off : 
+                                <datebox id="filterCutoff" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3" style="height:30px;" value="@save(vm.filterCutoff)"/>
+                                <button onClick="@command('refresh')" iconSclass="glyphicon glyphicon-filter" label="DOWNLOAD EXCEL" ></button>
+                            </div>
+                        </listfooter>
+                    </listfoot>		
+                </listbox>
                 
-        </center>
-    </borderlayout>
-</window>
+            </center>
+        </borderlayout>
+    </window>
+</zk>
