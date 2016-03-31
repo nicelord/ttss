@@ -4,8 +4,8 @@
 
 <listbox self="@define(content)" id="listGiro" 
          mold="paging" width="100%" vflex="true" autopaging="true" 
-         checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
-         multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+         checkmark="true" 
+         multiple="true" 
          selectedItem="@bind(vm.giro)"
          selectedItems="@bind(vm.selectedGiro)"
          emptyMessage="Kosong euy!"
@@ -25,7 +25,7 @@
          </auxheader>
         <auxheader colspan="2">
                <button vflex="3" hflex="3" sclass="btn-primary btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"
-                           if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                          />
          
         
        </auxheader>
@@ -171,12 +171,13 @@
     <listfoot>
         <listfooter span="12" valign="middle">
             <div style="float:left;">
-                <button onClick="@command('hapusSelectedGiro')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
-                        if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                <!--
+                        <button onClick="@command('hapusSelectedGiro')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
+                                        if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                                        -->
                                 
-                <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL DAN PROSES KLIRING" 
-                        if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
-                </button>
+                        <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL DAN PROSES KLIRING">
+                        </button>
             </div>
             <div style="float:right;">
                 <label value="TOTAL NILAI "/>

@@ -25,9 +25,11 @@ public class TTSS implements Serializable
     String tag;
     String jenisKas;
     String tipe;
+    @Transient
+    Long saldo;
     
     public TTSS() {
-        this.cetak = new ArrayList<Cetak>();
+        this.cetak = new ArrayList<>();
     }
     
     public Long getNomor() {
@@ -135,4 +137,14 @@ public class TTSS implements Serializable
     public void setTipe(String tipe) {
         this.tipe = tipe;
     }
+
+    public Long getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Long saldo) {
+        this.saldo = saldo;
+    }
+    
+    
 }

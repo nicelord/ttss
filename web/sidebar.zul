@@ -24,6 +24,11 @@
                             <listcell label="SETORAN KELUAR"/>
                         </listitem>
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  onClick="@command('changePage', page='menuBalance.zul')">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="BALANCE"/>
+                        </listitem>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
                                   onClick="@command('changePage', page='menuGiroPending.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BON GIRO"/>

@@ -185,7 +185,7 @@
                                     <button onClick="@command('liatRevisi')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-th-list" label="DAFTAR CETAKAN" 
                                             if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
                                     <button onClick="@command('cetakUlang')" hflex="3" sclass="btn-danger" iconSclass="glyphicon glyphicon-print" label="CETAK ULANG" 
-                                            if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                                            if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
                                 </hlayout>
                             </footer>
                         </foot>
