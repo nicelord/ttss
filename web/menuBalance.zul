@@ -12,8 +12,6 @@
             <center>
                
                 <listbox id="listTtss" mold="paging" width="100%" vflex="true" autopaging="true" 
-                         checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
-                         multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
                          selectedItems="@bind(vm.selectedTTSS)"
                          emptyMessage="Kosong euy!"
                          model="@load(vm.listTTSS)">        
@@ -22,7 +20,7 @@
                                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
                     <auxhead>
-                        <auxheader colspan="6">
+                        <auxheader colspan="5">
                             Jenis Kas : 
                             <combobox id="filterJenis" hflex="3" readonly="true" value="@bind(vm.filterJenisKas)">
                                 <comboitem label="SEMUA"/>
@@ -40,7 +38,7 @@
                     </auxhead>
                         
                     <listhead sizable="true" visible="true" >
-                        <listheader width="30px" />
+
                         <listheader sort="auto(nomor)" label="NOMOR"/>
                         
                         <listheader sort="auto(namaPenyetor)" label="PENYETOR"/>
@@ -53,7 +51,7 @@
                     
                     <template name="model" var="s">
                         <listitem sclass="mainList" onClick="@command('showDetail', TTSS=s)">
-                            <listcell />
+
                             <listcell label="@load(s.nomor)"/>
                            
                             <listcell label="@load(s.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
@@ -69,7 +67,7 @@
                     </template>
                     
                     <listfoot>
-                        <listfooter span="8" valign="middle">
+                        <listfooter span="7" valign="middle">
                             <div style="float:left;">
                                 <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL" 
                                         if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">

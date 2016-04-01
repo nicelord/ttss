@@ -1,5 +1,6 @@
 package com.enseval.ttss.model;
 
+import com.avaje.ebean.Ebean;
 import javax.persistence.*;
 import javax.print.attribute.standard.*;
 import java.awt.print.*;
@@ -30,6 +31,9 @@ public class Cetak {
     Timestamp wktCetak;
     String filePath;
     int cetakanKe;
+    
+    @Transient
+    Setting setting = Ebean.find(Setting.class, 1);
 
     public Long getId() {
         return this.id;
@@ -112,11 +116,8 @@ public class Cetak {
         OutputStream output = null;
         InputStream input = null;
         try {
-            Properties prop = new Properties();
-            String appsProp = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/WEB-INF/apps.properties");
-            input = new FileInputStream(appsProp);
-            prop.load(input);
-            String pdfPath = prop.getProperty("pdfpath");
+           
+            String pdfPath = setting.getFolderPDF();
             this.cetakanKe = this.ttssnya.itungCetakan() + 1;
             File dir = new File(pdfPath + this.ttssnya.getNomor() + "/");
             dir.mkdirs();
@@ -166,11 +167,8 @@ public class Cetak {
         OutputStream output = null;
         InputStream input = null;
         try {
-            Properties prop = new Properties();
-            String appsProp = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/WEB-INF/apps.properties");
-            input = new FileInputStream(appsProp);
-            prop.load(input);
-            String pdfPath = prop.getProperty("pdfpath");
+           
+            String pdfPath = setting.getFolderPDF();
             this.cetakanKe = this.ttssnya.itungCetakan() + 1;
             File dir = new File(pdfPath + this.ttssnya.getNomor() + "/");
             dir.mkdirs();
@@ -184,27 +182,6 @@ public class Cetak {
             Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex2) {
             Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex2);
-        }
-    }
-
-    public void readProp() {
-        InputStream input = null;
-        try {
-            Properties prop = new Properties();
-            String appsProp = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/WEB-INF/apps.properties");
-            input = new FileInputStream(appsProp);
-            prop.load(input);
-            prop.getProperty("pdfpath");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex2) {
-            Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex2);
-        } finally {
-            try {
-                input.close();
-            } catch (IOException ex3) {
-                Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex3);
-            }
         }
     }
 }
