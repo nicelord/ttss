@@ -32,8 +32,8 @@ public class Cetak {
     String filePath;
     int cetakanKe;
     
-    @Transient
-    Setting setting = Ebean.find(Setting.class, 1);
+//    @Transient
+//    Setting setting = Ebean.find(Setting.class, 1);
 
     public Long getId() {
         return this.id;
@@ -117,7 +117,7 @@ public class Cetak {
         InputStream input = null;
         try {
            
-            String pdfPath = setting.getFolderPDF();
+            String pdfPath = "D";
             this.cetakanKe = this.ttssnya.itungCetakan() + 1;
             File dir = new File(pdfPath + this.ttssnya.getNomor() + "/");
             dir.mkdirs();
@@ -168,7 +168,7 @@ public class Cetak {
         InputStream input = null;
         try {
            
-            String pdfPath = setting.getFolderPDF();
+            String pdfPath = "D";
             this.cetakanKe = this.ttssnya.itungCetakan() + 1;
             File dir = new File(pdfPath + this.ttssnya.getNomor() + "/");
             dir.mkdirs();

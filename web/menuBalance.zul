@@ -7,7 +7,7 @@
         
     </style>
 
-    <window id="mainWin" title="SALDO BALANCE" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceVM')">
+    <window id="mainWin" title="SALDO" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceVM')">
         <borderlayout>
             <center>
                
@@ -33,7 +33,7 @@
                             
                         </auxheader>
                          <auxheader colspan="2">
-                           
+                           <button onClick="@command('showCashOpname')" iconSclass="glyphicon glyphicon-usd" label="CASH OPNAME" sclass="btn-success" hflex="true"/>
                         </auxheader>
                     </auxhead>
                         

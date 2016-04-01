@@ -1,0 +1,89 @@
+<?init class="com.enseval.ttss.util.AuthenticationInit"?>
+<zk>   
+    <style>
+        .z-combobox-input{
+        text-transform:uppercase;
+        }
+        
+        input[type="checkbox"], input[type="radio"] {
+        margin : 10px 10px 10px 10px;
+        padding: 5px;
+        box-sizing: border-box;
+        }
+    </style>
+
+    <hbox align="center" pack="center" spacing="20px">
+        <vlayout>
+            <window id="opname"  style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;" mode="modal" width="1000px" title="CASH OPNAME" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.AddNewCashOpname')" closable="true">
+                <listbox id="box" 
+                         mold="paging" width="100%" vflex="true" autopaging="true" 
+                         emptyMessage="Kosong euy!"
+                >  
+                            
+                    <auxhead>
+                        <auxheader>
+                            
+                        </auxheader>
+                        <auxheader>
+                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                        </auxheader>
+                     
+                   
+                        <auxheader colspan="2">
+                            <button class="btn-success" iconSclass="glyphicon glyphicon-plus" onClick="@command('tambahPrinter')" hflex="3">SUBMIT</button>
+                                
+                        </auxheader>
+                    </auxhead>
+                            
+                                            
+                    <listhead>
+                        <listheader label="ID" width="35px"/>
+                        <listheader label="TGL OPNAME" />
+                        <listheader label="PELAKSANA" />
+                        <listheader label="JENIS KAS" />
+                        <listheader label="TGL CUTOFF" />
+                        <listheader label="SALDO SISTEM" />
+                        <listheader label="SALDO FISIK" />
+                        <listheader label="SELISIH" />
+                        <listheader label="EDIT" />
+                    </listhead>
+                    <template name="model" var="s">
+                        <listitem>
+                            <listcell label=""/>
+                            <listcell label=""/>
+                            <listcell label=""/>
+                            <listcell label=""/>
+                            <listcell label=""/>
+                            <listcell label=""/>
+                            <listcell label=""/>
+                            <listcell label=""/>
+                            <listcell>
+                                <button class="btn-xs btn-danger" iconSclass="glyphicon glyphicon-trash" onClick="@command('hapusPrinter',printernya=s)">HAPUS</button>
+                            </listcell>
+                                    
+                        </listitem>
+                    </template>
+                    <listfoot>
+                              
+                    </listfoot>
+                            
+                </listbox>
+            </window>
+        </vlayout>
+    </hbox>
+</zk>

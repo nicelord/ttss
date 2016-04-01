@@ -256,6 +256,12 @@ public class MenuBalanceVM {
         this.filterJenisKas = "";
         this.refresh();
     }
+    
+    @Command
+    public void showCashOpname() {
+        Executions.createComponents("AddNewCashOpname.zul", null, null);
+    }
+    
 
     public List<TTSS> getListTTSS() {
         return this.listTTSS;

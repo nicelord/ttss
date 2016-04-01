@@ -101,7 +101,9 @@
                         <foot>
                             <footer span="2" align="left">
                                 <div style="float:left;">
-                                    <checkbox id="chkKliring" label="Proses kliring"/>
+                                    <checkbox id="chkKliring" label="Proses kliring" checked="@load(not empty vm.giro.tglKliring)"/>
+                                    <space/>
+                                    ( <label id="lblTglKliring" value="@load(vm.giro.tglKliring) @converter('formatedDate', format='yyyy/MM/dd')"/>) 
                                 </div>
                                 
                                

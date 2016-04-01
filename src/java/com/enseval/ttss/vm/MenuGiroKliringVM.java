@@ -6,27 +6,17 @@ import java.text.*;
 import com.enseval.ttss.util.*;
 import org.zkoss.zk.ui.*;
 import org.zkoss.bind.annotation.*;
-import net.sf.jasperreports.engine.util.*;
-import net.sf.jasperreports.engine.data.*;
 import java.util.*;
-import net.sf.jasperreports.engine.export.*;
 import java.util.logging.*;
-import javax.activation.*;
 import org.zkoss.zul.*;
-import net.sf.jasperreports.engine.*;
-import java.io.*;
 import java.sql.Timestamp;
 import org.zkoss.bind.BindUtils;
-import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zk.ui.select.annotation.Wire;
 
 public class MenuGiroKliringVM {
 
     List<Giro> listGiro;
-    List<Giro> listGiroKliring;
     Giro giro;
     Long totalNilai;
-    Long totalNilai2;
     String filterNomor;
     String filterNomorGiro;
     String filterBank;
@@ -35,21 +25,19 @@ public class MenuGiroKliringVM {
     String filterTag;
     String filterDKLK;
     String filterStatus;
-    Timestamp tsAwal;
-    Timestamp tsAkhir;
-    Date tglKliringAwal;
-    Date tglKliringAkhir;
+    Timestamp tsAwal = null;
+    Timestamp tsAkhir = null;
     User userLogin;
-    Date tglJtTempoAwal;
-    Date tglJtTempoAkhir;
+    Date tglJtTempoAwal = null;
+    Date tglJtTempoAkhir = null;
+    Date tglKliringAwal = null;
+    Date tglKliringAkhir = null;
+
     List<Giro> selectedGiro;
-    @Wire("#tb")
-    Tabbox mainTab;
 
     public MenuGiroKliringVM() {
         this.listGiro = new ArrayList<>();
         this.totalNilai = 0L;
-        this.totalNilai2 = 0L;
         this.filterNomor = "";
         this.filterNomorGiro = "";
         this.filterBank = "";
@@ -64,10 +52,9 @@ public class MenuGiroKliringVM {
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
-        Selectors.wireComponents(view, this, false);
+
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listGiro = Ebean.find(Giro.class).where().eq("tglKliring", null).setMaxRows(50).orderBy("nomor desc").findList();
-        this.listGiroKliring = Ebean.find(Giro.class).where().ne("tglKliring", null).setMaxRows(50).orderBy("nomor desc").findList();
+        this.listGiro = Ebean.find(Giro.class).where().ne("tglKliring", null).setMaxRows(50).orderBy("nomor desc").findList();
 
         Long nilai = 0L;
         for (Giro giro1 : this.listGiro) {
@@ -75,30 +62,6 @@ public class MenuGiroKliringVM {
         }
         this.totalNilai = nilai;
 
-        Long nilai2 = 0L;
-        for (Giro giro2 : this.listGiroKliring) {
-            nilai2 += giro2.getNilai();
-        }
-        this.totalNilai2 = nilai2;
-
-    }
-    
-     @Command
-    public void changePage(@BindingParam("page") final String page) {
-        final Map map = new HashMap();
-        map.put("page", page);
-        BindUtils.postGlobalCommand((String)null, (String)null, "doChangePage", map);
-    }
-
-    @Command
-    public void tes(@BindingParam("s") final String s) {
-        Messagebox.show(s);
-    }
-
-    @Command
-    @NotifyChange({"giro", "totalNilai"})
-    public void showDetail(@BindingParam("giro") Giro giro) {
-        this.giro = giro;
     }
 
     @Command
@@ -135,12 +98,133 @@ public class MenuGiroKliringVM {
     }
 
     @GlobalCommand
-    @NotifyChange({"listGiro", "totalNilai", "listGiroKliring", "totalNilai2"})
+    @NotifyChange({"listGiro", "totalNilai"})
     public void refresh() {
-        if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listGiro = Ebean.find(Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
-        } else {
-            this.listGiro = Ebean.find(Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%'").orderBy("wktTerima desc").findList();
+        this.listGiro = Ebean.find(Giro.class)
+                .where().ne("tglKliring", null)
+                .where().like("nomor", "%" + this.filterNomor + "%")
+                .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                .where().like("bank", "%" + this.filterBank + "%")
+                .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                .where().like("tag", "%" + this.filterTag + "%")
+                .where().like("DKLK", "%" + this.filterDKLK + "%")
+                .where().like("status", "%" + this.filterStatus + "%")
+                .orderBy("nomor DESC")
+                .findList();
+
+        if (this.tsAwal != null) {
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().ne("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
+        }
+
+        if (this.tglJtTempoAwal != null) {
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().ne("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
+
+        }
+
+        if (this.tglKliringAwal != null) {
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().ne("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
+        }
+
+        if (this.tsAwal != null && this.tglJtTempoAwal != null) {
+
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().ne("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
+        }
+
+        if (this.tsAwal != null && this.tglKliringAwal != null) {
+
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().ne("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
+        }
+
+        if (this.tglJtTempoAwal != null && this.tglKliringAwal != null) {
+
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().ne("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
+                    .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
+        }
+
+        if (this.tsAwal != null && this.tglJtTempoAwal != null && this.tglKliringAwal != null) {
+
+            this.listGiro = Ebean.find(Giro.class)
+                    .where().ne("tglKliring", null)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
+                    .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("DKLK", "%" + this.filterDKLK + "%")
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
+                    .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
+                    .orderBy("nomor DESC")
+                    .findList();
         }
 
         Long nilai = 0L;
@@ -153,31 +237,25 @@ public class MenuGiroKliringVM {
     @Command
     @NotifyChange({"listGiro", "totalNilai"})
     public void saring() {
-        if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listGiro = (List<Giro>) Ebean.find((Class) Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
-        } else {
-            this.listGiro = (List<Giro>) Ebean.find((Class) TTSS.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%'").orderBy("wktTerima desc").findList();
-        }
-        Long nilai = 0L;
-        for (final Giro giro1 : this.listGiro) {
-            nilai += giro1.getNilai();
-        }
-        this.totalNilai = nilai;
+        refresh();
     }
 
     @Command
     @NotifyChange({"listGiro", "totalNilai"})
     public void saringTgl() {
-        if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listGiro = (List<Giro>) Ebean.find((Class) Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
-        } else {
-            this.listGiro = (List<Giro>) Ebean.find((Class) Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%'").orderBy("wktTerima desc").findList();
-        }
-        Long nilai = 0L;
-        for (final Giro giro1 : this.listGiro) {
-            nilai += giro1.getNilai();
-        }
-        this.totalNilai = nilai;
+        refresh();
+    }
+
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void saringTglJtTempo() {
+        refresh();
+    }
+    
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void saringTglKliring() {
+        refresh();
     }
 
     @Command
@@ -185,16 +263,27 @@ public class MenuGiroKliringVM {
     public void resetSaringWkt() {
         this.tsAwal = null;
         this.tsAkhir = null;
-        this.listGiro = (List<Giro>) Ebean.find((Class) Giro.class).where("nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and DKLK like '%" + this.filterDKLK + "%'").orderBy("wktTerima desc").findList();
-        Long nilai = 0L;
-        for (final Giro giro1 : this.listGiro) {
-            nilai += giro1.getNilai();
-        }
-        this.totalNilai = nilai;
+        refresh();
     }
 
     @Command
-    @NotifyChange({"listGiro", "listGiroKliring"})
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void resetSaringTglJtTempo() {
+        this.tglJtTempoAwal = null;
+        this.tglJtTempoAkhir = null;
+        refresh();
+    }
+    
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void resetSaringTglKliring() {
+        this.tglKliringAwal = null;
+        this.tglKliringAkhir = null;
+        refresh();
+    }
+
+    @Command
+    @NotifyChange({"listGiro"})
     public void downloadXLS() {
 //        final File filenya = new File("D://giro-reports.xls");
 //        try {
@@ -250,7 +339,7 @@ public class MenuGiroKliringVM {
                 //Ebean.delete((Class) Cetak.class, (Collection) Ebean.find((Class) Cetak.class).where("ttssnya.nomor = '" + ttss1.getNomor() + "'").findIds());
                 Ebean.delete(Giro.class, giro.getNomor());
             } catch (Exception e) {
-                Logger.getLogger(MenuGiroKliringVM.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(MenuGiroPendingVM.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         this.refresh();
@@ -275,6 +364,36 @@ public class MenuGiroKliringVM {
     public void resetFilterDKLK() {
         this.filterDKLK = "";
         this.refresh();
+    }
+
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void filterStatus(@BindingParam("status") String status) {
+        if (status.equals("ALL")) {
+            this.filterStatus = "";
+        } else {
+            this.filterStatus = status;
+        }
+
+        refresh();
+
+    }
+
+    @Command
+    public void changePage(@BindingParam("page") final String page) {
+
+        final Map map = new HashMap();
+        map.put("page", page);
+        BindUtils.postGlobalCommand((String) null, (String) null, "doChangePage", map);
+
+    }
+
+    @Command
+    @NotifyChange({"giro", "listGiro"})
+    public void detailGiro(@BindingParam("giro") Giro giro) {
+        final Map args = new HashMap();
+        args.put("gironya", giro);
+        Executions.createComponents("DetailGiro.zul", null, args);
     }
 
     public Long getTotalNilai() {
@@ -381,22 +500,6 @@ public class MenuGiroKliringVM {
         this.selectedGiro = selectedGiro;
     }
 
-    public Date getTglKliringAwal() {
-        return tglKliringAwal;
-    }
-
-    public void setTglKliringAwal(Date tglKliringAwal) {
-        this.tglKliringAwal = tglKliringAwal;
-    }
-
-    public Date getTglKliringAkhir() {
-        return tglKliringAkhir;
-    }
-
-    public void setTglKliringAkhir(Date tglKliringAkhir) {
-        this.tglKliringAkhir = tglKliringAkhir;
-    }
-
     public Date getTglJtTempoAwal() {
         return tglJtTempoAwal;
     }
@@ -429,28 +532,20 @@ public class MenuGiroKliringVM {
         this.filterBank = filterBank;
     }
 
-    public List<Giro> getListGiroKliring() {
-        return listGiroKliring;
+    public Date getTglKliringAwal() {
+        return tglKliringAwal;
     }
 
-    public void setListGiroKliring(List<Giro> listGiroKliring) {
-        this.listGiroKliring = listGiroKliring;
+    public void setTglKliringAwal(Date tglKliringAwal) {
+        this.tglKliringAwal = tglKliringAwal;
     }
 
-    public Long getTotalNilai2() {
-        return totalNilai2;
+    public Date getTglKliringAkhir() {
+        return tglKliringAkhir;
     }
 
-    public void setTotalNilai2(Long totalNilai2) {
-        this.totalNilai2 = totalNilai2;
-    }
-
-    public Tabbox getMainTab() {
-        return mainTab;
-    }
-
-    public void setMainTab(Tabbox mainTab) {
-        this.mainTab = mainTab;
+    public void setTglKliringAkhir(Date tglKliringAkhir) {
+        this.tglKliringAkhir = tglKliringAkhir;
     }
 
 }
