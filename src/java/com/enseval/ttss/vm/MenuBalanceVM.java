@@ -41,7 +41,7 @@ public class MenuBalanceVM {
         this.filterNomor = "";
         this.filterNilai = "";
         this.filterPenyetor = "";
-        this.filterJenisKas = "";
+        this.filterJenisKas = "SEMUA";
         this.filterTag = "";
         this.cetaks = new ArrayList<>();
         this.selectedTTSS = new ArrayList<>();

@@ -25,6 +25,8 @@ public class Setting implements Serializable {
     Long saldoAwal = 0L;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date tanggalSaldoAwal;
+    
+    String folderPDF = "D";
 
     public Long getSaldoAwal() {
         return saldoAwal;
@@ -48,6 +50,14 @@ public class Setting implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFolderPDF() {
+        return folderPDF;
+    }
+
+    public void setFolderPDF(String folderPDF) {
+        this.folderPDF = folderPDF;
     }
     
     

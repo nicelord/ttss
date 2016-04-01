@@ -6,13 +6,10 @@ import javax.persistence.*;
 @Entity
 public class Printer implements Serializable
 {
-    @Id
+    @Id @GeneratedValue long id;
+    
     private String namaPrinter;
     String keterangan;
-    
-    public Printer(String namaPrinter) {
-        this.namaPrinter = namaPrinter;
-    }
     
     public String getNamaPrinter() {
         return this.namaPrinter;
@@ -29,4 +26,14 @@ public class Printer implements Serializable
     public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
+    
 }
