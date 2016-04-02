@@ -17,12 +17,38 @@ import org.zkoss.bind.annotation.*;
 
 public class AddNewCashOpname {
 
-  
+    List<CashOpname> listOpname = new ArrayList<>();
+    CashOpname opnameBaru = new CashOpname();
+
     @AfterCompose
-    public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
+    public void initSetup(@ContextParam(ContextType.VIEW) Component view,
+            @ExecutionArgParam("jenisKas") String jenisKas,
+            @ExecutionArgParam("tglCutoff") Date tglCutoff,
+            @ExecutionArgParam("saldoSistem") Long saldoSistem) {
+
+        this.listOpname = Ebean.find(CashOpname.class).findList();
+        opnameBaru.setTglOpname(new Date());
+        opnameBaru.setJenisKas(jenisKas);
+        opnameBaru.setTglCutoff(tglCutoff);
+        opnameBaru.setSaldoSistem(saldoSistem);
 
         Selectors.wireComponents(view, this, false);
     }
 
-    
+    public List<CashOpname> getListOpname() {
+        return listOpname;
+    }
+
+    public void setListOpname(List<CashOpname> listOpname) {
+        this.listOpname = listOpname;
+    }
+
+    public CashOpname getOpnameBaru() {
+        return opnameBaru;
+    }
+
+    public void setOpnameBaru(CashOpname opnameBaru) {
+        this.opnameBaru = opnameBaru;
+    }
+
 }

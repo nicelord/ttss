@@ -228,7 +228,7 @@ public class MenuBalanceVM {
         for (final TTSS ttss1 : this.selectedTTSS) {
             try {
                 Ebean.delete((Class) Cetak.class, (Collection) Ebean.find((Class) Cetak.class).where("ttssnya.nomor = '" + ttss1.getNomor() + "'").findIds());
-                Ebean.delete((Class) TTSS.class, (Object) ttss1.getNomor());
+                Ebean.delete((Class) TTSS.class, ttss1.getNomor());
             } catch (Exception e) {
                 Logger.getLogger(MenuBalanceVM.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -259,7 +259,11 @@ public class MenuBalanceVM {
     
     @Command
     public void showCashOpname() {
-        Executions.createComponents("AddNewCashOpname.zul", null, null);
+        Map m = new HashMap();
+        m.put("jenisKas", filterJenisKas);
+        m.put("tglCutoff", filterCutoff);
+        m.put("saldoSistem", saldo);
+        Executions.createComponents("AddNewCashOpname.zul", null, m);
     }
     
 

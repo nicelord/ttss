@@ -18,6 +18,7 @@
                 <listbox id="box" 
                          mold="paging" width="100%" vflex="true" autopaging="true" 
                          emptyMessage="Kosong euy!"
+                         model="@load(vm.listOpname)"
                 >  
                             
                     <auxhead>
@@ -25,19 +26,19 @@
                             
                         </auxheader>
                         <auxheader>
-                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                            <textbox hflex="3" value="@bind(vm.opnameBaru.tglOpname) @converter('formatedDate', format='yyyy/MM/dd')" sclass="form-control input-primary"/> 
                         </auxheader>
                         <auxheader>
                             <textbox hflex="3" value="" sclass="form-control input-primary"/> 
                         </auxheader>
                         <auxheader>
-                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                            <textbox hflex="3" value="@bind(vm.opnameBaru.jenisKas)" sclass="form-control input-primary"/> 
                         </auxheader>
                         <auxheader>
-                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                            <textbox hflex="3" value="@bind(vm.opnameBaru.tglCutoff) @converter('formatedDate', format='yyyy/MM/dd')" sclass="form-control input-primary"/> 
                         </auxheader>
                         <auxheader>
-                            <textbox hflex="3" value="" sclass="form-control input-primary"/> 
+                            <textbox hflex="3" value="@bind(vm.opnameBaru.saldoSistem)" sclass="form-control input-primary"/> 
                         </auxheader>
                         <auxheader>
                             <textbox hflex="3" value="" sclass="form-control input-primary"/> 

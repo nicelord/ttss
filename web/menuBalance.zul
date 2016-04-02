@@ -6,6 +6,8 @@
         }
         
     </style>
+    
+    
 
     <window id="mainWin" title="SALDO" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceVM')">
         <borderlayout>
@@ -14,7 +16,12 @@
                 <listbox id="listTtss" mold="paging" width="100%" vflex="true" autopaging="true" 
                          selectedItems="@bind(vm.selectedTTSS)"
                          emptyMessage="Kosong euy!"
-                         model="@load(vm.listTTSS)">        
+                         model="@load(vm.listTTSS)">   
+                    <zscript>   <![CDATA[
+                        listTtss.pagingChild.mold = "os";
+                            ]]>   
+                    </zscript>  
+                
                                              
                     <custom-attributes org.zkoss.zul.listbox.rod="true" 
                                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
@@ -32,8 +39,8 @@
                             <button onClick="@command('refresh')" iconSclass="glyphicon glyphicon-filter" label="FILTER" sclass="btn-info"/>
                             
                         </auxheader>
-                         <auxheader colspan="2">
-                           <button onClick="@command('showCashOpname')" iconSclass="glyphicon glyphicon-usd" label="CASH OPNAME" sclass="btn-success" hflex="true"/>
+                        <auxheader colspan="2">
+                            <button onClick="@command('showCashOpname')" iconSclass="glyphicon glyphicon-usd" label="CASH OPNAME" sclass="btn-success" hflex="true"/>
                         </auxheader>
                     </auxhead>
                         
@@ -60,7 +67,7 @@
                             <listcell style="text-overflow: ellipsis; white-space: nowrap;">
                                 <label value="@load(s.wktTerima)"/>
                             </listcell>
-                             <listcell label="@load(vm.format(s.nilai))" if="${s.tipe=='masuk'}"/>
+                            <listcell label="@load(vm.format(s.nilai))" if="${s.tipe=='masuk'}"/>
                             <listcell label="@load(vm.format(-s.nilai))" if="${s.tipe=='keluar'}"/>
                             <listcell label="@load(vm.format(s.saldo))"/>
                         </listitem>
@@ -75,8 +82,11 @@
                                 <space spacing="20px" />
                             </div>
                             <div style="float:right;">
-                               <label value="*Saldo awal : " style="font-style: italic"/> <label value="@load(vm.format(vm.set.saldoAwal))" style="font-weight: bold;font-style: italic"/> <space />
-                               <label value="*Tgl saldo awal : " style="font-style: italic"/> <label value="@load(vm.set.tanggalSaldoAwal) @converter('formatedDate', format='yyyy/MM/dd')" style="font-weight: bold;font-style: italic"/>
+                                <label value="*Saldo awal : " style="font-style: italic"/> 
+                                <label value="@load(vm.format(vm.set.saldoAwal))" style="font-weight: bold;font-style: italic"/> 
+                                <space />
+                                <label value="*Tgl saldo awal : " style="font-style: italic"/> 
+                                <label value="@load(vm.set.tanggalSaldoAwal) @converter('formatedDate', format='yyyy/MM/dd')" style="font-weight: bold;font-style: italic"/>
                             
                             </div>
                         </listfooter>
