@@ -23,7 +23,7 @@
                 <listhead sizable="true" visible="true" >
                     <listheader width="30px" />
                     <listheader sort="auto(nomor)" label="NOMOR"/>
-                    <listheader sort="auto(nilai)" label="NILAI"/>
+                    <listheader sort="auto(nilai)" label="NILAI" width="130px" />
                     <listheader sort="auto(namaPenyetor)" label="PENERIMA"/>
                     <listheader sort="tag" label="TAG"/>
                     <listheader sort="auto(jenisKas)" label="JENIS KAS"/>
@@ -93,7 +93,7 @@
                         <listcell label="@load(s.tag)"/>
                         <listcell label="@load(s.jenisKas)"/>
                         <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                            <label value="@load(s.wktTerima)"/>
+                            <label value="@load(s.wktTerima) @converter('formatedDate', format='yyyy/MM/dd hh:mm')"/>
                         </listcell>
                     </listitem>
                 </template>

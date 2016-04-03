@@ -173,7 +173,7 @@ public class MenuSetoranVM {
     @Command
     @NotifyChange({"listTTSS"})
     public void downloadXLS() {
-        final File filenya = new File("D://ttss-reports.xls");
+        File filenya = new File(Ebean.find(Setting.class).findList().get(0).getFolderPDF() + "ttss-reports.xls");
         try {
             final InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/excel.jasper");
             final JRDataSource datasource = (JRDataSource) new JRBeanCollectionDataSource((Collection) this.listTTSS);

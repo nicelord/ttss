@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="1db2a07a-4e7e-44c4-b72f-e8c0ea3f8c68">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="setoran-masuk" pageWidth="595" pageHeight="842" columnWidth="138" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="1db2a07a-4e7e-44c4-b72f-e8c0ea3f8c68">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="45"/>
+	<property name="ireport.y" value="56"/>
 	<parameter name="TOTAL" class="java.lang.Long"/>
 	<field name="nilai" class="java.lang.Long"/>
 	<field name="nomor" class="java.lang.Long"/>
@@ -24,23 +24,23 @@
 		<band height="37" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="92" height="20" uuid="d4b24c1c-da1f-4ce6-8165-17f3a3512a2e"/>
-				<text><![CDATA[Nilai]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="92" y="0" width="92" height="20" uuid="fa6629fc-3307-446c-96a1-e902720a8fd5"/>
 				<text><![CDATA[Nomor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="184" y="0" width="58" height="20" uuid="2f38cde1-7ed0-43e1-886c-ffb533f2b2f3"/>
+				<reportElement x="92" y="0" width="92" height="20" uuid="fa6629fc-3307-446c-96a1-e902720a8fd5"/>
 				<text><![CDATA[Penyetor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="298" y="0" width="70" height="20" uuid="f9f92eae-2f7b-4d0e-bb9d-9bb9ae98c22b"/>
+				<reportElement x="184" y="0" width="58" height="20" uuid="2f38cde1-7ed0-43e1-886c-ffb533f2b2f3"/>
 				<text><![CDATA[Penerima]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="368" y="0" width="92" height="20" uuid="00856ed1-90d3-46e1-b9f2-201dfbfdd1ca"/>
+				<reportElement x="298" y="0" width="70" height="20" uuid="f9f92eae-2f7b-4d0e-bb9d-9bb9ae98c22b"/>
 				<text><![CDATA[Waktu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="92" height="20" uuid="00856ed1-90d3-46e1-b9f2-201dfbfdd1ca"/>
+				<text><![CDATA[Nilai]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="460" y="0" width="92" height="20" uuid="d5bdd31b-54db-4f5e-9912-206c272b4f01"/>
@@ -56,23 +56,23 @@
 		<band height="125" splitType="Stretch">
 			<textField pattern="¤ #,##0.00">
 				<reportElement x="0" y="0" width="92" height="20" uuid="132876f2-16e3-48d2-a0bd-405ae8ac8a00"/>
-				<textFieldExpression><![CDATA[$F{nilai}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="92" y="0" width="92" height="20" uuid="fdf466cb-d63f-40d4-855d-91f3868a8869"/>
 				<textFieldExpression><![CDATA[$F{nomor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="184" y="0" width="58" height="20" uuid="88de974a-7c58-4ab4-b3eb-8ca611af5a28"/>
+				<reportElement x="92" y="0" width="92" height="20" uuid="fdf466cb-d63f-40d4-855d-91f3868a8869"/>
 				<textFieldExpression><![CDATA[$F{namaPenyetor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="298" y="0" width="70" height="20" uuid="7c4be0e8-b5fb-4d73-a058-d8997bce3a8b"/>
+				<reportElement x="184" y="0" width="58" height="20" uuid="88de974a-7c58-4ab4-b3eb-8ca611af5a28"/>
 				<textFieldExpression><![CDATA[$F{userLogin.nama}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="368" y="0" width="92" height="20" uuid="2f002221-543b-4761-881d-6be13471d8ed"/>
+				<reportElement x="298" y="0" width="70" height="20" uuid="7c4be0e8-b5fb-4d73-a058-d8997bce3a8b"/>
 				<textFieldExpression><![CDATA[$F{wktTerima}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="92" height="20" uuid="2f002221-543b-4761-881d-6be13471d8ed"/>
+				<textFieldExpression><![CDATA[$F{nilai}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="0" width="92" height="20" uuid="f33f0c44-48ee-4709-8a1f-6b01d3598d57"/>

@@ -34,8 +34,8 @@
                                 <comboitem label="KAS TRANSFER"/>
                                 <comboitem label="KAS DROPPING"/>
                             </combobox>
-                            Tanggal Cut Off : 
-                            <datebox id="filterCutoff" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3" style="height:30px;" value="@save(vm.filterCutoff)"/>
+                            Waktu Cutoff : 
+                            <datebox id="filterCutoff" format="yyyy/MM/dd HH:mm" constraint="no future: now or never" readonly="true" hflex="3" style="height:30px;" value="@bind(vm.filterCutoff)" />
                             <button onClick="@command('refresh')" iconSclass="glyphicon glyphicon-filter" label="FILTER" sclass="btn-info"/>
                             
                         </auxheader>
@@ -65,7 +65,7 @@
                             <listcell label="@load(s.tag)"/>
                             <listcell label="@load(s.jenisKas)"/>
                             <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                                <label value="@load(s.wktTerima)"/>
+                                <label value="@load(s.wktTerima) @converter('formatedDate', format='yyyy/MM/dd hh:mm')"/>
                             </listcell>
                             <listcell label="@load(vm.format(s.nilai))" if="${s.tipe=='masuk'}"/>
                             <listcell label="@load(vm.format(-s.nilai))" if="${s.tipe=='keluar'}"/>

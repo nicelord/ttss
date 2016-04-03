@@ -83,7 +83,7 @@ public class Cetak {
         this.cetakanKe = cetakanKe;
     }
 
-    public void doCetak(String printernya) throws JRException, PrinterException, ArrayIndexOutOfBoundsException {
+    public void doCetak(String printernya, String pdfPath) throws JRException, PrinterException, ArrayIndexOutOfBoundsException {
         AttributeSet aset = new HashAttributeSet();
         aset.add(new PrinterName(printernya, null));
         PrintService[] printService = PrintServiceLookup.lookupPrintServices(null, aset);
@@ -117,7 +117,7 @@ public class Cetak {
         InputStream input = null;
         try {
            
-            String pdfPath = "D";
+            
             this.cetakanKe = this.ttssnya.itungCetakan() + 1;
             File dir = new File(pdfPath + this.ttssnya.getNomor() + "/");
             dir.mkdirs();
@@ -125,7 +125,7 @@ public class Cetak {
             output = new FileOutputStream(f);
             JasperExportManager.exportReportToPdfStream(jasperPrint, output);
             output.close();
-            input.close();
+           // input.close();
             this.filePath = f.getAbsolutePath();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,7 +134,7 @@ public class Cetak {
         }
     }
 
-    public void doCetakKeluar(String printernya) throws JRException, PrinterException, ArrayIndexOutOfBoundsException {
+    public void doCetakKeluar(String printernya, String pdfPath) throws JRException, PrinterException, ArrayIndexOutOfBoundsException {
         AttributeSet aset = new HashAttributeSet();
         aset.add(new PrinterName(printernya, null));
         PrintService[] printService = PrintServiceLookup.lookupPrintServices(null, aset);
@@ -167,8 +167,6 @@ public class Cetak {
         OutputStream output = null;
         InputStream input = null;
         try {
-           
-            String pdfPath = "D";
             this.cetakanKe = this.ttssnya.itungCetakan() + 1;
             File dir = new File(pdfPath + this.ttssnya.getNomor() + "/");
             dir.mkdirs();
@@ -176,7 +174,7 @@ public class Cetak {
             output = new FileOutputStream(f);
             JasperExportManager.exportReportToPdfStream(jasperPrint, output);
             output.close();
-            input.close();
+            //input.close();
             this.filePath = f.getAbsolutePath();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex);

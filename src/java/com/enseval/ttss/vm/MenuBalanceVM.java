@@ -15,6 +15,7 @@ import javax.activation.*;
 import org.zkoss.zul.*;
 import net.sf.jasperreports.engine.*;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MenuBalanceVM {
@@ -27,16 +28,16 @@ public class MenuBalanceVM {
     String filterPenyetor;
     String filterJenisKas = "SEMUA";
     String filterTag;
-    Date cutOffDate;
+    Timestamp cutOffDate;
     List<Cetak> cetaks;
     User userLogin;
     List<TTSS> selectedTTSS;
     Long saldo;
     Setting set = new Setting();
-    Date filterCutoff;
+    Timestamp filterCutoff = new Timestamp(new Date().getTime());
 
     public MenuBalanceVM() {
-        this.listTTSS = new CopyOnWriteArrayList<>();
+        this.listTTSS = new ArrayList<>();
         this.totalNilai = 0L;
         this.filterNomor = "";
         this.filterNilai = "";
@@ -259,10 +260,11 @@ public class MenuBalanceVM {
     
     @Command
     public void showCashOpname() {
+        refresh();
         Map m = new HashMap();
         m.put("jenisKas", filterJenisKas);
         m.put("tglCutoff", filterCutoff);
-        m.put("saldoSistem", saldo);
+        m.put("saldoSistem", this.listTTSS.get(0).getSaldo());
         Executions.createComponents("AddNewCashOpname.zul", null, m);
     }
     
@@ -355,11 +357,11 @@ public class MenuBalanceVM {
         this.filterTag = filterTag;
     }
 
-    public Date getCutOffDate() {
+    public Timestamp getCutOffDate() {
         return cutOffDate;
     }
 
-    public void setCutOffDate(Date cutOffDate) {
+    public void setCutOffDate(Timestamp cutOffDate) {
         this.cutOffDate = cutOffDate;
     }
 
@@ -379,11 +381,11 @@ public class MenuBalanceVM {
         this.set = set;
     }
 
-    public Date getFilterCutoff() {
+    public Timestamp getFilterCutoff() {
         return filterCutoff;
     }
 
-    public void setFilterCutoff(Date filterCutoff) {
+    public void setFilterCutoff(Timestamp filterCutoff) {
         this.filterCutoff = filterCutoff;
     }
 

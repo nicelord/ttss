@@ -74,7 +74,7 @@ public class AddNewTTSSKeluar
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetakKeluar(this.printernya);
+            c.doCetakKeluar(this.printernya,Ebean.find(Setting.class).findList().get(0).getFolderPDF());
             this.saveNewTTSS();
             Ebean.save((Object)c);
         }

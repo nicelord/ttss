@@ -20,7 +20,7 @@
                         PASSWORD
                         <textbox id="" type="password" hflex="3" value="@bind(vm.userLogin.password)" sclass="form-control input-primary"/>
                     </row> 
-                    <row  if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                    <row>
                         DEFAULT PRINTER : 
                         <listbox id="box" multiple="false" checkmark="true"
                                  emptyMessage="Kosong euy!"

@@ -40,8 +40,14 @@ public class CetakUlangTTSSVM {
         this.ttss = ttssnya;
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
         this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
-        this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
-        this.listTag = (List<TTSS>)Ebean.find((Class)TTSS.class).select("tag").setDistinct(true).findList();
+        try {
+            this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
+        } catch (Exception e) {
+
+            this.printernya = Ebean.find(Printer.class).findList().get(0).getNamaPrinter();
+
+        }
+        this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
         Selectors.wireComponents(view, (Object) this, false);
     }
 
@@ -64,11 +70,11 @@ public class CetakUlangTTSSVM {
     @NotifyChange({"printernya"})
     public void cetak() {
         try {
-            final Cetak c = new Cetak();
+            Cetak c = new Cetak();
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetak(this.printernya);
+            c.doCetak(this.printernya, Ebean.find(Setting.class).findList().get(0).getFolderPDF());
             this.UpdateTTSS();
             Ebean.save((Object) c);
         } catch (JRException | ArrayIndexOutOfBoundsException | PrinterException ex2) {
@@ -85,11 +91,11 @@ public class CetakUlangTTSSVM {
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetakKeluar(this.printernya);
+            c.doCetakKeluar(this.printernya,Ebean.find(Setting.class).findList().get(0).getFolderPDF());
             this.UpdateTTSS();
             Ebean.save((Object) c);
         } catch (JRException | ArrayIndexOutOfBoundsException | PrinterException ex2) {
-       
+
             Logger.getLogger(CetakUlangTTSSVM.class.getName()).log(Level.SEVERE, null, ex2);
             Messagebox.show(ex2.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");
         }
@@ -150,6 +156,5 @@ public class CetakUlangTTSSVM {
     public void setListTag(List<TTSS> listTag) {
         this.listTag = listTag;
     }
-    
-    
+
 }

@@ -25,7 +25,8 @@
                             <listcell label="SETORAN KELUAR"/>
                         </listitem>
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  onClick="@command('changePage', page='menuBalance.zul')">
+                                  onClick="@command('changePage', page='menuBalance.zul')" 
+                        if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BALANCE"/>
                         </listitem>

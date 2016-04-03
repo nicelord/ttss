@@ -6,6 +6,7 @@
 package com.enseval.ttss.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,13 +23,11 @@ import javax.persistence.Temporal;
 public class CashOpname implements Serializable {
     
     @Id @GeneratedValue Long Id;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    Date tglOpname;
+    Timestamp tglOpname;
     @ManyToOne
     String pelaksana;
     String jenisKas;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    Date tglCutoff;
+    Timestamp tglCutoff;
     Long saldoSistem;
     Long saldoFisik;
     Long selisih;
@@ -41,11 +40,11 @@ public class CashOpname implements Serializable {
         this.Id = Id;
     }
 
-    public Date getTglOpname() {
+    public Timestamp getTglOpname() {
         return tglOpname;
     }
 
-    public void setTglOpname(Date tglOpname) {
+    public void setTglOpname(Timestamp tglOpname) {
         this.tglOpname = tglOpname;
     }
 
@@ -67,11 +66,11 @@ public class CashOpname implements Serializable {
         this.jenisKas = jenisKas;
     }
 
-    public Date getTglCutoff() {
+    public Timestamp getTglCutoff() {
         return tglCutoff;
     }
 
-    public void setTglCutoff(Date tglCutoff) {
+    public void setTglCutoff(Timestamp tglCutoff) {
         this.tglCutoff = tglCutoff;
     }
 

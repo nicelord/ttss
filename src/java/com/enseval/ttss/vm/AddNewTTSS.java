@@ -31,17 +31,15 @@ public class AddNewTTSS
     String printernya;
     
     public AddNewTTSS() {
-        this.listPenyetor = new ArrayList<DsPenyetor>();
-        this.printers = new ArrayList<Printer>();
-        this.listTag = new ArrayList<TTSS>();
+        this.listPenyetor = new ArrayList<>();
+        this.printers = new ArrayList<>();
+        this.listTag = new ArrayList<>();
     }
     
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
-        this.userLogin = (User)Ebean.find((Class)User.class, (Object)new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        final DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-        final Date date = new Date();
-        final String tgl = dateFormat.format(date);
+        this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+   
         (this.ttss = new TTSS()).setNomor(Long.parseLong(this.ttss.getLastNomor()) + 1L);
         this.listPenyetor = (List<DsPenyetor>)Ebean.find((Class)DsPenyetor.class).findList();
         this.printers = (List<Printer>)Ebean.find((Class)Printer.class).findList();
@@ -74,7 +72,7 @@ public class AddNewTTSS
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetak(this.printernya);
+            c.doCetak(this.printernya, Ebean.find(Setting.class).findList().get(0).getFolderPDF());
             this.saveNewTTSS();
             Ebean.save((Object)c);
         }
