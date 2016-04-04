@@ -23,7 +23,7 @@
         
         <vlayout apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.LoginVM')">
             
-            <window id="loginWin" title="LOGIN TTSS SYSTEM" border="normal" hflex="min">
+            <window id="loginWin" title="LOGIN CASHMON" border="normal" hflex="min">
                 <vbox hflex="min" align="center">
                     <grid hflex="min">
                         <columns>

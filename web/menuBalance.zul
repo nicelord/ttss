@@ -48,7 +48,7 @@
 
                         <listheader sort="auto(nomor)" label="NOMOR"/>
                         
-                        <listheader sort="auto(namaPenyetor)" label="PENYETOR"/>
+                        <listheader sort="auto(namaPenyetor)" label="PENYETOR/PENERIMA"/>
                         <listheader sort="tag" label="TAG"/>
                         <listheader sort="auto(jenisKas)" label="JENIS KAS"/>
                         <listheader sort="auto(cutOffDate)" label="WAKTU"/>

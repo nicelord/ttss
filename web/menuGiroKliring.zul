@@ -183,15 +183,12 @@
                     
     <listfoot>
         <listfooter span="12" valign="middle">
-            <div style="float:left;">
-                <!--
-                        <button onClick="@command('hapusSelectedGiro')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
-                                        if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-                                        -->
-                                
+          <!--   <div style="float:left;">
+               
+                       
                         <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL">
                         </button>
-            </div>
+            </div> -->
             <div style="float:right;">
                 <label value="TOTAL NILAI "/>
                 <label value="@load(vm.format(vm.totalNilai))"/>

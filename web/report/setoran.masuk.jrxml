@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="setoran-masuk" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="1db2a07a-4e7e-44c4-b72f-e8c0ea3f8c68">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Table Dataset 1" whenResourceMissingType="Empty" uuid="e6deefb1-a36f-457a-85a0-076518d9eb5e">
+		<field name="nilai" class="java.lang.Long"/>
+		<field name="nomor" class="java.lang.Long"/>
+		<field name="namaPenyetor" class="java.lang.String"/>
+		<field name="tag" class="java.lang.String"/>
+		<field name="userLogin.nama" class="java.lang.String"/>
+		<field name="wktTerima" class="java.sql.Timestamp"/>
+		<field name="keterangan" class="java.lang.String"/>
+		<variable name="total" class="java.lang.Long" calculation="Sum">
+			<variableExpression><![CDATA[$F{nilai}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<parameter name="TTSS" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nilai" class="java.lang.Long"/>
+	<field name="nomor" class="java.lang.Long"/>
+	<field name="namaPenyetor" class="java.lang.String"/>
+	<field name="tag" class="java.lang.String"/>
+	<field name="userLogin.nama" class="java.lang.String"/>
+	<field name="wktTerima" class="java.sql.Timestamp"/>
+	<field name="keterangan" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="281" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="11" y="8" width="532" height="262" uuid="cb7da9ca-f739-44ec-a5aa-85760b3307fb"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="2c281df5-6b9a-449d-928d-93d1f8564306">
+						<datasetParameter name="REPORT_DATA_SOURCE">
+							<datasetParameterExpression><![CDATA[$P{TTSS}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="90" uuid="3074208d-65dd-493b-a922-357c557a2c9c">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="63f58836-8e16-4096-91a4-943323f78832"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[NOMOR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="20" isRemoveLineWhenBlank="true" uuid="1c1df8b1-f4bf-4f7b-973d-00ef86059a4f"/>
+								<textFieldExpression><![CDATA[$F{nomor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3542cc24-699c-41cb-be10-bee73f2aed75">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="b0a7015d-17a9-45e6-a481-7f0970f54481"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PENYETOR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="20" isRemoveLineWhenBlank="true" uuid="03393d46-fa43-4c7d-9e5e-a1bb8723ecbe"/>
+								<textFieldExpression><![CDATA[$F{namaPenyetor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="6917fd7c-2c48-483f-b759-be627f24e7bf">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="de9dd62f-3cd9-40c5-b214-823a198194f9"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[PENERIMA]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="20" isRemoveLineWhenBlank="true" uuid="4fd05f40-ddb4-4e9b-90e9-2f81aa13b1a3"/>
+								<textFieldExpression><![CDATA[$F{userLogin.nama}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="49" uuid="00ad1729-0d7c-4b95-999c-b959a8f90568">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="49" height="30" uuid="f460d41a-1bc2-4bd4-a4b8-befa239129e0"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[TAG]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="49" height="20" isRemoveLineWhenBlank="true" uuid="4299e0d7-76dc-4eb5-bbd3-26beb94b4cbd"/>
+								<textFieldExpression><![CDATA[$F{tag}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="155" uuid="76011d63-73a3-406c-ae97-8a9e156c19e6">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="19e01245-c4dc-4477-bdd2-c678beefb91f"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[WAKTU]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="f85b270b-e197-4426-9d21-1d6c764ecad5"/>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="20" isRemoveLineWhenBlank="true" uuid="9f5a9ee6-45e8-4c15-b4a9-cf0d8bf44b7e"/>
+								<textFieldExpression><![CDATA[$F{wktTerima}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="aee9d633-a909-483b-b811-7ab3b318fb68">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5d63257c-b65b-4d35-8079-fb4717080db9"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[NILAI]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="18f92cfb-e21a-415e-9d53-4ce5c292516b"/>
+								<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="90" height="20" isRemoveLineWhenBlank="true" uuid="437afb50-9478-4412-a42b-8fa8e5ef6588"/>
+								<textFieldExpression><![CDATA[$F{nilai}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="116" uuid="ebbcb5a9-c153-4a48-966b-98e92716e5e6">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="116" height="30" uuid="5946fecd-0e64-4319-8f59-1bc2de4d2159"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[KETERANGAN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="116" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="480b62cc-24eb-48c0-b588-04247a947575"/>
+								<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

@@ -175,16 +175,19 @@ public class MenuSetoranKeluarVM {
     public void downloadXLS() {
         File filenya = new File(Ebean.find(Setting.class).findList().get(0).getFolderPDF() + "ttss-reports.xls");
         try {
-            final InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/excelKeluar.jasper");
-            final JRDataSource datasource = (JRDataSource) new JRBeanCollectionDataSource((Collection) this.listTTSS);
-            final Map map = new HashMap();
+            InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/setoran.keluar.jasper");
+            JRDataSource datasource = new JRBeanCollectionDataSource(this.listTTSS);
+            JRDataSource beanColDataSource = new JRBeanCollectionDataSource(this.listTTSS);
+            Map map = new HashMap();
             map.put("REPORT_DATA_SOURCE", datasource);
+            map.put("TTSS", beanColDataSource);
             map.put("TOTAL", this.totalNilai);
             final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
             final OutputStream outputStream = new FileOutputStream(filenya);
             final JRXlsExporter exporterXLS = new JRXlsExporter();
             exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, (Object) report);
             exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, (Object) outputStream);
+            exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, (Object) Boolean.FALSE);
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_DETECT_CELL_TYPE, (Object) Boolean.TRUE);
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, (Object) Boolean.FALSE);

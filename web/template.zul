@@ -9,7 +9,7 @@
                 <hbox hflex="1" vflex="1" pack="start" align="middle">
                     <separator />
                     <separator />
-                    <label id="" value="TTSS MONITORING SYSTEM v2.0"/>
+                    <label id="" value="CASH MONITORING SYSTEM"/>
                 </hbox>
                 <hbox hflex="1" pack="end">
                     <label id="" value="${sessionScope.userCredential.name}"/>

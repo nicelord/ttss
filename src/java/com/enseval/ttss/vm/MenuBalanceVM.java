@@ -184,20 +184,24 @@ public class MenuBalanceVM {
     }
 
     @Command
-    @NotifyChange({"listTTSS"})
+    @NotifyChange({"listGiro"})
     public void downloadXLS() {
-        final File filenya = new File("D://ttss-reports.xls");
+
+        File filenya = new File(Ebean.find(Setting.class).findList().get(0).getFolderPDF() + "balance-reports.xls");
         try {
-            final InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/excel.jasper");
-            final JRDataSource datasource = (JRDataSource) new JRBeanCollectionDataSource((Collection) this.listTTSS);
-            final Map map = new HashMap();
+            InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/balance.jasper");
+            JRDataSource datasource = new JRBeanCollectionDataSource(listTTSS);
+            JRDataSource beanColDataSource = new JRBeanCollectionDataSource(listTTSS);
+            Map map = new HashMap();
             map.put("REPORT_DATA_SOURCE", datasource);
+            map.put("TTSS", beanColDataSource);
             map.put("TOTAL", this.totalNilai);
             final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
             final OutputStream outputStream = new FileOutputStream(filenya);
             final JRXlsExporter exporterXLS = new JRXlsExporter();
             exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, (Object) report);
             exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, (Object) outputStream);
+            exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, (Object) Boolean.FALSE);
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_DETECT_CELL_TYPE, (Object) Boolean.TRUE);
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, (Object) Boolean.FALSE);
@@ -207,9 +211,9 @@ public class MenuBalanceVM {
             streamReport.close();
             outputStream.close();
         } catch (JRException | FileNotFoundException ex4) {
-            Logger.getLogger(MenuBalanceVM.class.getName()).log(Level.SEVERE, null, ex4);
+            Logger.getLogger(MenuSetoranKeluarVM.class.getName()).log(Level.SEVERE, null, ex4);
         } catch (IOException ex2) {
-            Logger.getLogger(MenuBalanceVM.class.getName()).log(Level.SEVERE, null, ex2);
+            Logger.getLogger(MenuSetoranKeluarVM.class.getName()).log(Level.SEVERE, null, ex2);
         }
         FileInputStream inputStream = null;
         try {
@@ -221,6 +225,8 @@ public class MenuBalanceVM {
             e.printStackTrace();
         }
         filenya.delete();
+
+
     }
 
     @Command

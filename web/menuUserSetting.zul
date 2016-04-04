@@ -2,7 +2,7 @@
 <zk xmlns="http://www.zkoss.org/2005/zul">
     <div self="@define(content)" vflex="3">
         <window title="PENGATURAN PROFIL" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuUserSettingVM')">
-            <grid width="50%">
+            <grid>
                 <columns>
                     <column align="right" width="30%"/>
                     <column/>
