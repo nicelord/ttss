@@ -76,20 +76,25 @@
                                         <radio label="LK" value="LK"/>
                                     </radiogroup>
                                 </groupbox>
-                            </row> 
-                            <row>
-                                Nama Penerima
-                                <textbox id="penerima" hflex="3" value="@load(vm.userLogin.nama)" sclass="form-control input-primary" readonly="true"/> 
-                            </row> 
+                            </row>  
                             <row>
                                 Status
-                                <combobox id="status" value="@bind(vm.giro.status)" width="90%" constraint="no empty" readonly="true">
+                            
+                                <combobox id="status" value="@bind(vm.giro.status)" constraint="no empty" readonly="true" width="100%" style="padding-right: 25px">
                                     
                                     <comboitem label="OK" width="100%"/>
                                     <comboitem label="LAMPIRAN KURANG" width="100%"/>
-                                    <comboitem label="DITOLAK BANK" width="100%"/>
-                                  
+                                    <comboitem label="DITOLAK BANK" width="100%" visible="@load(not empty vm.giro.tglKliring)" />
                                 </combobox>
+                            
+                            </row>
+                            <row>
+                                Customer
+                                <hlayout>
+                                    <textbox id="txtCustID" sclass="form-control input-primary" width="90px" placeholder="Cust ID" disabled="true"/>
+                                    <textbox id="txtCustName" sclass="form-control input-primary" hflex="3" placeholder="Nama Customer" disabled="true"/>
+                                    <button id="btnCustID" iconSclass="glyphicon glyphicon-search" sclass="btn-primary"  width="50px"/>
+                                </hlayout>  
                             </row>
                             <row>
                                 Keterangan

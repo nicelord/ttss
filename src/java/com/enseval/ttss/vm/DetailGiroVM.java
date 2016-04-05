@@ -19,16 +19,16 @@ public class DetailGiroVM {
 
     @Wire("#addGiro")
     private Window win;
-    @Wire("#penyetor")
-    private Combobox cmb;
-    @Wire("#tag")
-    private Combobox cmbTag;
-    @Wire("#banks")
-    private Combobox cmbBank;
     @Wire("#chkKliring")
     private Checkbox chkKliring;
 
-    
+    @Wire("#status")
+    private Combobox cmbStatus;
+    @Wire("#txtCustID")
+    private Textbox txtCUstID;
+    @Wire("#txtCustName")
+    private Textbox txtCustName;
+
     Giro giro;
     List<DsPenyetor> listPenyetor;
     List<String> listTag;
@@ -52,15 +52,36 @@ public class DetailGiroVM {
         this.listTag = Ebean.find((Class) Giro.class).select("tag").setDistinct(true).findList();
         this.listBank = Ebean.find((Class) Giro.class).select("bank").setDistinct(true).findList();
         this.listStatus = Ebean.find((Class) Giro.class).select("status").setDistinct(true).findList();
+        
         Selectors.wireComponents(view, this, false);
+        if (this.giro.getCustID() != null) {
+            txtCUstID.setValue(this.giro.getCustID().toString());
+            txtCustName.setValue(Ebean.find(Customer.class, this.giro.getCustID()).getNama());
+        }
     }
 
     @Command
     public void UpdateGiro() {
-        if(chkKliring.isChecked()){
-            this.giro.setTglKliring(new Date());
-        }else{
+
+        if (chkKliring.isChecked()) {
+
+            if (this.giro.getTglKliring() == null) {
+                this.giro.setTglKliring(new Date());
+            }
+        } else {
             this.giro.setTglKliring(null);
+        }
+
+        if (cmbStatus.getValue().equals("DITOLAK BANK")) {
+            if (txtCUstID.getValue().isEmpty()) {
+                Messagebox.show("Customer belum dipilih", "Error", Messagebox.OK, Messagebox.ERROR);
+                return;
+            }
+            this.giro.setTglKliring(null);
+        }
+
+        if(!txtCUstID.getValue().isEmpty()){
+            this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
         }
         this.giro.setUserLogin(this.userLogin);
         //this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
@@ -68,8 +89,18 @@ public class DetailGiroVM {
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
     }
-    
-   
+
+    @Command
+    public void showCustomer() {
+        Executions.createComponents("customer.zul", null, null);
+    }
+
+    @GlobalCommand
+    public void setCustomer(@BindingParam("customer") Customer customer) {
+        txtCUstID.setValue(customer.getId().toString());
+        txtCustName.setValue(customer.getNama());
+
+    }
 
     public User getUserLogin() {
         return this.userLogin;
@@ -85,22 +116,6 @@ public class DetailGiroVM {
 
     public void setListPenyetor(final List<DsPenyetor> listPenyetor) {
         this.listPenyetor = listPenyetor;
-    }
-
-    public Combobox getCmb() {
-        return this.cmb;
-    }
-
-    public void setCmb(final Combobox cmb) {
-        this.cmb = cmb;
-    }
-
-    public Combobox getCmbTag() {
-        return this.cmbTag;
-    }
-
-    public void setCmbTag(final Combobox cmbTag) {
-        this.cmbTag = cmbTag;
     }
 
     public Window getWin() {
@@ -135,14 +150,6 @@ public class DetailGiroVM {
         this.DKLK = DKLK;
     }
 
-    public Combobox getCmbBank() {
-        return cmbBank;
-    }
-
-    public void setCmbBank(Combobox cmbBank) {
-        this.cmbBank = cmbBank;
-    }
-
     public List<String> getListBank() {
         return listBank;
     }
@@ -167,6 +174,28 @@ public class DetailGiroVM {
         this.chkKliring = chkKliring;
     }
 
-    
+    public Combobox getCmbStatus() {
+        return cmbStatus;
+    }
+
+    public void setCmbStatus(Combobox cmbStatus) {
+        this.cmbStatus = cmbStatus;
+    }
+
+    public Textbox getTxtCUstID() {
+        return txtCUstID;
+    }
+
+    public void setTxtCUstID(Textbox txtCUstID) {
+        this.txtCUstID = txtCUstID;
+    }
+
+    public Textbox getTxtCustName() {
+        return txtCustName;
+    }
+
+    public void setTxtCustName(Textbox txtCustName) {
+        this.txtCustName = txtCustName;
+    }
 
 }

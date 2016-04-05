@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-04-05 16:42:00
+Date: 2016-04-06 01:57:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -58,6 +58,43 @@ CREATE TABLE `cetak` (
 -- ----------------------------
 -- Records of cetak
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for customer
+-- ----------------------------
+DROP TABLE IF EXISTS `customer`;
+CREATE TABLE `customer` (
+  `id` bigint(20) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `shipto` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of customer
+-- ----------------------------
+INSERT INTO `customer` VALUES ('0', 'sadas', null);
+INSERT INTO `customer` VALUES ('123', 'TK. sadsa', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('132', 'TK. dasqwe', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('234', 'TK. sd3432', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('2323', 'TK. asdsd', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('4353', 'TK. KITA', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('4562', 'TK. asdsd', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('5454', 'TK. KITA', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('6546', 'TK. KITA', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('6786', 'TK. sdfdcx', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('6787', 'TK. KITA', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('12312', 'TK. asdsad', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('23423', 'TK. KITA', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('23445', 'TK. zxc', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('24324', 'TK. KITA', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('45465', 'TK. xzcxzc', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('54354', 'TK. zxcx', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('67345', 'TK. hjg', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('123123', 'TK. gghhkjyu', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('232342', 'TK. sdfs4', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('432565', 'TK. sdf', 'JL. APA SAJA');
+INSERT INTO `customer` VALUES ('564564', 'TK. KITA', 'JL. APA SAJA');
 
 -- ----------------------------
 -- Table structure for ds_penyetor
@@ -296,7 +333,7 @@ CREATE TABLE `giro` (
   `status` varchar(255) DEFAULT NULL,
   `proses_kliring` tinyint(1) DEFAULT NULL,
   `bank` varchar(255) DEFAULT NULL,
-  `custID` int(20) DEFAULT NULL,
+  `cust_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`nomor`),
   KEY `ix_ttss_userLogin_3` (`user_login_id`),
   CONSTRAINT `giro_ibfk_1` FOREIGN KEY (`user_login_id`) REFERENCES `user` (`id`)
@@ -305,23 +342,23 @@ CREATE TABLE `giro` (
 -- ----------------------------
 -- Records of giro
 -- ----------------------------
-INSERT INTO `giro` VALUES ('160323001', '22223232', '12345', '2', 'ADADEH', '2016-03-23 15:46:44', null, '2016-03-02', 'KETERANGAN', 'BNI', 'DK', 'DITOLAK BANK', null, 'BTN', null);
-INSERT INTO `giro` VALUES ('160323002', '1213123', '12345', '2', 'ADADEH', '2016-03-23 15:46:54', null, '2016-03-16', 'KETERANGAN', 'BNI', 'DK', 'OK', null, 'PANIN', null);
-INSERT INTO `giro` VALUES ('160323003', '0', '12345', '1', 'ADADEH', '2016-03-23 16:22:35', null, '2016-03-02', 'KETERANGAN', 'BNI', 'LK', 'OK', null, 'BNI', null);
-INSERT INTO `giro` VALUES ('160324001', '0', '12345', '1', 'ADADEH', '2016-03-24 16:14:45', null, '2016-03-24', 'KETERANGAN', 'BNI', 'LK', 'OK', '1', 'KALBAR', null);
-INSERT INTO `giro` VALUES ('160326001', '12312', '123', '2', 'TESTING', '2016-03-26 09:29:52', null, '2016-03-01', null, 'TAG1', 'LK', 'LAMPIRAN KURANG', '0', 'BNI', null);
-INSERT INTO `giro` VALUES ('160326002', 'bg13123', '1234', '2', 'TESTING', '2016-03-26 10:37:52', null, '2016-03-01', null, 'TAG1', 'LK', 'LAMPIRAN KURANG', null, 'PANIN', null);
-INSERT INTO `giro` VALUES ('160326003', '123', '1231', '2', 'TESTING', '2016-03-26 10:44:48', null, '2016-03-26', null, 'TAG', 'LK', 'OK', null, 'PANIN', null);
-INSERT INTO `giro` VALUES ('160326004', '3123', '234', '2', 'TESTING', '2016-03-21 10:52:02', null, '2016-03-26', null, 'TAG2', 'LK', 'OK', null, 'BNI', null);
-INSERT INTO `giro` VALUES ('160326005', '123', '123', '2', 'TESTING', '2016-03-26 10:52:49', null, '2016-03-13', null, 'TAG2', 'LK', 'OK', null, 'BNI', null);
-INSERT INTO `giro` VALUES ('160326006', '5345', '234', '2', 'TESTING', '2016-03-20 10:54:27', '2016-04-05', '2016-03-01', null, 'TAG1', 'DK', 'OK', null, 'BNI', null);
-INSERT INTO `giro` VALUES ('160326007', '123', '232', '2', 'TESTING', '2016-03-26 10:55:41', '2016-04-05', '2016-03-07', null, 'BNI', 'LK', 'OK', null, 'BNI', null);
-INSERT INTO `giro` VALUES ('160326008', 'werrwer', '123', '2', 'TESTING', '2016-03-26 11:08:48', '2016-04-05', '2016-03-26', null, 'TAG2', 'DK', 'OK', null, 'PANIN', null);
-INSERT INTO `giro` VALUES ('160326009', 'xcvxcv', '444', '2', 'TESTING', '2016-03-26 11:11:44', '2016-04-05', '2016-03-26', null, 'TAG', 'DK', 'OK', null, 'PANIN', null);
-INSERT INTO `giro` VALUES ('160326010', '123123', '12312', '2', 'TESTING', '2016-03-26 11:18:14', '2016-04-04', '2016-03-16', null, 'TAG1', 'LK', 'DITOLAK BANK', null, 'BTN', null);
-INSERT INTO `giro` VALUES ('160328001', '22222', '123', '2', 'TESTING', '2016-03-28 15:06:15', '2016-04-04', '2016-03-09', null, 'TAG1', 'LK', 'OK', null, 'BTN', null);
-INSERT INTO `giro` VALUES ('160330001', '1212121', '888888888', '2', 'TESTING', '2016-03-30 12:45:50', '2016-04-04', '2016-03-16', '31231231', 'TAG', 'LK', 'OK', null, 'BNI', null);
-INSERT INTO `giro` VALUES ('160330002', '3232', '333', '2', 'TESTING', '2016-03-30 15:27:09', null, '2016-03-30', '12312312', 'TAG2', 'DK', 'OK', null, 'KALBAR', null);
+INSERT INTO `giro` VALUES ('160323001', '22223232', '12345', '2', 'ADADEH', '2016-03-23 15:46:44', '2016-04-06', '2016-03-02', 'KETERANGAN', 'BNI', 'DK', 'LAMPIRAN KURANG', null, 'BTN', null);
+INSERT INTO `giro` VALUES ('160323002', '1213123', '12345', '2', 'ADADEH', '2016-03-23 15:46:54', '2016-04-06', '2016-03-16', 'KETERANGAN', 'BNI', 'DK', 'LAMPIRAN KURANG', null, 'PANIN', null);
+INSERT INTO `giro` VALUES ('160323003', '0', '12345', '2', 'ADADEH', '2016-03-23 16:22:35', null, '2016-03-02', 'KETERANGAN', 'BNI', 'LK', 'OK', null, 'BNI', '12312');
+INSERT INTO `giro` VALUES ('160324001', '0', '12345', '2', 'ADADEH', '2016-03-24 16:14:45', null, '2016-03-24', 'KETERANGAN', 'BNI', 'LK', 'OK', '1', 'KALBAR', '123123');
+INSERT INTO `giro` VALUES ('160326001', '12312', '123', '2', 'TESTING', '2016-03-26 09:29:52', null, '2016-03-01', null, 'TAG1', 'LK', 'DITOLAK BANK', '0', 'BNI', '54354');
+INSERT INTO `giro` VALUES ('160326002', 'bg13123', '1234', '2', 'TESTING', '2016-03-26 10:37:52', null, '2016-03-01', null, 'TAG1', 'LK', 'DITOLAK BANK', null, 'PANIN', '4562');
+INSERT INTO `giro` VALUES ('160326003', '123', '1231', '2', 'TESTING', '2016-03-26 10:44:48', '2016-04-05', '2016-03-26', null, 'TAG', 'LK', 'LAMPIRAN KURANG', null, 'PANIN', null);
+INSERT INTO `giro` VALUES ('160326004', '3123', '234', '2', 'TESTING', '2016-03-21 10:52:02', '2016-04-06', '2016-03-26', null, 'TAG2', 'LK', 'DITOLAK BANK', null, 'BNI', null);
+INSERT INTO `giro` VALUES ('160326005', '123', '123', '2', 'TESTING', '2016-03-26 10:52:49', '2016-04-06', '2016-03-13', null, 'TAG2', 'LK', 'DITOLAK BANK', null, 'BNI', null);
+INSERT INTO `giro` VALUES ('160326006', '5345', '234', '2', 'TESTING', '2016-03-20 10:54:27', '2016-04-06', '2016-03-01', null, 'TAG1', 'DK', 'DITOLAK BANK', null, 'BNI', null);
+INSERT INTO `giro` VALUES ('160326007', '123', '232', '2', 'TESTING', '2016-03-26 10:55:41', '2016-04-06', '2016-03-07', null, 'BNI', 'LK', 'DITOLAK BANK', null, 'BNI', null);
+INSERT INTO `giro` VALUES ('160326008', 'werrwer', '123', '2', 'TESTING', '2016-03-26 11:08:48', '2016-04-06', '2016-03-26', null, 'TAG2', 'DK', 'DITOLAK BANK', null, 'PANIN', null);
+INSERT INTO `giro` VALUES ('160326009', 'xcvxcv', '444', '2', 'TESTING', '2016-03-26 11:11:44', null, '2016-03-26', null, 'TAG', 'DK', 'DITOLAK BANK', null, 'PANIN', '132');
+INSERT INTO `giro` VALUES ('160326010', '123123', '12312', '2', 'TESTING', '2016-03-26 11:18:14', '2016-04-06', '2016-03-17', null, 'TAG1', 'LK', 'DITOLAK BANK', null, 'BTN', null);
+INSERT INTO `giro` VALUES ('160328001', '22222', '123', '2', 'TESTING', '2016-03-28 15:06:15', '2016-04-02', '2016-03-09', null, 'TAG1', 'LK', 'LAMPIRAN KURANG', null, 'BTN', null);
+INSERT INTO `giro` VALUES ('160330001', '1212121', '888888888', '2', 'TESTING', '2016-03-30 12:45:50', null, '2016-03-16', '31231231adas', 'TAG', 'LK', 'LAMPIRAN KURANG', null, 'BNI', '123123');
+INSERT INTO `giro` VALUES ('160330002', '3232', '333', '2', 'TESTING', '2016-03-30 15:27:09', '2016-04-05', '2016-03-30', '12312312', 'TAG2', 'DK', 'OK', null, 'KALBAR', '234');
 
 -- ----------------------------
 -- Table structure for printer

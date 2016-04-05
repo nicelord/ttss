@@ -15,14 +15,7 @@
         
         }
         
-        .z-groupbox-content{
-            
-        padding-top: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-        padding-right: 0px;
-
-        }
+       
     </style>
 
     <hbox align="center" pack="center" spacing="20px">
@@ -91,29 +84,24 @@
                                 </groupbox>
                             </row> 
                             <row>
-                                Nama Penerima
-                                <textbox id="penerima" hflex="3" value="@load(vm.userLogin.nama)" sclass="form-control input-primary" readonly="true" /> 
-                            </row> 
-                            <row>
                                 Status
-                                <hlayout>
-                                    <combobox id="status" value="@bind(vm.giro.status)" onChange="@command('cekTolakan')" constraint="no empty" readonly="true" width="150px" style="padding-right:25px">
+                            
+                                <combobox id="status" value="@bind(vm.giro.status)" constraint="no empty" readonly="true" width="100%" style="padding-right: 25px">
                                     
-                                        <comboitem label="OK" width="100%"/>
-                                        <comboitem label="LAMPIRAN KURANG" width="100%"/>
-                                        <comboitem label="DITOLAK BANK" width="100%"/>
-                                  
-                                    </combobox>
-                                    
-                                    
-                                   <hlayout>
-                                        <textbox id="txtCustID" sclass="form-control input-primary" width="80px" placeholder="Cust ID" disabled="true"/>
-                                        <button id="btnCustID" label="SET CUST" sclass="btn-primary" disabled="true"/>
-                                    </hlayout>   
-                                                                   
-                               
-                                </hlayout>
+                                    <comboitem label="OK" width="100%"/>
+                                    <comboitem label="LAMPIRAN KURANG" width="100%"/>
+                                    <comboitem label="DITOLAK BANK" width="100%" visible="@load(not empty vm.giro.tglKliring)" />
+                                </combobox>
+                            
                             </row>
+                            <row>
+                                Customer
+                                <hlayout>
+                                    <textbox id="txtCustID" sclass="form-control input-primary" width="90px" placeholder="Cust ID" readonly="true"/>
+                                    <textbox id="txtCustName" sclass="form-control input-primary" hflex="3" placeholder="Nama Customer" readonly="true"/>
+                                    <button id="btnCustID" iconSclass="glyphicon glyphicon-search" sclass="btn-primary"  width="50px" onClick="@command('showCustomer')"/>
+                                </hlayout>  
+                            </row> 
                             <row>
                                 Keterangan
                                 <textbox multiline="true" rows="5" hflex="3" value="@bind(vm.giro.keterangan)" sclass="form-control input-primary">

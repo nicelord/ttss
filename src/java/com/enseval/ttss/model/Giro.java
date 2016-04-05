@@ -29,6 +29,7 @@ public class Giro implements Serializable
     String tag;
     String DKLK = "DK";
     String status = "OK";
+    Long custID;
     
     public Long getNomor() {
         return this.nomor;
@@ -157,6 +158,14 @@ public class Giro implements Serializable
 
     public void setBank(String bank) {
         this.bank = bank;
+    }
+
+    public Long getCustID() {
+        return custID;
+    }
+
+    public void setCustID(Long custID) {
+        this.custID = custID;
     }
     
     
