@@ -72,18 +72,15 @@ public class AddNewTTSS
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetak(this.printernya, Ebean.find(Setting.class).findList().get(0).getFolderPDF());
+            c.doCetak(this.printernya, Util.setting("pdf_path"));
             this.saveNewTTSS();
-            Ebean.save((Object)c);
+            Ebean.save(c);
         }
         catch (JRException jrex) {
             Messagebox.show(jrex.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");
         }
-        catch (ArrayIndexOutOfBoundsException arrex) {
+        catch (ArrayIndexOutOfBoundsException | PrinterException arrex) {
             Messagebox.show(arrex.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");
-        }
-        catch (PrinterException prex) {
-            Messagebox.show(prex.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");
         }
     }
     

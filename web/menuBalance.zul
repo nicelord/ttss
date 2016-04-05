@@ -82,11 +82,14 @@
                                 <space spacing="20px" />
                             </div>
                             <div style="float:right;">
-                                <label value="*Saldo awal : " style="font-style: italic"/> 
-                                <label value="@load(vm.format(vm.set.saldoAwal))" style="font-weight: bold;font-style: italic"/> 
+                                <label value="*Saldo awal Transfer: " style="font-style: italic"/> 
+                                <label value="@load(vm.format(vm.saldoAwal))" style="font-weight: bold;font-style: italic"/> 
                                 <space />
-                                <label value="*Tgl saldo awal : " style="font-style: italic"/> 
-                                <label value="@load(vm.set.tanggalSaldoAwal) @converter('formatedDate', format='yyyy/MM/dd')" style="font-weight: bold;font-style: italic"/>
+                                <label value="*Saldo awal Dropping : " style="font-style: italic"/> 
+                                <label value="@load(vm.format(vm.saldoAwalDropping))" style="font-weight: bold;font-style: italic"/> 
+                                <space />
+                                <label value="*Tgl efektif : " style="font-style: italic"/> 
+                                <label value="@load(vm.tglSaldoAwal) @converter('formatedDate', format='yyyy/MM/dd')" style="font-weight: bold;font-style: italic"/>
                             
                             </div>
                         </listfooter>

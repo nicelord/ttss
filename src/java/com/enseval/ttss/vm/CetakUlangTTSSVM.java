@@ -29,17 +29,17 @@ public class CetakUlangTTSSVM {
     List<TTSS> listTag;
 
     public CetakUlangTTSSVM() {
-        this.listPenyetor = new ArrayList<DsPenyetor>();
-        this.printers = new ArrayList<Printer>();
-        this.listTag = new ArrayList<TTSS>();
+        this.listPenyetor = new ArrayList<>();
+        this.printers = new ArrayList<>();
+        this.listTag = new ArrayList<>();
     }
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view, @ExecutionArgParam("ttssnya") final TTSS ttssnya) {
-        this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+        this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
         this.ttss = ttssnya;
-        this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
-        this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
+        this.listPenyetor = Ebean.find(DsPenyetor.class).findList();
+        this.printers = Ebean.find(Printer.class).findList();
         try {
             this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
         } catch (Exception e) {
@@ -47,8 +47,8 @@ public class CetakUlangTTSSVM {
             this.printernya = Ebean.find(Printer.class).findList().get(0).getNamaPrinter();
 
         }
-        this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
-        Selectors.wireComponents(view, (Object) this, false);
+        this.listTag = Ebean.find(TTSS.class).select("tag").setDistinct(true).findList();
+        Selectors.wireComponents(view, this, false);
     }
 
     @Command
@@ -74,7 +74,7 @@ public class CetakUlangTTSSVM {
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetak(this.printernya, Ebean.find(Setting.class).findList().get(0).getFolderPDF());
+            c.doCetak(this.printernya, Util.setting("pdf_path"));
             this.UpdateTTSS();
             Ebean.save((Object) c);
         } catch (JRException | ArrayIndexOutOfBoundsException | PrinterException ex2) {
@@ -91,7 +91,7 @@ public class CetakUlangTTSSVM {
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetakKeluar(this.printernya,Ebean.find(Setting.class).findList().get(0).getFolderPDF());
+            c.doCetak(this.printernya, Util.setting("pdf_path"));
             this.UpdateTTSS();
             Ebean.save((Object) c);
         } catch (JRException | ArrayIndexOutOfBoundsException | PrinterException ex2) {

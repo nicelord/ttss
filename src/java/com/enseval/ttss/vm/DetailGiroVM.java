@@ -27,6 +27,7 @@ public class DetailGiroVM {
     private Combobox cmbBank;
     @Wire("#chkKliring")
     private Checkbox chkKliring;
+
     
     Giro giro;
     List<DsPenyetor> listPenyetor;
@@ -67,6 +68,8 @@ public class DetailGiroVM {
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
     }
+    
+   
 
     public User getUserLogin() {
         return this.userLogin;
@@ -163,5 +166,7 @@ public class DetailGiroVM {
     public void setChkKliring(Checkbox chkKliring) {
         this.chkKliring = chkKliring;
     }
+
+    
 
 }

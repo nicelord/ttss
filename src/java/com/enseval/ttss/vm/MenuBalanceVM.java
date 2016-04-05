@@ -16,7 +16,6 @@ import org.zkoss.zul.*;
 import net.sf.jasperreports.engine.*;
 import java.io.*;
 import java.sql.Timestamp;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MenuBalanceVM {
 
@@ -33,8 +32,11 @@ public class MenuBalanceVM {
     User userLogin;
     List<TTSS> selectedTTSS;
     Long saldo;
-    Setting set = new Setting();
     Timestamp filterCutoff = new Timestamp(new Date().getTime());
+
+    String saldoAwal = Util.setting("saldo_awal_transfer");
+    String saldoAwalDropping = Util.setting("saldo_awal_dropping");
+    Date tglSaldoAwal = Util.toDate(Util.setting("tgl_saldo_awal"));
 
     public MenuBalanceVM() {
         this.listTTSS = new ArrayList<>();
@@ -47,13 +49,14 @@ public class MenuBalanceVM {
         this.cetaks = new ArrayList<>();
         this.selectedTTSS = new ArrayList<>();
         this.saldo = 0L;
-        this.set = Ebean.find(Setting.class, 1);
+
     }
 
     @AfterCompose
-    public void initSetup() {
+    public void initSetup() throws ParseException {
+
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", set.getTanggalSaldoAwal()).orderBy("wktTerima desc").findList();
+        this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
 
         Long nilai = 0L;
         for (final TTSS ttss1 : this.listTTSS) {
@@ -61,9 +64,18 @@ public class MenuBalanceVM {
         }
         this.totalNilai = nilai;
 
-        Long nilaiSaldo = set.getSaldoAwal();
+        Long nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer")) + Long.valueOf(Util.setting("saldo_awal_dropping"));
+        if (filterJenisKas.equals("KAS TRANSFER")) {
+            nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer"));
+        }
+
+        if (filterJenisKas.equals("KAS DROPPING")) {
+            nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_dropping"));
+
+        }
+
         for (int i = this.listTTSS.size() - 1; i >= 0; i--) {
-            if (this.listTTSS.get(i).getWktTerima().after(set.getTanggalSaldoAwal())) {
+            if (this.listTTSS.get(i).getWktTerima().after(Util.toDate(Util.setting("tgl_saldo_awal")))) {
                 if (this.listTTSS.get(i).getTipe().equals("masuk")) {
                     this.listTTSS.get(i).setSaldo(nilaiSaldo += this.listTTSS.get(i).getNilai());
                 } else {
@@ -128,32 +140,41 @@ public class MenuBalanceVM {
     @Command
     @NotifyChange({"listTTSS", "totalNilai"})
     public void refresh() {
-         this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", set.getTanggalSaldoAwal()).orderBy("wktTerima desc").findList();
+        this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
 
         if (!this.filterJenisKas.equals("SEMUA")) {
             this.listTTSS = Ebean.find(TTSS.class)
                     .where().eq("jenisKas", filterJenisKas)
-                    .where().ge("wktTerima", set.getTanggalSaldoAwal())
+                    .where().ge("wktTerima", Util.toDate(Util.setting("tgl_saldo_awal")))
                     .orderBy("wktTerima desc").findList();
         }
         if (this.filterCutoff != null) {
             this.listTTSS = Ebean.find(TTSS.class)
                     .where().le("wktTerima", filterCutoff)
-                    .where().ge("wktTerima", set.getTanggalSaldoAwal())
+                    .where().ge("wktTerima", Util.toDate(Util.setting("tgl_saldo_awal")))
                     .orderBy("wktTerima desc").findList();
         }
-        
+
         if (!this.filterJenisKas.equals("SEMUA") && this.filterCutoff != null) {
             this.listTTSS = Ebean.find(TTSS.class)
                     .where().eq("jenisKas", filterJenisKas)
                     .where().le("wktTerima", filterCutoff)
-                    .where().ge("wktTerima", set.getTanggalSaldoAwal())
+                    .where().ge("wktTerima", Util.toDate(Util.setting("tgl_saldo_awal")))
                     .orderBy("wktTerima desc").findList();
         }
 
-        Long nilaiSaldo = set.getSaldoAwal();
+        Long nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer")) + Long.valueOf(Util.setting("saldo_awal_dropping"));
+        if (filterJenisKas.equals("KAS TRANSFER")) {
+            nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer"));
+        }
+
+        if (filterJenisKas.equals("KAS DROPPING")) {
+            nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_dropping"));
+
+        }
+
         for (int i = this.listTTSS.size() - 1; i >= 0; i--) {
-            if (this.listTTSS.get(i).getWktTerima().after(set.getTanggalSaldoAwal())) {
+            if (this.listTTSS.get(i).getWktTerima().after(Util.toDate(Util.setting("tgl_saldo_awal")))) {
                 if (this.listTTSS.get(i).getTipe().equals("masuk")) {
                     this.listTTSS.get(i).setSaldo(nilaiSaldo += this.listTTSS.get(i).getNilai());
                 } else {
@@ -187,7 +208,7 @@ public class MenuBalanceVM {
     @NotifyChange({"listGiro"})
     public void downloadXLS() {
 
-        File filenya = new File(Ebean.find(Setting.class).findList().get(0).getFolderPDF() + "balance-reports.xls");
+        File filenya = new File(Util.setting("pdf_path") + "balance-reports.xls");
         try {
             InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/balance.jasper");
             JRDataSource datasource = new JRBeanCollectionDataSource(listTTSS);
@@ -226,7 +247,6 @@ public class MenuBalanceVM {
         }
         filenya.delete();
 
-
     }
 
     @Command
@@ -263,7 +283,7 @@ public class MenuBalanceVM {
         this.filterJenisKas = "";
         this.refresh();
     }
-    
+
     @Command
     public void showCashOpname() {
         refresh();
@@ -273,7 +293,6 @@ public class MenuBalanceVM {
         m.put("saldoSistem", this.listTTSS.get(0).getSaldo());
         Executions.createComponents("AddNewCashOpname.zul", null, m);
     }
-    
 
     public List<TTSS> getListTTSS() {
         return this.listTTSS;
@@ -379,20 +398,36 @@ public class MenuBalanceVM {
         this.saldo = saldo;
     }
 
-    public Setting getSet() {
-        return set;
-    }
-
-    public void setSet(Setting set) {
-        this.set = set;
-    }
-
     public Timestamp getFilterCutoff() {
         return filterCutoff;
     }
 
     public void setFilterCutoff(Timestamp filterCutoff) {
         this.filterCutoff = filterCutoff;
+    }
+
+    public String getSaldoAwal() {
+        return saldoAwal;
+    }
+
+    public void setSaldoAwal(String saldoAwal) {
+        this.saldoAwal = saldoAwal;
+    }
+
+    public Date getTglSaldoAwal() {
+        return tglSaldoAwal;
+    }
+
+    public void setTglSaldoAwal(Date tglSaldoAwal) {
+        this.tglSaldoAwal = tglSaldoAwal;
+    }
+
+    public String getSaldoAwalDropping() {
+        return saldoAwalDropping;
+    }
+
+    public void setSaldoAwalDropping(String saldoAwalDropping) {
+        this.saldoAwalDropping = saldoAwalDropping;
     }
 
 }

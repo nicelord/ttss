@@ -3,18 +3,31 @@
     <style>
         .z-combobox-input{
         text-transform:uppercase;
+        
         }
+     
         
         input[type="checkbox"], input[type="radio"] {
         margin : 10px 10px 10px 10px;
         padding: 5px;
         box-sizing: border-box;
+        
+        
+        }
+        
+        .z-groupbox-content{
+            
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+
         }
     </style>
 
     <hbox align="center" pack="center" spacing="20px">
         <vlayout>
-            <window id="addGiro"  style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;" mode="modal" width="500px" vflex="1" title="DETAIL GIRO BARU" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.DetailGiroVM')" closable="true">
+            <window id="addGiro"  style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;" mode="modal" width="500px" vflex="1" title="DETAIL GIRO" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.DetailGiroVM')" closable="true">
                 <vbox align="center">
                     <grid>
                         <columns>
@@ -70,7 +83,7 @@
                             </row> 
                             <row>
                                 DK/LK
-                                <groupbox id="dklk" width="100%">
+                                <groupbox id="dklk" width="100%" style="width:100%;height: 35px;padding-top: 0px;">
                                     <radiogroup selectedItem="@bind(vm.giro.DKLK)">
                                         <radio label="DK" value="DK"/>
                                         <radio label="LK" value="LK"/>
@@ -79,17 +92,27 @@
                             </row> 
                             <row>
                                 Nama Penerima
-                                <textbox id="penerima" hflex="3" value="@load(vm.userLogin.nama)" sclass="form-control input-primary" readonly="true"/> 
+                                <textbox id="penerima" hflex="3" value="@load(vm.userLogin.nama)" sclass="form-control input-primary" readonly="true" /> 
                             </row> 
                             <row>
                                 Status
-                                <combobox id="status" value="@bind(vm.giro.status)" width="90%" constraint="no empty" readonly="true">
+                                <hlayout>
+                                    <combobox id="status" value="@bind(vm.giro.status)" onChange="@command('cekTolakan')" constraint="no empty" readonly="true" width="150px" style="padding-right:25px">
                                     
-                                    <comboitem label="OK" width="100%"/>
-                                    <comboitem label="LAMPIRAN KURANG" width="100%"/>
-                                    <comboitem label="DITOLAK BANK" width="100%"/>
+                                        <comboitem label="OK" width="100%"/>
+                                        <comboitem label="LAMPIRAN KURANG" width="100%"/>
+                                        <comboitem label="DITOLAK BANK" width="100%"/>
                                   
-                                </combobox>
+                                    </combobox>
+                                    
+                                    
+                                   <hlayout>
+                                        <textbox id="txtCustID" sclass="form-control input-primary" width="80px" placeholder="Cust ID" disabled="true"/>
+                                        <button id="btnCustID" label="SET CUST" sclass="btn-primary" disabled="true"/>
+                                    </hlayout>   
+                                                                   
+                               
+                                </hlayout>
                             </row>
                             <row>
                                 Keterangan

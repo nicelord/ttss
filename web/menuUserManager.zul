@@ -144,7 +144,7 @@
                     
                     <window title="REGISTER PRINTER" apply="org.zkoss.bind.BindComposer"  viewModel="@id('prn') @init('com.enseval.ttss.vm.MenuPrinterSettingVM')">
                         <listbox id="box" 
-                                 mold="paging" width="100%" vflex="true" autopaging="true" 
+                                 mold="paging" width="100%" vflex="true" pageSize="10" 
                                  emptyMessage="Kosong euy!"
                                  model="@load(prn.printers)"
                                  selectedItem="@bind(prn.printer)">  
@@ -198,16 +198,24 @@
                                 </columns>
                                 <rows>
                                     <row>
-                                        SALDO AWAL
+                                        SALDO AWAL TRANSFER
                                         <div class="input-group" hflex="3" width="100%">
                                             <span class="input-group-addon">Rp.</span>
-                                            <intbox id="nilai" class="form-control input-primary" value="@bind(settingVM.setting.saldoAwal)" maxlength="12" format=",###.#" constraint="no empty,no negative" />
+                                            <intbox id="nilaiTransfer" class="form-control input-primary" value="@bind(settingVM.saldoAwal)" maxlength="12" format=",###.#" constraint="no empty,no negative" />
+                                            <span class="input-group-addon">,00</span>
+                                        </div>
+                                    </row>
+                                    <row>
+                                        SALDO AWAL DROPPING
+                                        <div class="input-group" hflex="3" width="100%">
+                                            <span class="input-group-addon">Rp.</span>
+                                            <intbox id="nilaiDropping" class="form-control input-primary" value="@bind(settingVM.saldoAwalDropping)" maxlength="12" format=",###.#" constraint="no empty,no negative" />
                                             <span class="input-group-addon">,00</span>
                                         </div>
                                     </row>
                                     <row>
                                         TANGGAL EFEKTIF
-                                        <datebox id="tglSaldo" cols="12" format="yyyy/MM/dd" value="@bind(settingVM.setting.tanggalSaldoAwal)"/>
+                                        <datebox id="tglSaldo" cols="12" format="yyyy/MM/dd" value="@bind(settingVM.tglSaldoAwal)"/>
 
                                     </row>
                                 </rows>
@@ -222,7 +230,7 @@
                                 <rows>
                                     <row>
                                         Folder PDF
-                                        <textbox id="nomorGiro" hflex="3" value="@bind(settingVM.setting.folderPDF)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                        <textbox id="nomorGiro" hflex="3" value="@bind(settingVM.pdfPath)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
                                     </row>
                                 </rows>
                             </grid>

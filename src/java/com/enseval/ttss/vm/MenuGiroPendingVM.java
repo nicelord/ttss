@@ -220,7 +220,7 @@ public class MenuGiroPendingVM {
     @NotifyChange({"listGiro"})
     public void downloadXLS() {
         
-        File filenya = new File(Ebean.find(Setting.class).findList().get(0).getFolderPDF() + "giro-reports.xls");
+        File filenya = new File(Util.setting("pdf_path") + "giro-reports.xls");
         try {
             InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/giro.jasper");
             JRDataSource datasource = new JRBeanCollectionDataSource(selectedGiro);

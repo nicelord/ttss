@@ -22,27 +22,10 @@ public class Setting implements Serializable {
     @Id
     @GeneratedValue
     Long id;
-    Long saldoAwal = 0L;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    Date tanggalSaldoAwal;
+
     
-    String folderPDF = "D";
-
-    public Long getSaldoAwal() {
-        return saldoAwal;
-    }
-
-    public void setSaldoAwal(Long saldoAwal) {
-        this.saldoAwal = saldoAwal;
-    }
-
-    public Date getTanggalSaldoAwal() {
-        return tanggalSaldoAwal;
-    }
-
-    public void setTanggalSaldoAwal(Date tanggalSaldoAwal) {
-        this.tanggalSaldoAwal = tanggalSaldoAwal;
-    }
+    String namaSetting;
+    String nilaiSetting;
 
     public Long getId() {
         return id;
@@ -52,13 +35,22 @@ public class Setting implements Serializable {
         this.id = id;
     }
 
-    public String getFolderPDF() {
-        return folderPDF;
+    public String getNamaSetting() {
+        return namaSetting;
     }
 
-    public void setFolderPDF(String folderPDF) {
-        this.folderPDF = folderPDF;
+    public void setNamaSetting(String namaSetting) {
+        this.namaSetting = namaSetting;
     }
+
+    public String getNilaiSetting() {
+        return nilaiSetting;
+    }
+
+    public void setNilaiSetting(String nilaiSetting) {
+        this.nilaiSetting = nilaiSetting;
+    }
+
     
     
     
