@@ -27,10 +27,6 @@
                                 <intbox id="nomor" hflex="3" value="@bind(vm.giro.nomor)" sclass="form-control input-primary" maxlength="80" readonly="true" />
                             </row>
                             <row>
-                                Nomor Giro
-                                <textbox id="nomorGiro" hflex="3" value="@bind(vm.giro.nomorGiro)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
-                            </row>
-                            <row>
                                 Nama Bank
                                 <combobox id="banks"  model="@load(vm.listBank)" autodrop="true" buttonVisible="false" value="@bind(vm.giro.bank)" width="100%" constraint="no empty,/^[a-zA-Z ]*$/">
                                     <template name="model">
@@ -42,7 +38,7 @@
                                 Nilai
                                 <div class="input-group" hflex="3" width="100%">
                                     <span class="input-group-addon">Rp.</span>
-                                    <intbox id="nilai" class="form-control input-primary" value="@bind(vm.giro.nilai)" maxlength="20" format=",###.#" constraint="no empty,no negative" />
+                                    <intbox id="nilai" class="form-control input-primary" value="@bind(vm.giro.nilai)" maxlength="10" format=",###.#" constraint="no empty,no negative" />
                                     <span class="input-group-addon">,00</span>
                                 </div>
 
@@ -119,7 +115,6 @@
                                 <div class="btn-group" style="float:right;">
                                     <button onClick="@command('saveNewGiro')" label="SIMPAN">
                                         <attribute name="onClick">
-                                            nomor.getValue();
                                             nomorGiro.getValue();
                                             banks.getValue();
                                             nilai.getValue();

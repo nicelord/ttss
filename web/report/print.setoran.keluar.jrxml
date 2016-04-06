@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="396" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="7dafb8d3-fcf1-47c3-aee8-9b45e3b6027d">
+	<property name="ireport.zoom" value="1.4641000000000026"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="240"/>
+	<parameter name="JUMLAH_UANG" class="java.lang.String"/>
+	<parameter name="TERBILANG" class="java.lang.String"/>
+	<parameter name="KETERANGAN" class="java.lang.String"/>
+	<parameter name="PENYETOR" class="java.lang.String"/>
+	<parameter name="NOMOR" class="java.lang.String"/>
+	<parameter name="TANGGAL" class="java.lang.String"/>
+	<parameter name="PENERIMA" class="java.lang.String"/>
+	<parameter name="CETAK_ULANG" class="java.lang.String"/>
+	<parameter name="JENIS_KAS" class="java.lang.String"/>
+	<parameter name="CABANG" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="392" splitType="Stretch">
+			<line>
+				<reportElement mode="Opaque" x="35" y="68" width="535" height="1" uuid="f96f3636-a2e5-4ca9-9a76-081e3eb6511e"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="115" y="21" width="383" height="17" uuid="5ff0850e-1286-4fb7-bb16-08d0ae9b6224"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="12" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[PT. ENSEVAL PUTERA MEGATRADING]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="38" width="383" height="16" uuid="e2f214fd-f91d-42b7-8d58-4e3f02a36a22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="12" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[TANDA TERIMA SETORAN KELUAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="120" width="95" height="20" uuid="79a3ef3d-4a9b-4014-9b4a-0b5a247ea9da"/>
+				<textElement>
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[JUMLAH UANG   :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="159" width="95" height="17" uuid="76377e54-f951-424e-aca4-1c826003e180"/>
+				<textElement>
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[TERBILANG     :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="217" width="95" height="20" uuid="1bd871bd-f3f8-4354-924a-dd0f6ffe5b3f"/>
+				<textElement>
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[KETERANGAN    :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="489" y="76" width="26" height="20" uuid="e62c0dd5-b36d-4629-87ac-b77ce1c82971"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="9" isBold="false" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="285" width="69" height="26" uuid="e36525db-1b04-45d7-864a-aacf581f5571"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Penyetor,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="120" width="404" height="20" uuid="5fff96bd-a20d-40bf-93c6-82d66c31329d"/>
+				<textElement>
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{JUMLAH_UANG}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="152" y="173" width="407" height="1" uuid="b32220e7-e330-4eb0-8d57-b49947f003db"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="155" y="159" width="404" height="36" uuid="f7da7731-b885-4bdb-91a7-a3a012c05db3"/>
+				<textElement>
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TERBILANG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="335" width="110" height="16" uuid="0ca3b7d9-68d5-4bad-b8a7-0f510ca27ce2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PENYETOR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="484" y="285" width="77" height="26" uuid="c9bef323-b0b3-40de-8515-0f3d9882d9bd"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Mengetahui,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="217" width="404" height="19" uuid="497191e8-1d36-4fb8-8135-0e3ead5b26d7"/>
+				<textElement>
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{KETERANGAN}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="152" y="137" width="407" height="1" uuid="15baa346-a2bc-4b01-936c-61265f4f8d2a"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="392" y="285" width="55" height="26" uuid="b090d0e3-6a6b-44c6-af81-c434e5e95f91"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Penerima,]]></text>
+			</staticText>
+			<line>
+				<reportElement x="152" y="233" width="407" height="1" uuid="31f464cd-e89a-49d6-9d4c-5841d76ded96"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="152" y="195" width="407" height="1" uuid="4f37285d-f424-4c4d-9d63-a8b3eaadc0e2"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="436" y="237" width="100" height="28" uuid="2d2ac686-73fc-44d5-9541-21190902e9cf"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TANGGAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="331" width="150" height="20" uuid="253bf257-6842-47cd-b44c-e86f7995e897"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PENERIMA}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="65" y="350" width="124" height="1" uuid="3ed82c84-1ead-463c-a0b0-010ba4b6728e"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="381" y="351" width="81" height="1" uuid="bf883b31-0d2a-43c2-8101-a68921bb1d41"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="485" y="351" width="81" height="1" uuid="d32b52ef-c087-4169-a951-bce9bab7f6be"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="119" y="76" width="93" height="20" uuid="073d8345-f41e-4098-8d16-317a16dbc655"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="9" isItalic="true" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CETAK_ULANG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="47" y="76" width="72" height="20" uuid="fb17972e-5b43-4d0e-b623-c9a9aab5a9a6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="9" isItalic="true" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Cetakan ke -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="516" y="76" width="54" height="20" uuid="359598e5-723e-42d2-a49b-2a88ba28085c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Monospaced" size="9" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="76" width="246" height="20" uuid="25e6b5a5-f1a2-46dd-bce7-b76ea135f68e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{JENIS_KAS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="425" y="237" width="12" height="28" uuid="e8b87400-ac31-4124-bdc0-40d2746be44d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="237" width="98" height="28" uuid="aac1c345-627a-47af-844b-28c7a76d4546"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CABANG}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

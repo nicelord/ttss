@@ -189,8 +189,9 @@
                 
                 </tabpanel>
                 <tabpanel style="overflow:auto;">
-                    <div apply="org.zkoss.bind.BindComposer"  viewModel="@id('settingVM') @init('com.enseval.ttss.vm.MenuSettingLainVM')">
-                        <window title="SETTING SALDO AWAL">
+                    
+                    <div apply="org.zkoss.bind.BindComposer" viewModel="@id('settingVM') @init('com.enseval.ttss.vm.MenuSettingLainVM')">
+                        <window title="NAMA CABANG">
                             <grid>
                                 <columns>
                                     <column align="right" width="30%"/>
@@ -198,25 +199,40 @@
                                 </columns>
                                 <rows>
                                     <row>
-                                        SALDO AWAL TRANSFER
+                                        Nama Cabang
+                                        <textbox hflex="3" value="@bind(settingVM.cabang)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </window>
+                        <window title="SETTING SALDO AWAL">
+                            <grid>
+                                <columns>
+                                    <column align="right" width="30%"/>
+                                    <column/>
+                                    <column align="right" width="15%"/>
+                                    <column/>
+                                </columns>
+                                <rows>
+                                    <row>
+                                        TRANSFER
                                         <div class="input-group" hflex="3" width="100%">
                                             <span class="input-group-addon">Rp.</span>
-                                            <intbox id="nilaiTransfer" class="form-control input-primary" value="@bind(settingVM.saldoAwal)" maxlength="12" format=",###.#" constraint="no empty,no negative" />
+                                            <intbox id="nilaiTransfer" class="form-control input-primary" value="@bind(settingVM.saldoAwal)" maxlength="12" format=",###.#" constraint="no empty,no negative" readonly="@load(settingVM.saldoAwal eq 0?'false':'true')"/>
                                             <span class="input-group-addon">,00</span>
                                         </div>
-                                    </row>
-                                    <row>
-                                        SALDO AWAL DROPPING
+                                        DROPPING
                                         <div class="input-group" hflex="3" width="100%">
                                             <span class="input-group-addon">Rp.</span>
-                                            <intbox id="nilaiDropping" class="form-control input-primary" value="@bind(settingVM.saldoAwalDropping)" maxlength="12" format=",###.#" constraint="no empty,no negative" />
+                                            <intbox id="nilaiDropping" class="form-control input-primary" value="@bind(settingVM.saldoAwalDropping)" maxlength="12" format=",###.#" constraint="no empty,no negative" readonly="@load(settingVM.saldoAwalDropping eq 0?'false':'true')"/>
                                             <span class="input-group-addon">,00</span>
                                         </div>
                                     </row>
                                     <row>
                                         TANGGAL EFEKTIF
-                                        <datebox id="tglSaldo" cols="12" format="yyyy/MM/dd" value="@bind(settingVM.tglSaldoAwal)"/>
-
+                                        <datebox id="tglSaldo" cols="12" format="yyyy/MM/dd" value="@bind(settingVM.tglSaldoAwal)" readonly="@load(settingVM.saldoAwalDropping eq 0?'false':'true')"/>
+                                        <div></div>
+                                        <div></div>
                                     </row>
                                 </rows>
                             </grid>
@@ -240,38 +256,46 @@
                                 <columns>
                                     <column align="right" width="30%"/>
                                     <column/>
+                                    <column align="right" width="15%"/>
+                                    <column/>
                                 </columns>
                                 <rows>
                                     <row>
-                                        SMTP IP / HOST
-                                        <textbox hflex="3" value="@bind(settingVM.smtpHost)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                        AKTIF
+                                        <combobox readonly="true" value="@bind(settingVM.emailAktif)">
+                                            <comboitem label="YA"/>
+                                            <comboitem label="TIDAK"/>
+                                        </combobox>
+                                        <div></div>
+                                        <div></div>
                                     </row>
                                     <row>
+                                        SMTP IP / HOST
+                                        <textbox hflex="3" value="@bind(settingVM.smtpHost)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
                                         SMTP PORT
                                         <textbox hflex="3" value="@bind(settingVM.smtpPort)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    
                                     </row>
                                     <row>
                                         SMTP USERNAME
                                         <textbox hflex="3" value="@bind(settingVM.smtpUsername)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
-                                    </row>
-                                    <row>
                                         SMTP PASSWORD
                                         <textbox type="password" hflex="3" value="@bind(settingVM.smtpPassword)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                   
                                     </row>
                                     <row>
                                         EMAIL FROM
                                         <textbox hflex="3" value="@bind(settingVM.emailFrom)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
-                                    </row>
-                                    <row>
                                         EMAIL TO
                                         <textbox hflex="3" value="@bind(settingVM.emailTo)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                   
                                     </row>
                                 </rows>
                             </grid>
                         </window>
                         <separator spacing="20px" bar="true"/>
                         <div class="btn-group" style="float:right;">
-                            <button onClick="@command('simpanSetting')" iconSclass="glyphicon glyphicon-floppy-disk" label="SIMPAN PERUBAHAN" >
+                            <button onClick="@command('simpanSetting')" iconSclass="glyphicon glyphicon-floppy-disk" label="SIMPAN" >
                                 
                             </button>
                         </div>

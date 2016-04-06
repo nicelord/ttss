@@ -3,6 +3,7 @@ import org.avaje.agentloader.*;
 import com.avaje.ebean.*;
 import java.util.*;
 import com.enseval.ttss.model.*;
+import com.enseval.ttss.util.Rupiah;
 import com.enseval.ttss.vm.MenuSetoranVM;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,8 +33,8 @@ public class TES {
 
     public static void main(final String[] args) {
         AgentLoader.loadAgentFromClasspath("avaje-ebeanorm-agent", "debug=1");
-        
-        new TES().downloadXLS();
+        System.out.println(Rupiah.convert(2147483647));
+  //      new TES().downloadXLS();
 
 //        Setting set = new Setting();
 //        set.setId(new Long(1));

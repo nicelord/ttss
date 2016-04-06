@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-04-06 01:57:42
+Date: 2016-04-07 01:51:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,21 +21,25 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `cash_opname`;
 CREATE TABLE `cash_opname` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tgl_opname` date DEFAULT NULL,
+  `tgl_opname` datetime DEFAULT NULL,
   `pelaksana` varchar(255) DEFAULT NULL,
   `jenis_kas` varchar(255) DEFAULT NULL,
-  `tgl_cutoff` date DEFAULT NULL,
+  `tgl_cutoff` datetime DEFAULT NULL,
   `saldo_sistem` bigint(20) DEFAULT NULL,
   `saldo_fisik` bigint(20) DEFAULT NULL,
   `selisih` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of cash_opname
 -- ----------------------------
-INSERT INTO `cash_opname` VALUES ('1', '2016-04-04', 'admin', 'SEMUA', '2016-04-04', '24532000', '12121', '-24519879');
-INSERT INTO `cash_opname` VALUES ('2', '2016-04-04', 'admin', 'SEMUA', '2016-04-04', '24532000', '24600000', '68000');
+INSERT INTO `cash_opname` VALUES ('1', '2016-04-04 00:00:00', 'admin', 'SEMUA', '2016-04-04 00:00:00', '24532000', '12121', '-24519879');
+INSERT INTO `cash_opname` VALUES ('2', '2016-04-04 00:00:00', 'admin', 'SEMUA', '2016-04-04 00:00:00', '24532000', '24600000', '68000');
+INSERT INTO `cash_opname` VALUES ('3', '2016-04-07 00:00:00', 'admin', 'SEMUA', '2016-03-29 00:00:00', '48272446', '48272446', '0');
+INSERT INTO `cash_opname` VALUES ('4', '2016-04-07 00:49:01', 'admin', 'KAS TRANSFER', '2016-03-28 00:00:00', '17759723', '13213123', '-4546600');
+INSERT INTO `cash_opname` VALUES ('5', '2016-04-07 00:51:09', 'admin', 'SEMUA', '2016-04-07 00:51:06', '24545915', '34534', '-24511381');
+INSERT INTO `cash_opname` VALUES ('6', '2016-04-07 00:51:35', 'admin', 'SEMUA', '2016-03-28 23:59:00', '22369846', '534534', '-21835312');
 
 -- ----------------------------
 -- Table structure for cetak
@@ -53,11 +57,19 @@ CREATE TABLE `cetak` (
   KEY `ix_cetak_userLogin_2` (`user_login_id`),
   CONSTRAINT `fk_cetak_ttssnya_1` FOREIGN KEY (`ttssnya_nomor`) REFERENCES `ttss` (`nomor`),
   CONSTRAINT `fk_cetak_userLogin_2` FOREIGN KEY (`user_login_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2813 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of cetak
 -- ----------------------------
+INSERT INTO `cetak` VALUES ('1', '160407001', '2', '2016-04-07 00:16:31', 'D:\\output\\160407001\\160407001_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('2', '160407002', '2', '2016-04-07 00:28:10', 'D:\\output\\160407002\\160407002_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('3', '160407003', '2', '2016-04-07 00:35:26', 'D:\\output\\160407003\\160407003_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('4', '160407004', '2', '2016-04-07 00:52:52', 'D:\\output\\160407004\\160407004_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('5', '160407005', '2', '2016-04-07 00:54:29', 'D:\\output\\160407005\\160407005_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('6', '160407006', '2', '2016-04-07 00:59:04', 'D:\\output\\160407006\\160407006_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('7', '160407007', '2', '2016-04-07 01:02:41', 'D:\\output\\160407007\\160407007_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('8', '160407008', '2', '2016-04-07 01:30:00', 'D:\\output\\160407008\\160407008_1.pdf', '1');
 
 -- ----------------------------
 -- Table structure for customer
@@ -104,7 +116,7 @@ CREATE TABLE `ds_penyetor` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ds_penyetor
@@ -313,6 +325,11 @@ INSERT INTO `ds_penyetor` VALUES ('208', 'EKO PUTRA ');
 INSERT INTO `ds_penyetor` VALUES ('209', 'MARIO');
 INSERT INTO `ds_penyetor` VALUES ('210', 'RISTO');
 INSERT INTO `ds_penyetor` VALUES ('211', 'USWATUN');
+INSERT INTO `ds_penyetor` VALUES ('212', 'EWWQ');
+INSERT INTO `ds_penyetor` VALUES ('213', 'WEWQEQW');
+INSERT INTO `ds_penyetor` VALUES ('214', 'DASDSA');
+INSERT INTO `ds_penyetor` VALUES ('215', 'WEREWR');
+INSERT INTO `ds_penyetor` VALUES ('216', 'SDFSD');
 
 -- ----------------------------
 -- Table structure for giro
@@ -370,7 +387,7 @@ CREATE TABLE `printer` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of printer
@@ -387,15 +404,23 @@ CREATE TABLE `setting` (
   `nama_setting` varchar(255) NOT NULL,
   `nilai_setting` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of setting
 -- ----------------------------
 INSERT INTO `setting` VALUES ('1', 'pdf_path', 'D://output/');
-INSERT INTO `setting` VALUES ('2', 'saldo_awal_transfer', '100000');
+INSERT INTO `setting` VALUES ('2', 'saldo_awal_transfer', '123');
 INSERT INTO `setting` VALUES ('3', 'tgl_saldo_awal', '2016-03-01');
-INSERT INTO `setting` VALUES ('4', 'saldo_awal_dropping', '100000');
+INSERT INTO `setting` VALUES ('4', 'saldo_awal_dropping', '123');
+INSERT INTO `setting` VALUES ('5', 'smtp_host', '123.123.123.123');
+INSERT INTO `setting` VALUES ('6', 'smtp_port', '123');
+INSERT INTO `setting` VALUES ('7', 'smtp_username', '123');
+INSERT INTO `setting` VALUES ('8', 'smtp_password', '123');
+INSERT INTO `setting` VALUES ('9', 'email_from', '123');
+INSERT INTO `setting` VALUES ('10', 'email_to', '123');
+INSERT INTO `setting` VALUES ('11', 'email_aktif', 'TIDAK');
+INSERT INTO `setting` VALUES ('12', 'nama_cabang', 'PONTIANAK');
 
 -- ----------------------------
 -- Table structure for ttss
@@ -414,7 +439,7 @@ CREATE TABLE `ttss` (
   PRIMARY KEY (`nomor`),
   KEY `ix_ttss_userLogin_3` (`user_login_id`),
   CONSTRAINT `fk_ttss_userLogin_3` FOREIGN KEY (`user_login_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=160405003 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=160407009 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ttss
@@ -3213,6 +3238,14 @@ INSERT INTO `ttss` VALUES ('160331015', '407600', '8', 'EKO PUTRA ', '2016-03-31
 INSERT INTO `ttss` VALUES ('160331016', '2356100', '8', 'RUDY', '2016-03-31 18:15:31', '116011382', 'KAS TRANSFER', 'EXP', 'masuk');
 INSERT INTO `ttss` VALUES ('160405001', '123', '2', 'TESTING', '2016-04-05 11:12:59', '2', 'KAS TRANSFER', 'KND', 'masuk');
 INSERT INTO `ttss` VALUES ('160405002', '123123', '2', 'TESTING', '2016-04-05 11:14:26', '234234', 'KAS TRANSFER', 'KND', 'keluar');
+INSERT INTO `ttss` VALUES ('160407001', '123', '2', 'ewwq', '2016-04-07 00:16:31', 'sdsd', 'KAS TRANSFER', 'Asd', 'masuk');
+INSERT INTO `ttss` VALUES ('160407002', '23423', '2', 'wewqeqw', '2016-04-07 00:28:10', 'sadasd', 'KAS TRANSFER', 'Erwe', 'masuk');
+INSERT INTO `ttss` VALUES ('160407003', '213123', '2', 'dasdsa', '2016-04-07 00:35:25', 'sad', 'KAS TRANSFER', 'ASdasd', 'masuk');
+INSERT INTO `ttss` VALUES ('160407004', '20', '2', 'TESTING', '2016-04-07 00:52:52', 'weqwe', 'KAS DROPPING', 'KND', 'keluar');
+INSERT INTO `ttss` VALUES ('160407005', '3434', '2', 'TESTING', '2016-04-07 00:54:29', null, 'KAS TRANSFER', 'EXP', 'keluar');
+INSERT INTO `ttss` VALUES ('160407006', '435345', '2', 'werewr', '2016-04-07 00:59:04', 'dasd', 'KAS TRANSFER', 'ASDASd', 'keluar');
+INSERT INTO `ttss` VALUES ('160407007', '30', '2', 'sdfsd', '2016-04-07 01:02:41', null, 'KAS TRANSFER', 'ASDASD', 'masuk');
+INSERT INTO `ttss` VALUES ('160407008', '123', '2', 'WEREWr', '2016-04-07 01:30:00', 'sfdfds', 'KAS TRANSFER', 'ASdsa', 'masuk');
 
 -- ----------------------------
 -- Table structure for user

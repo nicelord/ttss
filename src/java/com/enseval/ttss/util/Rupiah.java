@@ -30,7 +30,7 @@ public class Rupiah
     public static String convert(int numberr) {
         Label_0038: {
             if (numberr >= 0) {
-                if (numberr <= 999999999) {
+                if (numberr <= 2147483647) {
                     break Label_0038;
                 }
             }
@@ -41,6 +41,8 @@ public class Rupiah
                 Logger.getLogger(Rupiah.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        final int Mn = (int)Math.floor(numberr / 1000000000);
+        numberr -= Mn * 1000000000;
         final int Gn = (int)Math.floor(numberr / 1000000);
         numberr -= Gn * 1000000;
         final int Kn = (int)Math.floor(numberr / 1000);
@@ -50,6 +52,9 @@ public class Rupiah
         final int Dn = (int)Math.floor(numberr / 10);
         final int n = numberr % 10;
         final StringBuilder res = new StringBuilder();
+        if (Mn != 0) {
+            res.append(convert(Mn)).append(" Miliar ");
+        }
         if (Gn != 0) {
             res.append(convert(Gn)).append(" Juta ");
         }
@@ -62,6 +67,7 @@ public class Rupiah
         final String[] ones = { "", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas", "Dua Belas", "Tiga Belas", "Empat Belas", "Lima Belas", "Enam Belas", "Tujuh Belas", "Delapan Belas", "Sembilan Belas" };
         final String[] tens = { "", "Sepuluh", "Dua Puluh", "Tiga Puluh", "Empat Puluh", "Lima Puluh", "Enam Puluh", "Tujuh Puluh", "Delapan Puluh", "Sembilan Puluh" };
         final String[] thousands = { "", "Seribu", "Dua Ribu", "Tiga Ribu", "Empat Ribu", "Lima Ribu", "Enam Ribu", "Tujuh Ribu", "Delapan Ribu", "Sembilan Ribu" };
+        final String[] billion = { "", "Sejuta", "Dua Juta", "Tiga Juta", "Empat Juta", "Lima Juta", "Enam Juta", "Tujuh Juta", "Delapan Juta", "Sembilan Juta" };
         if (Dn != 0 || n != 0) {
             if (!res.toString().isEmpty()) {
                 res.append(" ");
@@ -86,6 +92,8 @@ public class Rupiah
                 replace("Seribu", "Satu Ribu", res);
             }
         }
+        
+        
         catch (Exception ex2) {}
         return res.toString();
     }

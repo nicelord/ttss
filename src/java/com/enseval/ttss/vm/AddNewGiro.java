@@ -48,20 +48,21 @@ public class AddNewGiro {
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.giro = new Giro();
-        this.giro.setNomor(Long.parseLong(this.giro.getLastNomor()) + 1L);
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
         this.listTag = Ebean.find((Class) Giro.class).select("tag").setDistinct(true).findList();
         this.listBank = Ebean.find((Class) Giro.class).select("bank").setDistinct(true).findList();
         this.listStatus = Ebean.find((Class) Giro.class).select("status").setDistinct(true).findList();
+        this.giro = new Giro();
         Selectors.wireComponents(view, this, false);
     }
 
     @Command
     public void saveNewGiro() {
+        
+        this.giro.setNomor(Long.parseLong(this.giro.getLastNomor()) + 1L);
         this.giro.setUserLogin(this.userLogin);
         this.giro.setWktTerima(new Timestamp(new Date().getTime()));
-        if(!txtCUstID.getValue().isEmpty()){
+        if (!txtCUstID.getValue().isEmpty()) {
             this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
         }
         Ebean.save(this.giro);
@@ -69,7 +70,7 @@ public class AddNewGiro {
         if (dsp == null) {
             dsp = new DsPenyetor();
             dsp.setNama(this.giro.getNamaPenyetor().toUpperCase());
-            Ebean.save((Object) dsp);
+            Ebean.save(dsp);
         }
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();

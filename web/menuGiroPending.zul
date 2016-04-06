@@ -16,19 +16,17 @@
                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
     <auxhead>
-        <auxheader colspan="10">
-            
-                 <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-file" label="BUAT GIRO BARU" onClick="@command('buatGiroBaru')" 
-                    if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+        <auxheader colspan="5">
+            <hlayout>
+                
+           
+            <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-file" label="CREATE NEW" onClick="@command('buatGiroBaru')" 
+                         if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
         
+        <button vflex="3" hflex="3" sclass="btn-primary btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"/>
         
-         </auxheader>
-        <auxheader colspan="2">
-               <button vflex="3" hflex="3" sclass="btn-primary btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"
-                          />
-         
-        
-       </auxheader>
+         </hlayout>
+        </auxheader>
     </auxhead>
                         
     <listhead sizable="true" visible="true" >
@@ -172,12 +170,12 @@
         <listfooter span="12" valign="middle">
             <div style="float:left;">
                 <!--
-                        <button onClick="@command('hapusSelectedGiro')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
-                                        if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-                                        -->
+<button onClick="@command('hapusSelectedGiro')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
+                if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                -->
                                 
-                        <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL DAN PROSES KLIRING">
-                        </button>
+                <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL DAN PROSES KLIRING">
+                </button>
             </div>
             <div style="float:right;">
                 <label value="TOTAL NILAI "/>

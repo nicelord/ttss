@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="396" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="7dafb8d3-fcf1-47c3-aee8-9b45e3b6027d">
 	<property name="ireport.zoom" value="1.4641000000000026"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="37"/>
+	<property name="ireport.y" value="144"/>
 	<parameter name="JUMLAH_UANG" class="java.lang.String"/>
 	<parameter name="TERBILANG" class="java.lang.String"/>
 	<parameter name="KETERANGAN" class="java.lang.String"/>
@@ -12,6 +12,7 @@
 	<parameter name="PENERIMA" class="java.lang.String"/>
 	<parameter name="CETAK_ULANG" class="java.lang.String"/>
 	<parameter name="JENIS_KAS" class="java.lang.String"/>
+	<parameter name="CABANG" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -100,13 +101,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PENYETOR}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="393" y="237" width="69" height="28" uuid="1f25c301-dd56-41ff-bd10-4a95d6c8c45d"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[PONTIANAK, ]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="484" y="285" width="77" height="26" uuid="c9bef323-b0b3-40de-8515-0f3d9882d9bd"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
@@ -200,12 +194,26 @@
 				<textFieldExpression><![CDATA[$P{NOMOR}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="47" y="96" width="165" height="13" uuid="25e6b5a5-f1a2-46dd-bce7-b76ea135f68e"/>
-				<textElement>
+				<reportElement x="231" y="76" width="243" height="20" uuid="25e6b5a5-f1a2-46dd-bce7-b76ea135f68e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{JENIS_KAS}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="349" y="237" width="98" height="28" uuid="56a4ebd0-cacf-4a72-9d6f-86df0d2c04aa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CABANG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="447" y="237" width="12" height="28" uuid="4595c993-5c92-4c96-8c72-99953c6fb3fa"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[,]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>

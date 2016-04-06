@@ -39,19 +39,18 @@ public class AddNewTTSSKeluar {
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-        Date date = new Date();
-        String tgl = dateFormat.format(date);
-        (this.ttss = new TTSS()).setNomor(Long.parseLong(this.ttss.getLastNomor()) + 1L);
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
         this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
         this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
+        this.ttss = new TTSS();
         Selectors.wireComponents(view, (Object) this, false);
     }
 
     @Command
     public void saveNewTTSS() {
+        
+        this.ttss.setNomor(Long.parseLong(this.ttss.getLastNomor()) + 1L);
         this.ttss.setUserLogin(this.userLogin);
         this.ttss.setTipe("keluar");
         this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
@@ -70,12 +69,12 @@ public class AddNewTTSSKeluar {
     @NotifyChange({"printernya"})
     public void cetak() {
         try {
+            this.saveNewTTSS();
             final Cetak c = new Cetak();
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetak(this.printernya, Util.setting("pdf_path"));
-            this.saveNewTTSS();
+            c.doCetakKeluar(this.printernya, Util.setting("pdf_path"));
             Ebean.save((Object) c);
         } catch (JRException jrex) {
             Messagebox.show(jrex.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");

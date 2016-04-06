@@ -148,9 +148,7 @@ public class MenuBalanceVM {
            boolean isTheDayBefore = dateFormat.parse(Util.toString(filterCutoff)).before(dateFormat.parse(Util.toString(new Date())));
            if(isTheDayBefore){
                SimpleDateFormat changeCutOff = new SimpleDateFormat("yyyy-MM-dd 23:59:00");
-               System.out.println(changeCutOff.format(filterCutoff));
                filterCutoff = Timestamp.valueOf(changeCutOff.format(filterCutoff));
-               System.out.println(filterCutoff);
                
            }
         

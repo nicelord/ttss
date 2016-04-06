@@ -40,16 +40,20 @@ public class AddNewTTSS
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
    
-        (this.ttss = new TTSS()).setNomor(Long.parseLong(this.ttss.getLastNomor()) + 1L);
+        this.ttss = new TTSS();
+        
         this.listPenyetor = (List<DsPenyetor>)Ebean.find((Class)DsPenyetor.class).findList();
         this.printers = (List<Printer>)Ebean.find((Class)Printer.class).findList();
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
         this.listTag = (List<TTSS>)Ebean.find((Class)TTSS.class).select("tag").setDistinct(true).findList();
+        
         Selectors.wireComponents(view, (Object)this, false);
     }
     
     @Command
     public void saveNewTTSS() {
+        
+        this.ttss.setNomor(Long.parseLong(this.ttss.getLastNomor()) + 1L);
         this.ttss.setUserLogin(this.userLogin);
         this.ttss.setTipe("masuk");
         this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
@@ -58,7 +62,7 @@ public class AddNewTTSS
         if (dsp == null) {
             dsp = new DsPenyetor();
             dsp.setNama(this.ttss.getNamaPenyetor().toUpperCase());
-            Ebean.save((Object)dsp);
+            Ebean.save(dsp);
         }
         BindUtils.postGlobalCommand((String)null, (String)null, "refresh", (Map)null);
         this.win.detach();
@@ -68,12 +72,12 @@ public class AddNewTTSS
     @NotifyChange({ "printernya" })
     public void cetak() {
         try {
+            this.saveNewTTSS();
             final Cetak c = new Cetak();
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
             c.doCetak(this.printernya, Util.setting("pdf_path"));
-            this.saveNewTTSS();
             Ebean.save(c);
         }
         catch (JRException jrex) {

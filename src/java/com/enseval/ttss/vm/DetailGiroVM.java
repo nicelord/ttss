@@ -81,8 +81,11 @@ public class DetailGiroVM {
 
             if (this.giro.getTglKliring() != null) {
                 this.giro.setTglKliring(null);
-                MailNotif mailNotif = new MailNotif();
-                mailNotif.emailGiroTolak(this.giro, txtCustName.getValue(), txtCUstID.getValue());
+                if (Util.setting("email_aktif").equals("YA")) {
+                    MailNotif mailNotif = new MailNotif();
+                    mailNotif.emailGiroTolak(this.giro, txtCustName.getValue(), txtCUstID.getValue());
+
+                }
             }
 
         }

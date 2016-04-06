@@ -95,7 +95,7 @@ public class Cetak {
         Date date = new Date();
         String tgl = dateFormat.format(date);
         Map map = new HashMap();
-        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai().intValue()) + " RUPIAH");
+        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai().intValue()) + " Rupiah");
         map.put("JUMLAH_UANG", Rupiah.format(this.ttssnya.getNilai()));
         map.put("KETERANGAN", this.ttssnya.getKeterangan());
         map.put("PENYETOR", this.ttssnya.getNamaPenyetor().toUpperCase());
@@ -104,7 +104,8 @@ public class Cetak {
         map.put("TANGGAL", tgl.toUpperCase());
         map.put("JENIS_KAS", this.ttssnya.getJenisKas().toUpperCase());
         map.put("CETAK_ULANG", Integer.toString(this.ttssnya.itungCetakan() + 1));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/tes.jasper", map, (JRDataSource) new JREmptyDataSource());
+        map.put("CABANG", Util.setting("nama_cabang"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/print.setoran.masuk.jasper", map, (JRDataSource) new JREmptyDataSource());
         jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
         JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, (Object) jasperPrint);
@@ -146,7 +147,7 @@ public class Cetak {
         Date date = new Date();
         String tgl = dateFormat.format(date);
         Map map = new HashMap();
-        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai().intValue()) + " RUPIAH");
+        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai().intValue()) + " Rupiah");
         map.put("JUMLAH_UANG", Rupiah.format(this.ttssnya.getNilai()));
         map.put("KETERANGAN", this.ttssnya.getKeterangan());
         map.put("PENYETOR", this.ttssnya.getNamaPenyetor().toUpperCase());
@@ -155,7 +156,8 @@ public class Cetak {
         map.put("TANGGAL", tgl.toUpperCase());
         map.put("JENIS_KAS", this.ttssnya.getJenisKas().toUpperCase());
         map.put("CETAK_ULANG", Integer.toString(this.ttssnya.itungCetakan() + 1));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/tesKeluar.jasper", map, (JRDataSource) new JREmptyDataSource());
+        map.put("CABANG", Util.setting("nama_cabang"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/print.setoran.keluar.jasper", map, (JRDataSource) new JREmptyDataSource());
         jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
         JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, (Object) jasperPrint);

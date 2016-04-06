@@ -13,10 +13,9 @@
                 <custom-attributes org.zkoss.zul.listbox.rod="true" 
                                    if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
-                <auxhead>
-                    <auxheader colspan="7">
-                        <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-file" label="BUAT SETORAN KELUAR BARU" onClick="@command('buatSetoranBaru')" 
-                                if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                <auxhead if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                    <auxheader colspan="2">
+                        <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-file" label="CREATE NEW" onClick="@command('buatSetoranBaru')" />
                     </auxheader>
                 </auxhead>
                         
