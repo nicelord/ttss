@@ -138,10 +138,28 @@ public class MenuBalanceVM {
     }
 
     @Command
-    @NotifyChange({"listTTSS", "totalNilai"})
+    @NotifyChange("*")
     public void refresh() {
         this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
-
+        
+        //stupid code goes here
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+           boolean isTheDayBefore = dateFormat.parse(Util.toString(filterCutoff)).before(dateFormat.parse(Util.toString(new Date())));
+           if(isTheDayBefore){
+               SimpleDateFormat changeCutOff = new SimpleDateFormat("yyyy-MM-dd 23:59:00");
+               System.out.println(changeCutOff.format(filterCutoff));
+               filterCutoff = Timestamp.valueOf(changeCutOff.format(filterCutoff));
+               System.out.println(filterCutoff);
+               
+           }
+        
+        } catch (ParseException ex) {
+            Messagebox.show(ex.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+            return;
+        }
+        //End stupid 
+        
         if (!this.filterJenisKas.equals("SEMUA")) {
             this.listTTSS = Ebean.find(TTSS.class)
                     .where().eq("jenisKas", filterJenisKas)
@@ -287,6 +305,7 @@ public class MenuBalanceVM {
     @Command
     public void showCashOpname() {
         refresh();
+        
         Map m = new HashMap();
         m.put("jenisKas", filterJenisKas);
         m.put("tglCutoff", filterCutoff);

@@ -48,7 +48,7 @@
                                 Nilai
                                 <div class="input-group" hflex="3" width="100%">
                                     <span class="input-group-addon">Rp.</span>
-                                    <intbox id="nilai" class="form-control input-primary" value="@bind(vm.giro.nilai)" maxlength="12" format=",###.#" constraint="no empty,no negative" />
+                                    <intbox id="nilai" class="form-control input-primary" value="@bind(vm.giro.nilai)" maxlength="20" format=",###.#" constraint="no empty,no negative" />
                                     <span class="input-group-addon">,00</span>
                                 </div>
 

@@ -104,7 +104,7 @@
                                                 </row>
                                                 <row>
                                                     PASSWORD
-                                                    <textbox value="@bind(vm.user.password)" sclass="form-control input-primary"/>
+                                                    <textbox type="password" value="@bind(vm.user.password)" sclass="form-control input-primary"/>
                                                 </row> 
                                                 <row>
                                                     AKSES
@@ -188,7 +188,7 @@
                     </window>
                 
                 </tabpanel>
-                <tabpanel>
+                <tabpanel style="overflow:auto;">
                     <div apply="org.zkoss.bind.BindComposer"  viewModel="@id('settingVM') @init('com.enseval.ttss.vm.MenuSettingLainVM')">
                         <window title="SETTING SALDO AWAL">
                             <grid>
@@ -235,7 +235,41 @@
                                 </rows>
                             </grid>
                         </window>
-                       <separator spacing="20px" bar="true"/>
+                        <window title="SETTING EMAIL">
+                            <grid>
+                                <columns>
+                                    <column align="right" width="30%"/>
+                                    <column/>
+                                </columns>
+                                <rows>
+                                    <row>
+                                        SMTP IP / HOST
+                                        <textbox hflex="3" value="@bind(settingVM.smtpHost)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    </row>
+                                    <row>
+                                        SMTP PORT
+                                        <textbox hflex="3" value="@bind(settingVM.smtpPort)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    </row>
+                                    <row>
+                                        SMTP USERNAME
+                                        <textbox hflex="3" value="@bind(settingVM.smtpUsername)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    </row>
+                                    <row>
+                                        SMTP PASSWORD
+                                        <textbox type="password" hflex="3" value="@bind(settingVM.smtpPassword)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    </row>
+                                    <row>
+                                        EMAIL FROM
+                                        <textbox hflex="3" value="@bind(settingVM.emailFrom)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    </row>
+                                    <row>
+                                        EMAIL TO
+                                        <textbox hflex="3" value="@bind(settingVM.emailTo)" sclass="form-control input-primary" maxlength="80" constraint="no empty"/>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </window>
+                        <separator spacing="20px" bar="true"/>
                         <div class="btn-group" style="float:right;">
                             <button onClick="@command('simpanSetting')" iconSclass="glyphicon glyphicon-floppy-disk" label="SIMPAN PERUBAHAN" >
                                 

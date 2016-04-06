@@ -30,7 +30,7 @@
         <listheader sort="auto(tglJtTempo)" label="TGL JT TEMPO"/>
         <listheader sort="auto(tglKliring)" label="TGL KLIRING"/>
         <listheader sort="auto(status)" label="STATUS" width="130px" />
-        <listheader label="DETAIL | EDIT"/>
+        <listheader label="DETAIL"/>
     </listhead>
                         
     <auxhead>
@@ -145,7 +145,6 @@
                     <button label="ALL" onClick="@command('filterStatus',status='ALL')" sclass="btn-info btn-xs"/>
                     <button label="OK" onClick="@command('filterStatus', status='OK')" sclass="btn-default btn-xs" hflex="3" />
                     <button label="LAMPIRAN KURANG" onClick="@command('filterStatus', status='LAMPIRAN KURANG')" sclass="btn-default btn-xs"/>
-                    <button label="DITOLAK BANK" onClick="@command('filterStatus', status='DITOLAK BANK')" sclass="btn-default btn-xs"/>
                 </div>
             </popup>
         </auxheader>

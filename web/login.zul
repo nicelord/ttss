@@ -23,7 +23,7 @@
         
         <vlayout apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.LoginVM')">
             
-            <window id="loginWin" title="LOGIN CASHMON" border="normal" hflex="min">
+            <window id="loginWin" title="LOGIN CASH MONITORING" border="normal" hflex="min">
                 <vbox hflex="min" align="center">
                     <grid hflex="min">
                         <columns>
@@ -39,14 +39,6 @@
                             <row>
                                 Password :
                                 <textbox id="password" type="password" width="200px" value="@bind(vm.password)" constraint="no empty"/>
-                            </row>
-                            <row>
-                                Akses :
-                                <combobox hflex="3" readonly="true" value="@save(vm.akses)">
-                                    <comboitem label="KASIR"/>
-                                    <comboitem label="SUPERVISOR"/>
-                                    <comboitem label="ADMINISTRATOR"/>
-                                </combobox>
                             </row>
                         </rows>
                     </grid>

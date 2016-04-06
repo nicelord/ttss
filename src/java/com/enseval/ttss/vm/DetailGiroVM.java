@@ -52,7 +52,7 @@ public class DetailGiroVM {
         this.listTag = Ebean.find((Class) Giro.class).select("tag").setDistinct(true).findList();
         this.listBank = Ebean.find((Class) Giro.class).select("bank").setDistinct(true).findList();
         this.listStatus = Ebean.find((Class) Giro.class).select("status").setDistinct(true).findList();
-        
+
         Selectors.wireComponents(view, this, false);
         if (this.giro.getCustID() != null) {
             txtCUstID.setValue(this.giro.getCustID().toString());
@@ -73,14 +73,21 @@ public class DetailGiroVM {
         }
 
         if (cmbStatus.getValue().equals("DITOLAK BANK")) {
+
             if (txtCUstID.getValue().isEmpty()) {
                 Messagebox.show("Customer belum dipilih", "Error", Messagebox.OK, Messagebox.ERROR);
                 return;
             }
-            this.giro.setTglKliring(null);
+
+            if (this.giro.getTglKliring() != null) {
+                this.giro.setTglKliring(null);
+                MailNotif mailNotif = new MailNotif();
+                mailNotif.emailGiroTolak(this.giro, txtCustName.getValue(), txtCUstID.getValue());
+            }
+
         }
 
-        if(!txtCUstID.getValue().isEmpty()){
+        if (!txtCUstID.getValue().isEmpty()) {
             this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
         }
         this.giro.setUserLogin(this.userLogin);

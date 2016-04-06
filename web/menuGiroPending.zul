@@ -43,7 +43,7 @@
         <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
         <listheader sort="auto(tglJtTempo)" label="TGL JT TEMPO"/>
         <listheader sort="auto(status)" label="STATUS" width="130px" />
-        <listheader label="DETAIL | EDIT"/>
+        <listheader label="DETAIL"/>
     </listhead>
                         
     <auxhead>

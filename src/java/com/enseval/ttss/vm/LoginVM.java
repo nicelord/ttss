@@ -11,7 +11,6 @@ public class LoginVM
     String username;
     String password;
     String msg;
-    String akses;
     String browser;
     
     public LoginVM() {
@@ -42,14 +41,6 @@ public class LoginVM
         this.msg = msg;
     }
     
-    public String getAkses() {
-        return this.akses;
-    }
-    
-    public void setAkses(final String akses) {
-        this.akses = akses;
-    }
-    
     public String getBrowser() {
         return this.browser;
     }
@@ -69,9 +60,9 @@ public class LoginVM
     }
     
     @Command
-    @NotifyChange({ "username", "password", "msg", "akses" })
+    @NotifyChange({ "username", "password", "msg" })
     public void doLogin() {
-        if (!this.authService.login(this.username, this.password, this.akses)) {
+        if (!this.authService.login(this.username, this.password)) {
             this.msg = "Username atau password salah.";
             return;
         }

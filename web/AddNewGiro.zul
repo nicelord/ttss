@@ -42,7 +42,7 @@
                                 Nilai
                                 <div class="input-group" hflex="3" width="100%">
                                     <span class="input-group-addon">Rp.</span>
-                                    <intbox id="nilai" class="form-control input-primary" value="@bind(vm.giro.nilai)" maxlength="12" format=",###.#" constraint="no empty,no negative" />
+                                    <intbox id="nilai" class="form-control input-primary" value="@bind(vm.giro.nilai)" maxlength="20" format=",###.#" constraint="no empty,no negative" />
                                     <span class="input-group-addon">,00</span>
                                 </div>
 
@@ -91,11 +91,11 @@
                             <row>
                                 Customer
                                 <hlayout>
-                                    <textbox id="txtCustID" sclass="form-control input-primary" width="90px" placeholder="Cust ID" disabled="true"/>
-                                    <textbox id="txtCustName" sclass="form-control input-primary" hflex="3" placeholder="Nama Customer" disabled="true"/>
-                                    <button id="btnCustID" iconSclass="glyphicon glyphicon-search" sclass="btn-primary"  width="50px"/>
+                                    <textbox id="txtCustID" sclass="form-control input-primary" width="90px" placeholder="Cust ID" readonly="true"/>
+                                    <textbox id="txtCustName" sclass="form-control input-primary" hflex="3" placeholder="Nama Customer" readonly="true"/>
+                                    <button id="btnCustID" iconSclass="glyphicon glyphicon-search" sclass="btn-primary"  width="50px" onClick="@command('showCustomer')"/>
                                 </hlayout>  
-                            </row>
+                            </row> 
                             <row>
                                 Keterangan
                                 <textbox multiline="true" rows="5" hflex="3" value="@bind(vm.giro.keterangan)" sclass="form-control input-primary">

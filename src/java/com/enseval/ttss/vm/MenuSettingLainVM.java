@@ -25,6 +25,13 @@ public class MenuSettingLainVM {
     Date tglSaldoAwal = Util.toDate(Util.setting("tgl_saldo_awal"));
     String pdfPath = Util.setting("pdf_path");
 
+    String smtpHost = Util.setting("smtp_host");
+    String smtpPort = Util.setting("smtp_port");
+    String smtpUsername = Util.setting("smtp_username");
+    String smtpPassword = Util.setting("smtp_password");
+    String emailFrom = Util.setting("email_from");
+    String emailTo = Util.setting("email_to");
+
     @Command
     @NotifyChange("setting")
     public void simpanSetting() {
@@ -43,6 +50,30 @@ public class MenuSettingLainVM {
 
         set = Ebean.find(Setting.class).where().eq("namaSetting", "pdf_path").findUnique();
         set.setNilaiSetting(pdfPath);
+        Ebean.save(set);
+
+        set = Ebean.find(Setting.class).where().eq("namaSetting", "smtp_host").findUnique();
+        set.setNilaiSetting(smtpHost);
+        Ebean.save(set);
+        
+        set = Ebean.find(Setting.class).where().eq("namaSetting", "smtp_port").findUnique();
+        set.setNilaiSetting(smtpPort);
+        Ebean.save(set);
+        
+        set = Ebean.find(Setting.class).where().eq("namaSetting", "smtp_username").findUnique();
+        set.setNilaiSetting(smtpUsername);
+        Ebean.save(set);
+        
+        set = Ebean.find(Setting.class).where().eq("namaSetting", "smtp_password").findUnique();
+        set.setNilaiSetting(smtpPassword);
+        Ebean.save(set);
+        
+        set = Ebean.find(Setting.class).where().eq("namaSetting", "email_from").findUnique();
+        set.setNilaiSetting(emailFrom);
+        Ebean.save(set);
+        
+        set = Ebean.find(Setting.class).where().eq("namaSetting", "email_to").findUnique();
+        set.setNilaiSetting(emailTo);
         Ebean.save(set);
 
         Clients.showNotification("Setting disimpan!");
@@ -78,6 +109,54 @@ public class MenuSettingLainVM {
 
     public void setSaldoAwalDropping(String saldoAwalDropping) {
         this.saldoAwalDropping = saldoAwalDropping;
+    }
+
+    public String getSmtpHost() {
+        return smtpHost;
+    }
+
+    public void setSmtpHost(String smtpHost) {
+        this.smtpHost = smtpHost;
+    }
+
+    public String getSmtpPort() {
+        return smtpPort;
+    }
+
+    public void setSmtpPort(String smtpPort) {
+        this.smtpPort = smtpPort;
+    }
+
+    public String getSmtpUsername() {
+        return smtpUsername;
+    }
+
+    public void setSmtpUsername(String smtpUsername) {
+        this.smtpUsername = smtpUsername;
+    }
+
+    public String getSmtpPassword() {
+        return smtpPassword;
+    }
+
+    public void setSmtpPassword(String smtpPassword) {
+        this.smtpPassword = smtpPassword;
+    }
+
+    public String getEmailFrom() {
+        return emailFrom;
+    }
+
+    public void setEmailFrom(String emailFrom) {
+        this.emailFrom = emailFrom;
+    }
+
+    public String getEmailTo() {
+        return emailTo;
+    }
+
+    public void setEmailTo(String emailTo) {
+        this.emailTo = emailTo;
     }
 
 }

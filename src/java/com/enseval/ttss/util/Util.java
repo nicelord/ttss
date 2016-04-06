@@ -6,18 +6,24 @@
 package com.enseval.ttss.util;
 
 import com.avaje.ebean.Ebean;
+import com.enseval.ttss.model.Giro;
 import com.enseval.ttss.model.Setting;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Authenticator;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 
 /**
  *
  * @author user
  */
 public class Util {
+    
 
     public static Date toDate(String tgl) {
         Date ret = null;
@@ -43,5 +49,7 @@ public class Util {
     public static String setting(String namaSetting) {
         return Ebean.find(Setting.class).where().eq("namaSetting", namaSetting).findUnique().getNilaiSetting();
     }
+
+    
 
 }

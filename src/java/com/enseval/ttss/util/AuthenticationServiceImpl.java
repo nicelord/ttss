@@ -21,15 +21,15 @@ public class AuthenticationServiceImpl implements AuthenticationService, Seriali
     }
     
     @Override
-    public boolean login(String username, String password, String akses) {
-        User userlogin = (User)Ebean.find((Class)User.class).where("username = '" + username + "' and password = '" + password + "' and akses = '" + akses + "'").findUnique();
+    public boolean login(String username, String password) {
+        User userlogin = (User)Ebean.find((Class)User.class).where("username = '" + username + "' and password = '" + password +"'").findUnique();
         if (userlogin == null) {
             return false;
         }
         Session sess = Sessions.getCurrent();
         UserCredential cre = new UserCredential(userlogin.getUsername(), userlogin.getNama(), userlogin);
         cre.setRoles(userlogin.getAkses());
-        sess.setAttribute("userCredential", (Object)cre);
+        sess.setAttribute("userCredential", cre);
         return true;
     }
     

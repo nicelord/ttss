@@ -25,6 +25,11 @@ public class AddNewGiro {
     private Combobox cmbTag;
     @Wire("#banks")
     private Combobox cmbBank;
+    @Wire("#txtCustID")
+    private Textbox txtCUstID;
+    @Wire("#txtCustName")
+    private Textbox txtCustName;
+
     Giro giro;
     List<DsPenyetor> listPenyetor;
     List<String> listTag;
@@ -56,6 +61,9 @@ public class AddNewGiro {
     public void saveNewGiro() {
         this.giro.setUserLogin(this.userLogin);
         this.giro.setWktTerima(new Timestamp(new Date().getTime()));
+        if(!txtCUstID.getValue().isEmpty()){
+            this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
+        }
         Ebean.save(this.giro);
         DsPenyetor dsp = (DsPenyetor) Ebean.find((Class) DsPenyetor.class).where("nama = '" + this.giro.getNamaPenyetor() + "'").findUnique();
         if (dsp == null) {
@@ -67,9 +75,17 @@ public class AddNewGiro {
         this.win.detach();
     }
 
-    
+    @Command
+    public void showCustomer() {
+        Executions.createComponents("customer.zul", null, null);
+    }
 
+    @GlobalCommand
+    public void setCustomer(@BindingParam("customer") Customer customer) {
+        txtCUstID.setValue(customer.getId().toString());
+        txtCustName.setValue(customer.getNama());
 
+    }
 
     public User getUserLogin() {
         return this.userLogin;
@@ -94,9 +110,6 @@ public class AddNewGiro {
     public void setCmb(final Combobox cmb) {
         this.cmb = cmb;
     }
-
- 
-
 
     public Combobox getCmbTag() {
         return this.cmbTag;
@@ -162,5 +175,20 @@ public class AddNewGiro {
         this.listStatus = listStatus;
     }
 
+    public Textbox getTxtCUstID() {
+        return txtCUstID;
+    }
+
+    public void setTxtCUstID(Textbox txtCUstID) {
+        this.txtCUstID = txtCUstID;
+    }
+
+    public Textbox getTxtCustName() {
+        return txtCustName;
+    }
+
+    public void setTxtCustName(Textbox txtCustName) {
+        this.txtCustName = txtCustName;
+    }
 
 }
