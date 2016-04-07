@@ -52,7 +52,7 @@
                         <auxheader>
                             <div class="input-group" hflex="3" width="100%">
                                 <span class="input-group-addon">Rp.</span>
-                                <intbox class="form-control input-primary" value="@bind(vm.opnameBaru.saldoSistem)" maxlength="12" format=",###.#" constraint="no empty,no negative" readonly="true"/>
+                                <longbox class="form-control input-primary" value="@bind(vm.opnameBaru.saldoSistem)" maxlength="12" format=",###.#" constraint="no empty,no negative" readonly="true"/>
                                 <span class="input-group-addon">,00</span>
                             </div>
                                 
@@ -60,7 +60,7 @@
                         <auxheader>
                             <div class="input-group" hflex="3" width="100%">
                                 <span class="input-group-addon">Rp.</span>
-                                <intbox class="form-control input-primary" value="@bind(vm.opnameBaru.saldoFisik)" maxlength="12" format=",###.#" constraint="no empty,no negative"/>
+                                <longbox class="form-control input-primary" value="@bind(vm.opnameBaru.saldoFisik)" maxlength="12" format=",###.#" constraint="no empty,no negative"/>
                                 <span class="input-group-addon">,00</span>
                             </div>
                         </auxheader>

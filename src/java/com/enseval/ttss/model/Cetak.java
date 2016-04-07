@@ -95,7 +95,7 @@ public class Cetak {
         Date date = new Date();
         String tgl = dateFormat.format(date);
         Map map = new HashMap();
-        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai().intValue()) + " Rupiah");
+        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai()) + " Rupiah");
         map.put("JUMLAH_UANG", Rupiah.format(this.ttssnya.getNilai()));
         map.put("KETERANGAN", this.ttssnya.getKeterangan());
         map.put("PENYETOR", this.ttssnya.getNamaPenyetor().toUpperCase());
@@ -147,7 +147,7 @@ public class Cetak {
         Date date = new Date();
         String tgl = dateFormat.format(date);
         Map map = new HashMap();
-        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai().intValue()) + " Rupiah");
+        map.put("TERBILANG", Rupiah.convert(this.ttssnya.getNilai()) + " Rupiah");
         map.put("JUMLAH_UANG", Rupiah.format(this.ttssnya.getNilai()));
         map.put("KETERANGAN", this.ttssnya.getKeterangan());
         map.put("PENYETOR", this.ttssnya.getNamaPenyetor().toUpperCase());

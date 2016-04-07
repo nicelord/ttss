@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-04-07 01:51:46
+Date: 2016-04-07 10:19:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,7 +57,7 @@ CREATE TABLE `cetak` (
   KEY `ix_cetak_userLogin_2` (`user_login_id`),
   CONSTRAINT `fk_cetak_ttssnya_1` FOREIGN KEY (`ttssnya_nomor`) REFERENCES `ttss` (`nomor`),
   CONSTRAINT `fk_cetak_userLogin_2` FOREIGN KEY (`user_login_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of cetak
@@ -70,6 +70,11 @@ INSERT INTO `cetak` VALUES ('5', '160407005', '2', '2016-04-07 00:54:29', 'D:\\o
 INSERT INTO `cetak` VALUES ('6', '160407006', '2', '2016-04-07 00:59:04', 'D:\\output\\160407006\\160407006_1.pdf', '1');
 INSERT INTO `cetak` VALUES ('7', '160407007', '2', '2016-04-07 01:02:41', 'D:\\output\\160407007\\160407007_1.pdf', '1');
 INSERT INTO `cetak` VALUES ('8', '160407008', '2', '2016-04-07 01:30:00', 'D:\\output\\160407008\\160407008_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('9', '160407009', '2', '2016-04-07 08:52:11', 'D:\\output\\160407009\\160407009_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('10', '160407015', '2', '2016-04-07 09:28:32', 'D:\\output\\160407015\\160407015_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('11', '160407017', '2', '2016-04-07 09:33:12', 'D:\\output\\160407017\\160407017_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('12', '160407022', '2', '2016-04-07 10:15:25', 'D:\\output\\160407022\\160407022_1.pdf', '1');
+INSERT INTO `cetak` VALUES ('13', '160407023', '2', '2016-04-07 10:16:22', 'D:\\output\\160407023\\160407023_1.pdf', '1');
 
 -- ----------------------------
 -- Table structure for customer
@@ -116,7 +121,7 @@ CREATE TABLE `ds_penyetor` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ds_penyetor
@@ -330,6 +335,15 @@ INSERT INTO `ds_penyetor` VALUES ('213', 'WEWQEQW');
 INSERT INTO `ds_penyetor` VALUES ('214', 'DASDSA');
 INSERT INTO `ds_penyetor` VALUES ('215', 'WEREWR');
 INSERT INTO `ds_penyetor` VALUES ('216', 'SDFSD');
+INSERT INTO `ds_penyetor` VALUES ('217', 'RWER');
+INSERT INTO `ds_penyetor` VALUES ('218', 'WERWER');
+INSERT INTO `ds_penyetor` VALUES ('219', 'SDFD');
+INSERT INTO `ds_penyetor` VALUES ('220', 'QWE');
+INSERT INTO `ds_penyetor` VALUES ('221', 'ASD');
+INSERT INTO `ds_penyetor` VALUES ('222', 'SF');
+INSERT INTO `ds_penyetor` VALUES ('223', 'ASDASD');
+INSERT INTO `ds_penyetor` VALUES ('224', 'SDAS');
+INSERT INTO `ds_penyetor` VALUES ('225', 'GDRGT');
 
 -- ----------------------------
 -- Table structure for giro
@@ -363,13 +377,13 @@ INSERT INTO `giro` VALUES ('160323001', '22223232', '12345', '2', 'ADADEH', '201
 INSERT INTO `giro` VALUES ('160323002', '1213123', '12345', '2', 'ADADEH', '2016-03-23 15:46:54', '2016-04-06', '2016-03-16', 'KETERANGAN', 'BNI', 'DK', 'LAMPIRAN KURANG', null, 'PANIN', null);
 INSERT INTO `giro` VALUES ('160323003', '0', '12345', '2', 'ADADEH', '2016-03-23 16:22:35', null, '2016-03-02', 'KETERANGAN', 'BNI', 'LK', 'OK', null, 'BNI', '12312');
 INSERT INTO `giro` VALUES ('160324001', '0', '12345', '2', 'ADADEH', '2016-03-24 16:14:45', null, '2016-03-24', 'KETERANGAN', 'BNI', 'LK', 'OK', '1', 'KALBAR', '123123');
-INSERT INTO `giro` VALUES ('160326001', '12312', '123', '2', 'TESTING', '2016-03-26 09:29:52', null, '2016-03-01', null, 'TAG1', 'LK', 'DITOLAK BANK', '0', 'BNI', '54354');
+INSERT INTO `giro` VALUES ('160326001', '12312', '123', '2', 'TESTING', '2016-03-26 09:29:52', null, '2016-03-01', null, 'TAG1', 'LK', 'DITOLAK BANK', '0', 'BNI', '6787');
 INSERT INTO `giro` VALUES ('160326002', 'bg13123', '1234', '2', 'TESTING', '2016-03-26 10:37:52', null, '2016-03-01', null, 'TAG1', 'LK', 'DITOLAK BANK', null, 'PANIN', '4562');
 INSERT INTO `giro` VALUES ('160326003', '123', '1231', '2', 'TESTING', '2016-03-26 10:44:48', '2016-04-05', '2016-03-26', null, 'TAG', 'LK', 'LAMPIRAN KURANG', null, 'PANIN', null);
 INSERT INTO `giro` VALUES ('160326004', '3123', '234', '2', 'TESTING', '2016-03-21 10:52:02', '2016-04-06', '2016-03-26', null, 'TAG2', 'LK', 'DITOLAK BANK', null, 'BNI', null);
 INSERT INTO `giro` VALUES ('160326005', '123', '123', '2', 'TESTING', '2016-03-26 10:52:49', '2016-04-06', '2016-03-13', null, 'TAG2', 'LK', 'DITOLAK BANK', null, 'BNI', null);
 INSERT INTO `giro` VALUES ('160326006', '5345', '234', '2', 'TESTING', '2016-03-20 10:54:27', '2016-04-06', '2016-03-01', null, 'TAG1', 'DK', 'DITOLAK BANK', null, 'BNI', null);
-INSERT INTO `giro` VALUES ('160326007', '123', '232', '2', 'TESTING', '2016-03-26 10:55:41', '2016-04-06', '2016-03-07', null, 'BNI', 'LK', 'DITOLAK BANK', null, 'BNI', null);
+INSERT INTO `giro` VALUES ('160326007', '123', '232', '2', 'TESTING', '2016-03-26 10:55:41', null, '2016-03-07', null, 'BNI', 'LK', 'DITOLAK BANK', null, 'BNI', '132');
 INSERT INTO `giro` VALUES ('160326008', 'werrwer', '123', '2', 'TESTING', '2016-03-26 11:08:48', '2016-04-06', '2016-03-26', null, 'TAG2', 'DK', 'DITOLAK BANK', null, 'PANIN', null);
 INSERT INTO `giro` VALUES ('160326009', 'xcvxcv', '444', '2', 'TESTING', '2016-03-26 11:11:44', null, '2016-03-26', null, 'TAG', 'DK', 'DITOLAK BANK', null, 'PANIN', '132');
 INSERT INTO `giro` VALUES ('160326010', '123123', '12312', '2', 'TESTING', '2016-03-26 11:18:14', '2016-04-06', '2016-03-17', null, 'TAG1', 'LK', 'DITOLAK BANK', null, 'BTN', null);
@@ -439,7 +453,7 @@ CREATE TABLE `ttss` (
   PRIMARY KEY (`nomor`),
   KEY `ix_ttss_userLogin_3` (`user_login_id`),
   CONSTRAINT `fk_ttss_userLogin_3` FOREIGN KEY (`user_login_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=160407009 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=160407024 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ttss
@@ -3246,6 +3260,21 @@ INSERT INTO `ttss` VALUES ('160407005', '3434', '2', 'TESTING', '2016-04-07 00:5
 INSERT INTO `ttss` VALUES ('160407006', '435345', '2', 'werewr', '2016-04-07 00:59:04', 'dasd', 'KAS TRANSFER', 'ASDASd', 'keluar');
 INSERT INTO `ttss` VALUES ('160407007', '30', '2', 'sdfsd', '2016-04-07 01:02:41', null, 'KAS TRANSFER', 'ASDASD', 'masuk');
 INSERT INTO `ttss` VALUES ('160407008', '123', '2', 'WEREWr', '2016-04-07 01:30:00', 'sfdfds', 'KAS TRANSFER', 'ASdsa', 'masuk');
+INSERT INTO `ttss` VALUES ('160407009', '1000000000', '2', 'SDFSD', '2016-04-07 08:52:11', 'asd', 'KAS TRANSFER', 'ASd', 'masuk');
+INSERT INTO `ttss` VALUES ('160407010', '3000000000', '2', 'Rwer', '2016-04-07 08:55:15', 'sdfsdf', 'KAS TRANSFER', 'ASDASd', 'masuk');
+INSERT INTO `ttss` VALUES ('160407011', '3526569874', '2', 'WERwer', '2016-04-07 09:04:23', 'asdfsfd', 'KAS TRANSFER', 'ASDASd', 'masuk');
+INSERT INTO `ttss` VALUES ('160407012', '3000256456', '2', 'SDFd', '2016-04-07 09:05:13', null, 'KAS TRANSFER', 'sdf', 'masuk');
+INSERT INTO `ttss` VALUES ('160407013', '4522123123', '2', 'qwe', '2016-04-07 09:07:55', 'sd', 'KAS TRANSFER', 'ASd', 'masuk');
+INSERT INTO `ttss` VALUES ('160407014', '20326235587', '2', 'TESTING', '2016-04-07 09:27:21', null, 'KAS TRANSFER', 'ASD', 'keluar');
+INSERT INTO `ttss` VALUES ('160407015', '30222333666', '2', 'ERICKSON CHB', '2016-04-07 09:28:32', null, 'KAS TRANSFER', 'df', 'masuk');
+INSERT INTO `ttss` VALUES ('160407016', '50000225689', '2', 'asd', '2016-04-07 09:30:15', 'sd', null, 'Ad', 'keluar');
+INSERT INTO `ttss` VALUES ('160407017', '10000000000', '2', 'Sf', '2016-04-07 09:33:12', 'sdfs', 'KAS TRANSFER', 'asd', 'keluar');
+INSERT INTO `ttss` VALUES ('160407018', '20000222555', '2', 'SDFSD', '2016-04-07 09:33:35', null, 'KAS TRANSFER', 'ASd', 'keluar');
+INSERT INTO `ttss` VALUES ('160407019', '20000000000', '2', 'ASdasd', '2016-04-07 10:07:40', null, 'KAS TRANSFER', 'ASDASd', 'keluar');
+INSERT INTO `ttss` VALUES ('160407020', '20000000000', '2', 'DASDSA', '2016-04-07 10:11:42', null, 'KAS TRANSFER', 'ASDASD', 'masuk');
+INSERT INTO `ttss` VALUES ('160407021', '20000000000', '2', 'Asd', '2016-04-07 10:13:23', null, 'KAS TRANSFER', 'ASd', 'masuk');
+INSERT INTO `ttss` VALUES ('160407022', '80000000000', '2', 'SDas', '2016-04-07 10:15:25', 'ASD', 'KAS TRANSFER', 'ASDASD', 'masuk');
+INSERT INTO `ttss` VALUES ('160407023', '30000000000', '2', 'GDRGT', '2016-04-07 10:16:22', 'RER', 'KAS DROPPING', 'SDR', 'keluar');
 
 -- ----------------------------
 -- Table structure for user

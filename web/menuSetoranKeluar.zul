@@ -22,7 +22,7 @@
                 <listhead sizable="true" visible="true" >
                     <listheader width="30px" />
                     <listheader sort="auto(nomor)" label="NOMOR"/>
-                    <listheader sort="auto(nilai)" label="NILAI" width="130px" />
+                    <listheader sort="auto(nilai)" label="NILAI" width="140px" />
                     <listheader sort="auto(namaPenyetor)" label="PENERIMA"/>
                     <listheader sort="tag" label="TAG"/>
                     <listheader sort="auto(jenisKas)" label="JENIS KAS"/>

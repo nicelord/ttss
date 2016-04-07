@@ -75,7 +75,7 @@ public class AddNewTTSSKeluar {
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
             c.doCetakKeluar(this.printernya, Util.setting("pdf_path"));
-            Ebean.save((Object) c);
+            Ebean.save(c);
         } catch (JRException jrex) {
             Messagebox.show(jrex.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");
         } catch (ArrayIndexOutOfBoundsException | PrinterException arrex) {

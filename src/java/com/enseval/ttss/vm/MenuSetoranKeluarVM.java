@@ -79,8 +79,8 @@ public class MenuSetoranKeluarVM {
     }
 
     @Command
-    public String terbilang(final long nilai) {
-        return Rupiah.convert((int) nilai).toUpperCase() + " RUPIAH";
+    public String terbilang(long nilai) {
+        return Rupiah.convert(nilai).toUpperCase() + " RUPIAH";
     }
 
     @Command
