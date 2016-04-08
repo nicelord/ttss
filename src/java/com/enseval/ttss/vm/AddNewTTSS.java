@@ -71,8 +71,8 @@ public class AddNewTTSS
     @Command
     @NotifyChange({ "printernya" })
     public void cetak() {
+        this.saveNewTTSS();
         try {
-            this.saveNewTTSS();
             final Cetak c = new Cetak();
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
