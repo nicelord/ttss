@@ -41,7 +41,7 @@ public class AddNewTTSS
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
    
         this.ttss = new TTSS();
-        
+        this.ttss.setJenisKas("KAS TRANSFER");
         this.listPenyetor = (List<DsPenyetor>)Ebean.find((Class)DsPenyetor.class).findList();
         this.printers = (List<Printer>)Ebean.find((Class)Printer.class).findList();
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();

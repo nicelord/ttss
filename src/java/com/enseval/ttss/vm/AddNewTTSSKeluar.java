@@ -44,6 +44,7 @@ public class AddNewTTSSKeluar {
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
         this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
         this.ttss = new TTSS();
+        this.ttss.setJenisKas("KAS TRANSFER");
         Selectors.wireComponents(view, (Object) this, false);
     }
 

@@ -100,9 +100,7 @@
                 <listfoot>
                     <listfooter span="6" valign="middle">
                         <div style="float:left;">
-                            <button onClick="@command('hapusSelectedTTSS')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-trash" label="HAPUS TERPILIH" 
-                                    if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-                                
+                            
                             <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL" 
                                     if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
                             </button>
