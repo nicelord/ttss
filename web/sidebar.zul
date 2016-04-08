@@ -26,10 +26,17 @@
                         </listitem>
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
                                   onClick="@command('changePage', page='menuBalance.zul')" 
-                        if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}">
+                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BALANCE"/>
                         </listitem>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  onClick="@command('changePage', page='menuCashOpname.zul')" 
+                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="CASH OPNAME"/>
+                        </listitem>
+                        
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
                                   onClick="@command('changePage', page='menuGiroPending.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
