@@ -44,7 +44,7 @@
                     </grid>
                     <label id="message" style="color:red" value="@bind(vm.msg)" />
                     
-                    <button id="login" label="Login" onClick="@command('doLogin')" hflex="3" >
+                    <button id="login" label="Login" onClick="@command('doLogin')" hflex="3" sclass="btn-success" iconSclass="glyphicon glyphicon-log-in" >
                         <attribute name="onClick">
                             username.getValue();
                             password.getValue();

@@ -5,7 +5,11 @@
 <zk>
     <div self="@define(content)" apply="org.zkoss.bind.BindComposer" viewModel="@id('e') @init('com.enseval.ttss.vm.ContentVM')">
      
-        <include id="mainInclude" mode="defer" src="@load(e.thePage)" progressing="@load(e.thePage eq '/menuSetoran.zul' ? 'true' : 'false')" />
+        <include id="mainInclude" mode="defer" src="@load(e.thePage)" progressing="@load(e.thePage eq '/menuSetoran.zul' ? 'true' : 'false')" 
+                 if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"/>
+        
+        <include id="mainInclude" mode="defer" src="/menuInputCashOpname.zul" progressing="true" 
+                         if="${sessionScope.userCredential.getRoles()=='OPERATOR'}"/>
     
     </div>
 </zk>

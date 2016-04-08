@@ -108,7 +108,7 @@ public class Cetak {
         JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/print.setoran.masuk.jasper", map, (JRDataSource) new JREmptyDataSource());
         jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
         JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, (Object) jasperPrint);
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         System.out.println(printService[0].getAttributes());
         exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, (Object) printService[0].getAttributes());
         exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, (Object) Boolean.FALSE);

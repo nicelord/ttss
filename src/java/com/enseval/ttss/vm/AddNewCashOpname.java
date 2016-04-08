@@ -18,6 +18,7 @@ public class AddNewCashOpname {
 
     List<CashOpname> listOpname = new ArrayList<>();
     CashOpname opnameBaru = null;
+    
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view,

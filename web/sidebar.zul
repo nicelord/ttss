@@ -15,11 +15,14 @@
                             <listheader label=""/>
                         </listhead>
                         <listitem id="defaultMenu" style="border-bottom: 1px dotted #cfcfcf;" 
+                              if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                           
                                   onClick="@command('changePage', page='menuSetoran.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN MASUK"/>
                         </listitem>	
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                        if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                                   onClick="@command('changePage', page='menuSetoranKeluar.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN KELUAR"/>
@@ -36,14 +39,24 @@
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="CASH OPNAME"/>
                         </listitem>
-                        
+                        <!--
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  onClick="@command('changePage', page='menuInputCashOpname.zul')" 
+                                  if="${sessionScope.userCredential.getRoles()=='OPERATOR'}">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="CASH OPNAME"/>
+                        </listitem>
+                        -->
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                        if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                                   onClick="@command('changePage', page='menuGiroPending.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BON GIRO"/>
                         </listitem>
-                        <listitem style="border-bottom: 1px dotted #cfcfcf;" onClick="@command('changePage', page='menuUserSetting.zul')">
-                            <listcell iconSclass="glyphicon glyphicon-user"/>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                  onClick="@command('changePage', page='menuUserSetting.zul')">
+                            <listcell iconSclass="glyphicon glyphicon-user" />
                             <listcell label="PENGATURAN PROFIL"/>
                         </listitem>
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" onClick="@command('changePage', page='menuUserManager.zul')"

@@ -47,6 +47,14 @@ public class MenuUserManagerVM
     @NotifyChange({ "user", "newUser", "users", "printernya" })
     public void simpan() {
         if (this.newUser) {
+            if(user.getNama().isEmpty()|user.getNama()==null | 
+                    user.getUsername().isEmpty()|user.getUsername()==null | 
+                    user.getPassword().isEmpty()|user.getPassword()==null | 
+                    user.getAkses().isEmpty()|user.getAkses()==null | 
+                    user.getDefPrinter().getNamaPrinter().isEmpty()|user.getDefPrinter().getNamaPrinter()==null){
+                Messagebox.show("Data tidak lengkap", "ERROR", Messagebox.OK, Messagebox.ERROR);
+                return;
+            }
             this.user.setNama(this.user.getNama());
             this.user.setUsername(this.user.getUsername());
             this.user.setPassword(this.user.getPassword());

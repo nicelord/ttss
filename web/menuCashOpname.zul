@@ -12,22 +12,18 @@
         }
     </style>
 
-    <hbox align="center" pack="center" spacing="20px">
-        <vlayout>
+    <borderlayout>
+        <center>
             <window id="opname"  
                     style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;"
-                    vflex="1" 
-                    position="center,top"
+                    vflex="3"
                     title="DETAIL CASH OPNAME" 
                     apply="org.zkoss.bind.BindComposer" 
                     viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuCashOpname')">
                 <listbox id="box" 
-                         mold="paging"
-                         pageSize="13"
-                         width="100%" vflex="3"  
+                         mold="paging" width="100%" vflex="true" autopaging="true" 
                          emptyMessage="Kosong euy!"
-                         model="@load(vm.listOpname)"
-                >  
+                         model="@load(vm.listOpname)">  
                             
                     <auxhead>
                         <auxheader colspan="7">
@@ -47,7 +43,7 @@
                         <listheader label="ID" width="35px"/>
                         <listheader label="WAKTU OPNAME"/>
                         <listheader label="USER" />
-                        <listheader label="WAKTU CUTOFF" />
+                        <listheader label="CUTOFF DATE" />
                         <listheader label="SALDO SISTEM" />
                         <listheader label="SALDO FISIK" />
                         <listheader label="SELISIH"/>
@@ -55,9 +51,9 @@
                     <template name="model" var="s">
                         <listitem>
                             <listcell label="@load(s.id)"/>
-                            <listcell label="@load(s.tglOpname) @converter('formatedDate', format='dd/MM/yyyy HH:mm')"/>
+                            <listcell label="@load(s.tglOpname) @converter('formatedDate', format='dd/MMMM/yyyy HH:mm')"/>
                             <listcell label="@load(s.pelaksana)"/>
-                            <listcell label="@load(s.tglCutoff) @converter('formatedDate', format='dd/MM/yyyy HH:mm')"/>
+                            <listcell label="@load(s.tglCutoff) @converter('formatedDate', format='dd-MMMM-yyyy')"/>
                             <listcell label="@load(vm.format(s.saldoSistem))"/>
                             <listcell label="@load(vm.format(s.saldoFisik))"/>
                             <listcell label="@load(vm.format(s.selisih))"/>
@@ -79,6 +75,6 @@
                             
                 </listbox>
             </window>
-        </vlayout>
-    </hbox>
+        </center>
+    </borderlayout>
 </zk>

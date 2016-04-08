@@ -176,7 +176,7 @@
                 if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
                 -->
                                 
-                <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL DAN PROSES KLIRING">
+                <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-download-alt" label="DOWNLOAD EXCEL DAN PROSES KLIRING">
                 </button>
             </div>
             <div style="float:right;">

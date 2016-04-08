@@ -24,13 +24,18 @@ import java.util.logging.Logger;
 import javax.activation.MimetypesFileTypeMap;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import org.zkoss.bind.annotation.*;
 
 public class MenuCashOpname {
@@ -46,20 +51,19 @@ public class MenuCashOpname {
         opnameBaru = new CashOpname();
         opnameBaru.setTglOpname(new Timestamp(new Date().getTime()));
         opnameBaru.setPelaksana(Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId()).getNama());
- 
 
         Selectors.wireComponents(view, this, false);
     }
-    
+
     @Command
     @NotifyChange("listOpname")
-    public void doFilter(){
-        if(filterJenis.equals("-")){
+    public void doFilter() {
+        if (filterJenis.equals("-")) {
             listOpname = Ebean.find(CashOpname.class).orderBy("id desc").findList();
-        }else{
+        } else {
             listOpname = Ebean.find(CashOpname.class).where().eq("jenisKas", filterJenis).orderBy("id desc").findList();
         }
-        
+
     }
 
     @Command
@@ -90,7 +94,7 @@ public class MenuCashOpname {
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         return kursIndonesia.format(nilai);
     }
-    
+
     @Command
     @NotifyChange({"listOpname"})
     public void downloadXLS() {
@@ -116,6 +120,60 @@ public class MenuCashOpname {
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, (Object) Boolean.TRUE);
             exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, (Object) Boolean.TRUE);
             exporterXLS.exportReport();
+            streamReport.close();
+            outputStream.close();
+        } catch (JRException | FileNotFoundException ex4) {
+            Logger.getLogger(MenuSetoranKeluarVM.class.getName()).log(Level.SEVERE, null, ex4);
+        } catch (IOException ex2) {
+            Logger.getLogger(MenuSetoranKeluarVM.class.getName()).log(Level.SEVERE, null, ex2);
+        }
+        FileInputStream inputStream = null;
+        try {
+            if (filenya.exists()) {
+                inputStream = new FileInputStream(filenya);
+                Filedownload.save((InputStream) inputStream, new MimetypesFileTypeMap().getContentType(filenya), filenya.getName());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        filenya.delete();
+    }
+
+    @Command
+    @NotifyChange({"listOpname"})
+    public void downloadPDF() {
+
+        File filenya = new File(Util.setting("pdf_path") + "opname-reports.pdf");
+        try {
+            InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/opname.pdf.jasper");
+            JRDataSource datasource = new JRBeanCollectionDataSource(listOpname);
+            JRDataSource beanColDataSource = new JRBeanCollectionDataSource(listOpname);
+            Map map = new HashMap();
+            map.put("REPORT_DATA_SOURCE", datasource);
+            map.put("OPNAME", beanColDataSource);
+            map.put("JENIS", filterJenis);
+            final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
+            final OutputStream outputStream = new FileOutputStream(filenya);
+    //        final JRXlsExporter exporterXLS = new JRXlsExporter();
+     //       JRPdfExporter exporterPDF = new JRPdfExporter();
+    //        exporterPDF.setParameter(JRExporterParameter.JASPER_PRINT, report);
+    //        exporterPDF.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+//            exporterPDF.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
+//            exporterPDF.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+//            exporterPDF.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+//            exporterPDF.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+//            exporterPDF.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+//            exporterPDF.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, Boolean.TRUE);
+
+            JRExporter exporter = new JRPdfExporter();
+            exporter.setExporterInput(new SimpleExporterInput(report));
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+            SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+            configuration.setMetadataAuthor("Reza Elborneo");  //why not set some config as we like
+            exporter.setConfiguration(configuration);
+            exporter.exportReport();
+
+      //      exporterPDF.exportReport();
             streamReport.close();
             outputStream.close();
         } catch (JRException | FileNotFoundException ex4) {

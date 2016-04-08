@@ -96,20 +96,21 @@
                                     
                                                 <row>
                                                     NAMA
-                                                    <textbox value="@bind(vm.user.nama)" sclass="form-control input-primary"/>
+                                                    <textbox id="nama" value="@bind(vm.user.nama)" sclass="form-control input-primary" constraint="no empty"/>
                                                 </row>
                                                 <row>
                                                     USERNAME
-                                                    <textbox value="@bind(vm.user.username)" sclass="form-control input-primary"/>
+                                                    <textbox id="username" value="@bind(vm.user.username)" sclass="form-control input-primary" constraint="no empty"/>
                                                 </row>
                                                 <row>
                                                     PASSWORD
-                                                    <textbox type="password" value="@bind(vm.user.password)" sclass="form-control input-primary"/>
+                                                    <textbox id="password" type="password" value="@bind(vm.user.password)" sclass="form-control input-primary" constraint="no empty"/>
                                                 </row> 
                                                 <row>
                                                     AKSES
-                                                    <combobox hflex="3" value="@bind(vm.user.akses)" readonly="true">
+                                                    <combobox id="akses" hflex="3" value="@bind(vm.user.akses)" readonly="true" constraint="no empty">
                                                         <comboitem label="KASIR"/>
+                                                        <comboitem label="OPERATOR"/>
                                                         <comboitem label="SUPERVISOR"/>
                                                         <comboitem label="ADMINISTRATOR"/>
                                                     </combobox>
@@ -128,7 +129,18 @@
                                                 <footer span="2">
                                                     <hlayout>
                                                         <button onClick="@command('simpan')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-floppy-disk" label="SIMPAN" 
-                                                                if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                                                                if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                                                            <attribute name="onClick">
+                                                                <!-- inputDate.setValue(new Date()); -->
+                                                                nama.getValue();
+                                                                username.getValue();
+                                                                password.getValue();
+                                                                akses.getValue();
+                                                                printer.getValue();
+                                                                
+                                                            </attribute>
+                                                        
+                                                        </button>
                                                     </hlayout>
                                                 </footer>
                                             </foot>

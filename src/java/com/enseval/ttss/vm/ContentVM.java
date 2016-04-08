@@ -1,5 +1,8 @@
 package com.enseval.ttss.vm;
 
+import com.avaje.ebean.Ebean;
+import com.enseval.ttss.model.User;
+import com.enseval.ttss.util.AuthenticationServiceImpl;
 import org.zkoss.zk.ui.*;
 import org.zkoss.zk.ui.select.*;
 import org.zkoss.bind.annotation.*;
@@ -15,7 +18,9 @@ public class ContentVM
     @AfterCompose
     @NotifyChange({ "thePage" })
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
+        
         Selectors.wireComponents(view, (Object)this, false);
+        
     }
     
     @GlobalCommand
