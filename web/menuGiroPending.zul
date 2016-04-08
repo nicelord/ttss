@@ -27,6 +27,8 @@
         
          </hlayout>
         </auxheader>
+            <auxheader colspan="7">
+                   </auxheader>
     </auxhead>
                         
     <listhead sizable="true" visible="true" >
