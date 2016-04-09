@@ -54,47 +54,51 @@ public class DetailGiroVM {
         this.listStatus = Ebean.find((Class) Giro.class).select("status").setDistinct(true).findList();
 
         Selectors.wireComponents(view, this, false);
-        if (this.giro.getCustID() != null) {
+
+        try {
             txtCUstID.setValue(this.giro.getCustID().toString());
             txtCustName.setValue(Ebean.find(Customer.class, this.giro.getCustID()).getNama());
+        } catch (Exception exception) {
         }
+
+    }
+
+    @Command
+    public void prosesKliring() {
+        this.giro.setTglKliring(new Date());
+        this.giro.setProsesKliring("DONE");
+        UpdateGiro();
+    }
+
+    @Command
+    public void giroDitolak() {
+        if (Util.setting("email_aktif").equals("YA")) {
+            if (txtCUstID.getValue().isEmpty()) {
+                Messagebox.show("Data customer wajib diisi untuk giro tolak", "Error", Messagebox.OK, Messagebox.ERROR);
+                return;
+            }
+
+            MailNotif mailNotif = new MailNotif();
+            mailNotif.emailGiroTolak(this.giro, txtCustName.getValue(), txtCUstID.getValue());
+
+        }
+
+        this.giro.setProsesKliring("DITOLAK");
+        UpdateGiro();
+
+    }
+
+    @Command
+    public void giroBatal() {
+        this.giro.setProsesKliring("BATAL");
+        UpdateGiro();
     }
 
     @Command
     public void UpdateGiro() {
-
-        if (chkKliring.isChecked()) {
-
-            if (this.giro.getTglKliring() == null) {
-                this.giro.setTglKliring(new Date());
-            }
-        } else {
-            this.giro.setTglKliring(null);
-        }
-
-        if (cmbStatus.getValue().equals("DITOLAK BANK")) {
-
-            if (txtCUstID.getValue().isEmpty()) {
-                Messagebox.show("Customer belum dipilih", "Error", Messagebox.OK, Messagebox.ERROR);
-                return;
-            }
-
-            if (this.giro.getTglKliring() != null) {
-                this.giro.setTglKliring(null);
-                if (Util.setting("email_aktif").equals("YA")) {
-                    MailNotif mailNotif = new MailNotif();
-                    mailNotif.emailGiroTolak(this.giro, txtCustName.getValue(), txtCUstID.getValue());
-
-                }
-            }
-
-        }
-
         if (!txtCUstID.getValue().isEmpty()) {
             this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
         }
-        this.giro.setUserLogin(this.userLogin);
-        //this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
         Ebean.save(this.giro);
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();

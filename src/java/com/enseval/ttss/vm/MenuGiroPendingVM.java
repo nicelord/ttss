@@ -68,7 +68,7 @@ public class MenuGiroPendingVM {
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
 
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listGiro = Ebean.find(Giro.class).where().eq("tglKliring", null).setMaxRows(50).orderBy("nomor desc").findList();
+        this.listGiro = Ebean.find(Giro.class).where().eq("prosesKliring", "PENDING").setMaxRows(50).orderBy("nomor desc").findList();
 
         Long nilai = 0L;
         for (Giro giro1 : this.listGiro) {
@@ -116,7 +116,7 @@ public class MenuGiroPendingVM {
     @NotifyChange({"listGiro", "totalNilai"})
     public void refresh() {
         this.listGiro = Ebean.find(Giro.class)
-                .where().eq("tglKliring", null)
+                .where().eq("prosesKliring", "PENDING")
                 .where().like("nomor", "%" + this.filterNomor + "%")
                 .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                 .where().like("bank", "%" + this.filterBank + "%")
@@ -129,7 +129,7 @@ public class MenuGiroPendingVM {
 
         if (this.tsAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("tglKliring", null)
+                    .where().eq("prosesKliring", "PENDING")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
@@ -144,7 +144,7 @@ public class MenuGiroPendingVM {
 
         if (this.tglJtTempoAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("tglKliring", null)
+                    .where().eq("prosesKliring", "PENDING")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
@@ -161,7 +161,7 @@ public class MenuGiroPendingVM {
         if (this.tsAwal != null && this.tglJtTempoAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("tglKliring", null)
+                    .where().eq("prosesKliring", "PENDING")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
@@ -261,7 +261,7 @@ public class MenuGiroPendingVM {
 
         for (Giro giroSelected : selectedGiro) {
 
-            giroSelected.setTglKliring(new Date());
+            giroSelected.setProsesKliring("DONE");
             Ebean.save(giroSelected);
             refresh();
 

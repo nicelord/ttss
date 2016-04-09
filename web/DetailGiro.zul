@@ -90,14 +90,17 @@
                                     
                                     <comboitem label="OK" width="100%"/>
                                     <comboitem label="LAMPIRAN KURANG" width="100%"/>
-                                    <comboitem label="DITOLAK BANK" width="100%" visible="@load(not empty vm.giro.tglKliring)" />
                                 </combobox>
                             
                             </row>
                             <row>
                                 Customer
                                 <hlayout>
-                                    <textbox id="txtCustID" sclass="form-control input-primary" width="90px" placeholder="Cust ID" readonly="true"/>
+                                    <textbox id="txtCustID" 
+                                             sclass="form-control input-primary" 
+                                             width="90px" 
+                                             placeholder="Cust ID" 
+                                             readonly="true"/>
                                     <textbox id="txtCustName" sclass="form-control input-primary" hflex="3" placeholder="Nama Customer" readonly="true"/>
                                     <button id="btnCustID" iconSclass="glyphicon glyphicon-search" sclass="btn-primary"  width="50px" onClick="@command('showCustomer')"/>
                                 </hlayout>  
@@ -111,17 +114,30 @@
                         </rows>
                         <foot>
                             <footer span="2" align="left">
-                                <div style="float:left;">
-                                    <checkbox id="chkKliring" label="Proses kliring" checked="@load(not empty vm.giro.tglKliring)"/>
-                                    <space/>
-                                    ( <label id="lblTglKliring" value="@load(vm.giro.tglKliring) @converter('formatedDate', format='yyyy/MM/dd')"/>) 
+                                <div style="float:left;" visible="@load(vm.giro.prosesKliring eq 'PENDING')">
+                                    <button iconSclass="glyphicon glyphicon-forward" sclass="btn-primary" onClick="@command('prosesKliring')">PROSES KLIRING</button>
+                                </div>
+                               
+                                <div class="btn-group" style="float:left;" visible="@load(vm.giro.prosesKliring eq 'DONE')">
+                                    <button onClick="@command('giroDitolak')" 
+                                            sclass="btn-warning"
+                                            iconSclass="glyphicon glyphicon-transfer" label="GIRO DITOLAK"/>
+                                    <button onClick="@command('giroBatal')" 
+                                            sclass="btn-danger"
+                                            iconSclass="glyphicon glyphicon-remove-sign" >GIRO BATAL</button>
                                 </div>
                                 
+                                <div class="btn-group" style="float:left;" visible="@load(vm.giro.prosesKliring eq 'DITOLAK')">
+                                    <button iconSclass="glyphicon glyphicon-forward" sclass="btn-primary" onClick="@command('prosesKliring')">PROSES KLIRING</button>
+                                
+                                    <button onClick="@command('giroBatal')" 
+                                            sclass="btn-danger"
+                                            iconSclass="glyphicon glyphicon-remove-sign" >GIRO BATAL</button>
+                                </div>
                                
                                 <div class="btn-group" style="float:right;">
-                                    <button onClick="@command('UpdateGiro')" label="SIMPAN">
+                                    <button onClick="@command('UpdateGiro')" iconSclass="glyphicon glyphicon-floppy-save" label="SIMPAN">
                                         <attribute name="onClick">
-                                            nomor.getValue();
                                             nomorGiro.getValue();
                                             banks.getValue();
                                             nilai.getValue();
@@ -132,7 +148,7 @@
                                         </attribute>
                                     </button>
                                     
-                                    <button onClick="addGiro.detach()">BATAL</button>
+                                    <button onClick="addGiro.detach()" iconSclass="glyphicon glyphicon-remove" >BATAL</button>
                                 </div>
                             </footer>
                         </foot>

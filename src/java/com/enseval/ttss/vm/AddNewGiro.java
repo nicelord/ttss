@@ -59,6 +59,7 @@ public class AddNewGiro {
     @Command
     public void saveNewGiro() {
         
+        this.giro.setProsesKliring("PENDING");
         this.giro.setNomor(Long.parseLong(this.giro.getLastNomor()) + 1L);
         this.giro.setUserLogin(this.userLogin);
         this.giro.setWktTerima(new Timestamp(new Date().getTime()));

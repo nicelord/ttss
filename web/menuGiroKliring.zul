@@ -16,7 +16,20 @@
                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
    
-                        
+         
+    <auxhead>
+        <auxheader colspan="8" align="center">
+            - GIRO KLIRING -
+        </auxheader>
+        <auxheader colspan="5">
+           <hlayout>
+                <button vflex="3" hflex="3" sclass="btn-primary btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"/>
+                <button vflex="3" hflex="3" sclass="btn-warning btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO TOLAK" onClick="@command('changePage', page='menuGiroTolak.zul')"/>
+                <button vflex="3" hflex="3" sclass="btn-danger btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO BATAL" onClick="@command('changePage', page='menuGiroBatal.zul')"/>
+            </hlayout>
+        </auxheader>
+    </auxhead>
+    
     <listhead sizable="true" visible="true" >
         <listheader width="30px" />
         <listheader sort="auto(nomor)" label="ID" width="80px" />
@@ -27,7 +40,7 @@
         <listheader sort="tag" label="TAG"/>
         <listheader sort="auto(DKLK)" label="DK/LK" width="50px"/>
         <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
-        <listheader sort="auto(tglJtTempo)" label="TGL JT TEMPO"/>
+        <listheader sort="auto(tglJtTempo)" label="JT TEMPO"/>
         <listheader sort="auto(tglKliring)" label="TGL KLIRING"/>
         <listheader sort="auto(status)" label="STATUS" width="130px" />
         <listheader label="DETAIL"/>
@@ -182,12 +195,11 @@
                     
     <listfoot>
         <listfooter span="12" valign="middle">
-          <!--   <div style="float:left;">
-               
-                       
-                        <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-floppy-save" label="DOWNLOAD EXCEL">
-                        </button>
-            </div> -->
+            <div style="float:left;">
+                                
+                <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-download-alt" label="DOWNLOAD EXCEL">
+                </button>
+            </div>
             <div style="float:right;">
                 <label value="TOTAL NILAI "/>
                 <label value="@load(vm.format(vm.totalNilai))"/>

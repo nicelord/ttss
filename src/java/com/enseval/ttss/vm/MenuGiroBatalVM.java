@@ -29,7 +29,7 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.zkoss.bind.BindUtils;
 
-public class MenuGiroKliringVM {
+public class MenuGiroBatalVM {
 
     List<Giro> listGiro;
     Giro giro;
@@ -52,7 +52,7 @@ public class MenuGiroKliringVM {
 
     List<Giro> selectedGiro;
 
-    public MenuGiroKliringVM() {
+    public MenuGiroBatalVM() {
         this.listGiro = new ArrayList<>();
         this.totalNilai = 0L;
         this.filterNomor = "";
@@ -71,7 +71,7 @@ public class MenuGiroKliringVM {
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
 
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listGiro = Ebean.find(Giro.class).where().eq("prosesKliring", "DONE").setMaxRows(50).orderBy("nomor desc").findList();
+        this.listGiro = Ebean.find(Giro.class).where().eq("prosesKliring", "BATAL").setMaxRows(50).orderBy("nomor desc").findList();
 
         Long nilai = 0L;
         for (Giro giro1 : this.listGiro) {
@@ -118,12 +118,12 @@ public class MenuGiroKliringVM {
     @NotifyChange({"listGiro", "totalNilai"})
     public void refresh() {
         this.listGiro = Ebean.find(Giro.class)
-                .where().eq("prosesKliring", "DONE")
+                .where().eq("prosesKliring", "BATAL")
                 .where().like("nomor", "%" + this.filterNomor + "%")
                 .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                 .where().like("bank", "%" + this.filterBank + "%")
                 .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                .where().like("tag", "%" + this.filterTag + "%")
+                .where().like("custID", "%" + this.filterTag + "%")
                 .where().like("DKLK", "%" + this.filterDKLK + "%")
                 .where().like("status", "%" + this.filterStatus + "%")
                 .orderBy("nomor DESC")
@@ -131,12 +131,12 @@ public class MenuGiroKliringVM {
 
         if (this.tsAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("prosesKliring", "DONE")
+                    .where().eq("prosesKliring", "BATAL")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("custID", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
@@ -146,12 +146,12 @@ public class MenuGiroKliringVM {
 
         if (this.tglJtTempoAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("prosesKliring", "DONE")
+                    .where().eq("prosesKliring", "BATAL")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("custID", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
@@ -162,12 +162,12 @@ public class MenuGiroKliringVM {
 
         if (this.tglKliringAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("prosesKliring", "DONE")
+                    .where().eq("prosesKliring", "BATAL")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("custID", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
@@ -178,12 +178,12 @@ public class MenuGiroKliringVM {
         if (this.tsAwal != null && this.tglJtTempoAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("prosesKliring", "DONE")
+                    .where().eq("prosesKliring", "BATAL")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("custID", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
@@ -195,12 +195,12 @@ public class MenuGiroKliringVM {
         if (this.tsAwal != null && this.tglKliringAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("prosesKliring", "DONE")
+                    .where().eq("prosesKliring", "BATAL")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("custID", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
@@ -212,12 +212,12 @@ public class MenuGiroKliringVM {
         if (this.tglJtTempoAwal != null && this.tglKliringAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("prosesKliring", "DONE")
+                    .where().eq("prosesKliring", "BATAL")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("custID", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
@@ -229,12 +229,12 @@ public class MenuGiroKliringVM {
         if (this.tsAwal != null && this.tglJtTempoAwal != null && this.tglKliringAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().eq("prosesKliring", "DONE")
+                    .where().eq("prosesKliring", "BATAL")
                     .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
-                    .where().like("tag", "%" + this.filterTag + "%")
+                    .where().like("custID", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)

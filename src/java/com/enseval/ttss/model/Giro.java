@@ -30,6 +30,7 @@ public class Giro implements Serializable
     String DKLK = "DK";
     String status = "OK";
     Long custID;
+    String prosesKliring = "DONE";
     
     public Long getNomor() {
         return this.nomor;
@@ -166,6 +167,14 @@ public class Giro implements Serializable
 
     public void setCustID(Long custID) {
         this.custID = custID;
+    }
+
+    public String getProsesKliring() {
+        return prosesKliring;
+    }
+
+    public void setProsesKliring(String prosesKliring) {
+        this.prosesKliring = prosesKliring;
     }
     
     

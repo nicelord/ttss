@@ -24,7 +24,7 @@
                         <rows>
                             <row>
                                 Nomor Giro
-                                <intbox id="nomorGiro" hflex="3" value="@bind(vm.giro.nomorGiro)" sclass="form-control input-primary" maxlength="80"/>
+                                <textbox id="nomorGiro" hflex="3" value="@bind(vm.giro.nomorGiro)" sclass="form-control input-primary" maxlength="80"/>
                             </row>
                             <row>
                                 Nama Bank
