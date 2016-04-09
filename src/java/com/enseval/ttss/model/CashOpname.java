@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
  * @author user
  */
 
+
 @Entity
 public class CashOpname implements Serializable {
     
