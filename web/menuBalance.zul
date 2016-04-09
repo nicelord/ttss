@@ -1,5 +1,6 @@
 <?init class="com.enseval.ttss.util.AuthenticationInit"?>
 <zk>
+    
     <style>
         .z-datebox-input,.z-combobox-input,.z-combobox-button,.z-datebox-button{
         height:30px;
@@ -35,9 +36,8 @@
                                 <comboitem label="KAS DROPPING"/>
                             </combobox>
                             Waktu Cutoff : 
-                            <datebox id="filterCutoff" format="yyyy/MM/dd" constraint="no future: now or never" readonly="true" hflex="3" style="height:30px;" value="@bind(vm.filterCutoff)" />
+                            <datebox id="filterCutoff" format="dd/MMMM/yyyy" constraint="no future: now or never" readonly="true" hflex="3" style="height:30px;" value="@bind(vm.filterCutoff)" />
                             <button onClick="@command('refresh')" iconSclass="glyphicon glyphicon-filter" label="FILTER" sclass="btn-info"/>
-                            
                         </auxheader>
                         <auxheader colspan="2">
                            <!-- <button onClick="@command('showCashOpname')" iconSclass="glyphicon glyphicon-usd" label="CASH OPNAME" sclass="btn-success" hflex="true"/>-->

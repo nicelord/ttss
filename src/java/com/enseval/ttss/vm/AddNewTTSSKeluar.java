@@ -41,6 +41,9 @@ public class AddNewTTSSKeluar {
         this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
         this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
+        if (this.userLogin.getDefPrinter() == null) {
+            this.userLogin.setDefPrinter(Ebean.find(Printer.class).findList().get(0));
+        }
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
         this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
         this.ttss = new TTSS();
@@ -50,7 +53,7 @@ public class AddNewTTSSKeluar {
 
     @Command
     public void saveNewTTSS() {
-        
+
         this.ttss.setNomor(Long.parseLong(this.ttss.getLastNomor()) + 1L);
         this.ttss.setUserLogin(this.userLogin);
         this.ttss.setTipe("keluar");

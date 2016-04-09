@@ -15,8 +15,8 @@ import java.awt.print.*;
 import java.sql.Timestamp;
 import org.zkoss.bind.annotation.*;
 
-public class AddNewTTSS
-{
+public class AddNewTTSS {
+
     @Wire("#addTTSS")
     private Window win;
     @Wire("#penyetor")
@@ -28,48 +28,51 @@ public class AddNewTTSS
     List<Printer> printers;
     List<TTSS> listTag;
     User userLogin;
-    String printernya;
-    
+    String printernya = "";
+
     public AddNewTTSS() {
         this.listPenyetor = new ArrayList<>();
         this.printers = new ArrayList<>();
         this.listTag = new ArrayList<>();
     }
-    
+
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-   
+
         this.ttss = new TTSS();
         this.ttss.setJenisKas("KAS TRANSFER");
-        this.listPenyetor = (List<DsPenyetor>)Ebean.find((Class)DsPenyetor.class).findList();
-        this.printers = (List<Printer>)Ebean.find((Class)Printer.class).findList();
+        this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
+        this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
+        if(this.userLogin.getDefPrinter()==null){
+            this.userLogin.setDefPrinter(Ebean.find(Printer.class).findList().get(0));
+        }
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
-        this.listTag = (List<TTSS>)Ebean.find((Class)TTSS.class).select("tag").setDistinct(true).findList();
-        
-        Selectors.wireComponents(view, (Object)this, false);
+        this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
+
+        Selectors.wireComponents(view, (Object) this, false);
     }
-    
+
     @Command
     public void saveNewTTSS() {
-        
+
         this.ttss.setNomor(Long.parseLong(this.ttss.getLastNomor()) + 1L);
         this.ttss.setUserLogin(this.userLogin);
         this.ttss.setTipe("masuk");
         this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
-        Ebean.save((Object)this.ttss);
-        DsPenyetor dsp = (DsPenyetor)Ebean.find((Class)DsPenyetor.class).where("nama = '" + this.ttss.getNamaPenyetor() + "'").findUnique();
+        Ebean.save((Object) this.ttss);
+        DsPenyetor dsp = (DsPenyetor) Ebean.find((Class) DsPenyetor.class).where("nama = '" + this.ttss.getNamaPenyetor() + "'").findUnique();
         if (dsp == null) {
             dsp = new DsPenyetor();
             dsp.setNama(this.ttss.getNamaPenyetor().toUpperCase());
             Ebean.save(dsp);
         }
-        BindUtils.postGlobalCommand((String)null, (String)null, "refresh", (Map)null);
+        BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
     }
-    
+
     @Command
-    @NotifyChange({ "printernya" })
+    @NotifyChange({"printernya"})
     public void cetak() {
         this.saveNewTTSS();
         try {
@@ -79,75 +82,73 @@ public class AddNewTTSS
             c.setWktCetak(new Timestamp(new Date().getTime()));
             c.doCetak(this.printernya, Util.setting("pdf_path"));
             Ebean.save(c);
-        }
-        catch (JRException jrex) {
+        } catch (JRException jrex) {
             Messagebox.show(jrex.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");
-        }
-        catch (ArrayIndexOutOfBoundsException | PrinterException arrex) {
+        } catch (ArrayIndexOutOfBoundsException | PrinterException arrex) {
             Messagebox.show(arrex.getMessage(), "Printer error", 1, "z-messagebox-icon z-messagebox-error");
         }
     }
-    
+
     public TTSS getTtss() {
         return this.ttss;
     }
-    
+
     public void setTtss(final TTSS ttss) {
         this.ttss = ttss;
     }
-    
+
     public User getUserLogin() {
         return this.userLogin;
     }
-    
+
     public void setUserLogin(final User userLogin) {
         this.userLogin = userLogin;
     }
-    
+
     public List<DsPenyetor> getListPenyetor() {
         return this.listPenyetor;
     }
-    
+
     public void setListPenyetor(final List<DsPenyetor> listPenyetor) {
         this.listPenyetor = listPenyetor;
     }
-    
+
     public Combobox getCmb() {
         return this.cmb;
     }
-    
+
     public void setCmb(final Combobox cmb) {
         this.cmb = cmb;
     }
-    
+
     public List<Printer> getPrinters() {
         return this.printers;
     }
-    
+
     public void setPrinters(final List<Printer> printers) {
         this.printers = printers;
     }
-    
+
     public String getPrinternya() {
         return this.printernya;
     }
-    
+
     public void setPrinternya(final String printernya) {
         this.printernya = printernya;
     }
-    
+
     public Combobox getCmbTag() {
         return this.cmbTag;
     }
-    
+
     public void setCmbTag(final Combobox cmbTag) {
         this.cmbTag = cmbTag;
     }
-    
+
     public List<TTSS> getListTag() {
         return this.listTag;
     }
-    
+
     public void setListTag(final List<TTSS> listTag) {
         this.listTag = listTag;
     }
