@@ -8,10 +8,10 @@ import com.avaje.ebean.*;
 import java.sql.Timestamp;
 
 @Entity
-public class Giro implements Serializable {
+public class GiroHistory implements Serializable {
 
-    @Id
-    private Long nomor;
+    @Id @GeneratedValue Long id;
+    Long nomor;
     Long nilai;
     String nomorGiro;
     String bank;
@@ -31,8 +31,10 @@ public class Giro implements Serializable {
     String status = "OK";
     Long custID;
     String prosesKliring = "DONE";
-    @Temporal(TemporalType.TIMESTAMP)
-    Timestamp lastUpdate = new Timestamp(new Date().getTime());
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    Timestamp lastUpdate;
+
+    
 
     public Long getNomor() {
         return this.nomor;
@@ -175,6 +177,14 @@ public class Giro implements Serializable {
         this.prosesKliring = prosesKliring;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Timestamp getLastUpdate() {
         return lastUpdate;
     }
@@ -182,8 +192,6 @@ public class Giro implements Serializable {
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
-
 
 
 }

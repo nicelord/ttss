@@ -58,7 +58,7 @@ public class AddNewGiro {
 
     @Command
     public void saveNewGiro() {
-        
+
         this.giro.setProsesKliring("PENDING");
         this.giro.setNomor(Long.parseLong(this.giro.getLastNomor()) + 1L);
         this.giro.setUserLogin(this.userLogin);
@@ -75,6 +75,26 @@ public class AddNewGiro {
         }
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
+
+//        GiroHistory gh = new GiroHistory();
+//        gh.setLastUpdate(giro.getLastUpdate());
+//        gh.setNomor(giro.getNomor());
+//        gh.setNomorGiro(giro.getNomorGiro());
+//        gh.setBank(giro.getBank());
+//        gh.setUserLogin(giro.getUserLogin());
+//        gh.setCustID(giro.getCustID());
+//        gh.setNilai(giro.getNilai());
+//        gh.setProsesKliring(giro.getProsesKliring());
+//        gh.setNamaPenyetor(giro.getNamaPenyetor());
+//        gh.setDKLK(giro.getDKLK());
+//        gh.setStatus(giro.getStatus());
+//        gh.setTag(giro.getTag());
+//        gh.setTglJtTempo(giro.getTglJtTempo());
+//        gh.setTglKliring(giro.getTglKliring());
+//        gh.setWktTerima(giro.getWktTerima());
+//        gh.setKeterangan(giro.getKeterangan());
+//
+//        Ebean.save(gh);
     }
 
     @Command

@@ -90,6 +90,7 @@
                                         <attribute name="onClick">
                                             nilai.getValue();
                                             penyetor.getValue();
+                                            printer.value();
                                         </attribute>
                                     </button>
                                     <button onClick="addTTSS.detach()">BATAL</button>

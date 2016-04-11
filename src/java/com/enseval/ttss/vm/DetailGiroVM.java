@@ -96,17 +96,50 @@ public class DetailGiroVM {
 
     @Command
     public void UpdateGiro() {
+        saveHistory();
         if (!txtCUstID.getValue().isEmpty()) {
             this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
         }
+        this.giro.setLastUpdate(new Timestamp(new Date().getTime()));
         Ebean.save(this.giro);
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
+
+    }
+
+    public void saveHistory() {
+        Giro g = Ebean.find(Giro.class, this.giro.getNomor());
+        GiroHistory gh = new GiroHistory();
+        gh.setLastUpdate(g.getLastUpdate());
+        gh.setNomor(g.getNomor());
+        gh.setNomorGiro(g.getNomorGiro());
+        gh.setBank(g.getBank());
+        gh.setUserLogin(g.getUserLogin());
+        gh.setCustID(g.getCustID());
+        gh.setNilai(g.getNilai());
+        gh.setProsesKliring(g.getProsesKliring());
+        gh.setNamaPenyetor(g.getNamaPenyetor());
+        gh.setDKLK(g.getDKLK());
+        gh.setStatus(g.getStatus());
+        gh.setTag(g.getTag());
+        gh.setTglJtTempo(g.getTglJtTempo());
+        gh.setTglKliring(g.getTglKliring());
+        gh.setWktTerima(g.getWktTerima());
+        gh.setKeterangan(g.getKeterangan());
+
+        Ebean.save(gh);
     }
 
     @Command
     public void showCustomer() {
         Executions.createComponents("customer.zul", null, null);
+    }
+
+    @Command
+    public void showHistory(@BindingParam("nomor")Long nomor) {
+        Map m = new HashMap();
+        m.put("nomor", nomor);
+        Executions.createComponents("HistoryGiro.zul", null, m);
     }
 
     @GlobalCommand

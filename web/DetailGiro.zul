@@ -30,7 +30,11 @@
                         <rows>
                             <row>
                                 Nomor ID
-                                <intbox id="nomor" hflex="3" value="@bind(vm.giro.nomor)" sclass="form-control input-primary" maxlength="80" readonly="true" />
+                                <hlayout>
+                                    <intbox id="nomor" width="225px" value="@bind(vm.giro.nomor)" sclass="form-control input-primary" maxlength="80" readonly="true" />
+                                    <button id="btnGiroHistory" iconSclass="glyphicon glyphicon-time" sclass="btn-primary"  onClick="@command('showHistory', nomor=vm.giro.nomorGiro)" label="HISTORY"/>
+                                </hlayout>
+                                
                             </row>
                             <row>
                                 Nomor Giro
