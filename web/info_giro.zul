@@ -5,8 +5,6 @@
         <center>
             <listbox id="listGiro" 
                      mold="paging" width="100%" vflex="true" autopaging="true" 
-                     selectedItem="@bind(vm.giro)"
-                     selectedItems="@bind(vm.selectedGiro)"
                      emptyMessage="Kosong euy!"
                      model="@load(vm.listGiro)">     
                                              

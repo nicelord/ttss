@@ -42,7 +42,7 @@
         <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
         <listheader sort="auto(tglJtTempo)" label="JT TEMPO"/>
         <listheader sort="auto(tglKliring)" label="TGL KLIRING"/>
-        <listheader sort="auto(status)" label="STATUS" width="130px" />
+        <listheader sort="auto(status)" label="DOKUMEN" width="130px" />
         <listheader label="DETAIL"/>
     </listhead>
                         

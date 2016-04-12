@@ -25,7 +25,7 @@ public class Giro implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     Date tglJtTempo = new Date();
     @Lob
-    String keterangan;
+    String keterangan = "";
     String tag;
     String DKLK = "DK";
     String status = "OK";

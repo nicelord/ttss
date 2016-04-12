@@ -71,6 +71,9 @@ public class MenuGiroPublicVM {
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
+//        if (!Executions.getCurrent().getBrowser().equals("webkit")) {
+//            Executions.sendRedirect("chromeDownload.zul");
+//        }
 
         this.listGiro = Ebean.find(Giro.class).setMaxRows(50).orderBy("nomor desc").findList();
 

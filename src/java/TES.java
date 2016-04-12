@@ -4,6 +4,7 @@ import com.avaje.ebean.*;
 import java.util.*;
 import com.enseval.ttss.model.*;
 import com.enseval.ttss.util.Rupiah;
+import com.enseval.ttss.util.Util;
 import com.enseval.ttss.vm.MenuSetoranVM;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +15,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.text.*;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
 import javax.activation.MimetypesFileTypeMap;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -32,31 +38,16 @@ import org.zkoss.zul.Filedownload;
 public class TES {
 
     public static void main(final String[] args) {
-        AgentLoader.loadAgentFromClasspath("avaje-ebeanorm-agent", "debug=1");
-        System.out.println(Rupiah.convert(2147483647));
-  //      new TES().downloadXLS();
+        List<String> badGuys = Arrays.asList("Inky", "Blinky", "Pinky", "Pinky", "Clyde");
+Group group = group(badGuys, by(on(String.class).length)));
+System.out.println(group.keySet());
 
-//        Setting set = new Setting();
-//        set.setId(new Long(1));
-//        set.setSaldoAwal(new Long(10000));
-//        set.setTanggalSaldoAwal(new Date());
-//        Ebean.save(set);
-//
-//        User usr = Ebean.find(User.class, 1);
-//
-//        Giro gr1 = new Giro();
-//        gr1.setNomor(Long.parseLong(gr1.getLastNomor()) + 1L);
-//        gr1.setUserLogin(usr);
-//        gr1.setDKLK("LK");
-//        gr1.setStatus("OK");
-//        gr1.setNamaPenyetor("ADADEH");
-//        gr1.setKeterangan("KETERANGAN");
-//        gr1.setNilai(new Long(12345));
-//        gr1.setTag("BNI");
-//        gr1.setWktTerima(new Timestamp(new Date().getTime()));
-//        gr1.setTglKliring(new Date());
-//        gr1.setTglJtTempo(new Date());
-//        Ebean.save(gr1);
+        AgentLoader.loadAgentFromClasspath("avaje-ebeanorm-agent", "debug=1");
+
+        Calendar cal = Calendar.getInstance();
+        List<TTSS> list = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
+
+        list.stream().collect(collector)
     }
 
     public void downloadXLS() {
@@ -87,7 +78,7 @@ public class TES {
         } catch (IOException ex2) {
             Logger.getLogger(MenuSetoranVM.class.getName()).log(Level.SEVERE, null, ex2);
         }
-        
+
     }
 
 }

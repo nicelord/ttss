@@ -47,7 +47,7 @@ public class DetailGiroVM {
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view, @ExecutionArgParam("gironya") Giro gironya) {
 
-        this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+        this.userLogin = new AuthenticationServiceImpl().getUserCredential().getUser();
 
         this.giro = gironya;
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
@@ -98,14 +98,16 @@ public class DetailGiroVM {
 
     @Command
     public void UpdateGiro() {
-        saveHistory();
+        
         if (!txtCUstID.getValue().isEmpty()) {
             this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
         }
         this.giro.setLastUpdate(new Timestamp(new Date().getTime()));
+        this.giro.setUserLogin(userLogin);
         Ebean.save(this.giro);
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
+        saveHistory();
 
     }
 

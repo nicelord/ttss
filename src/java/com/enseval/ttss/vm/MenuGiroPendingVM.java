@@ -106,9 +106,9 @@ public class MenuGiroPendingVM {
         if (this.giro == null) {
             Messagebox.show("Giro belum dipilih!", "ERROR", 1, "z-messagebox-icon z-messagebox-error");
         } else {
-            final Map args = new HashMap();
+            Map args = new HashMap();
             args.put("giro", this.giro);
-            Executions.createComponents("DaftarRevisiGiro.zul", (Component) null, args);
+            Executions.createComponents("DaftarRevisiGiro.zul", null, args);
         }
     }
 

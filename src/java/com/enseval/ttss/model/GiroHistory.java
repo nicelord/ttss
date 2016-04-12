@@ -84,27 +84,6 @@ public class GiroHistory implements Serializable {
         this.keterangan = keterangan;
     }
 
-    public String getLastNomor() {
-        DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-        Date date = new Date();
-        String tgl = dateFormat.format(date);
-        try {
-            String sql = "select max(nomor) from giro where nomor like '" + tgl + "%'";
-            SqlRow sqlRows = Ebean.createSqlQuery(sql).findUnique();
-            String lastNomor = sqlRows.getLong("max(nomor)").toString();
-            return lastNomor;
-        } catch (Exception e) {
-            return tgl + "000";
-        }
-    }
-
-    public int itungCetakan() {
-        String sql = "SELECT COUNT(*) FROM cetak WHERE ttssnya_nomor = '" + this.getNomor() + "';";
-        SqlRow sqlRows = Ebean.createSqlQuery(sql).findUnique();
-        Long jml = sqlRows.getLong("COUNT(*)");
-        return jml.intValue();
-    }
-
     public String getTag() {
         return this.tag;
     }

@@ -17,7 +17,7 @@ import net.sf.jasperreports.engine.*;
 import java.io.*;
 import java.sql.Timestamp;
 
-public class MenuBalanceVM {
+public class MenuBalanceVM1Backup {
 
     List<TTSS> listTTSS;
     TTSS ttss;
@@ -38,7 +38,7 @@ public class MenuBalanceVM {
     String saldoAwalDropping = Util.setting("saldo_awal_dropping");
     Date tglSaldoAwal = Util.toDate(Util.setting("tgl_saldo_awal"));
 
-    public MenuBalanceVM() {
+    public MenuBalanceVM1Backup() {
         this.listTTSS = new ArrayList<>();
         this.totalNilai = 0L;
         this.filterNomor = "";
@@ -53,7 +53,7 @@ public class MenuBalanceVM {
     }
 
     @AfterCompose
-    public void initSetup() {
+    public void initSetup() throws ParseException {
 
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
         this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
@@ -273,7 +273,7 @@ public class MenuBalanceVM {
                 Ebean.delete((Class) Cetak.class, (Collection) Ebean.find((Class) Cetak.class).where("ttssnya.nomor = '" + ttss1.getNomor() + "'").findIds());
                 Ebean.delete((Class) TTSS.class, ttss1.getNomor());
             } catch (Exception e) {
-                Logger.getLogger(MenuBalanceVM.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(MenuBalanceVM1Backup.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         this.refresh();

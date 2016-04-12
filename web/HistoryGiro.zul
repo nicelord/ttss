@@ -12,20 +12,20 @@
                     style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;" 
                     mode="modal" 
                     width="90%" vflex="1" 
-                    title="LIST REVISI GIRO" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.HistoryGiroVM')" closable="true">
+                    title="LIST REVISI DAN PROGRESS GIRO" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.HistoryGiroVM')" closable="true">
                 <grid model="@bind(vm.listGiroHistory)" mold="paging" pageSize="10">
                     <columns>
-                        <column label="WAKTU" width="130px"/>
+                        <column label="WAKTU" width="120px"/>
                         <column label="BANK" />
                         <column label="NILAI" />
                         <column label="PENYETOR" />
                         <column label="USER" />
                         <column label="DKLK" />
                         <column label="TAG" />
-                        <column label="WKT TERIMA" width="130px"/>
-                        <column label="JT TEMPO" width="100px"/>
-                        <column label="TGL KLIRING" width="100px"/>
-                        <column label="STATUS" width="130px"/>
+                        <column label="WKT TERIMA" width="120px"/>
+                        <column label="JT TEMPO" width="90px"/>
+                        <column label="TGL KLIRING" width="90px"/>
+                        <column label="DOKUMEN" width="130px"/>
                         <column label="PROSES" />
                         <column label="CUST ID" />
                         <column label="KET" />
@@ -53,8 +53,6 @@
                               
                             </label>
                                 
-                                
-        
                         </row>
                     </template>
                 </grid>

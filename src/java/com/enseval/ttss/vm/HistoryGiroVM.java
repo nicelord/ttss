@@ -18,7 +18,7 @@ public class HistoryGiroVM {
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view, @ExecutionArgParam("nomor") Long nomor) {
-        listGiroHistory = Ebean.find(GiroHistory.class).where().eq("nomorGiro", nomor).order("lastUpdate desc").findList();
+        listGiroHistory = Ebean.find(GiroHistory.class).where().eq("nomor", nomor).order("lastUpdate desc").findList();
     }
 
     @Command

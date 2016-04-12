@@ -54,7 +54,7 @@ public class LoginVM
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         Selectors.wireComponents(view, (Object)this, false);
         this.setBrowser(Executions.getCurrent().getBrowser());
-        if (!(this.browser.equals("webkit") | this.browser.equals("gecko"))) {
+        if (!this.browser.equals("webkit")) {
             Executions.sendRedirect("chromeDownload.zul");
         }
     }
