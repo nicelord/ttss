@@ -39,7 +39,8 @@ public class TES {
 
     public static void main(final String[] args) {
         List<String> badGuys = Arrays.asList("Inky", "Blinky", "Pinky", "Pinky", "Clyde");
-Group group = group(badGuys, by(on(String.class).length)));
+        Group group = group(badGuys, by(on(String.class).length))
+        );
 System.out.println(group.keySet());
 
         AgentLoader.loadAgentFromClasspath("avaje-ebeanorm-agent", "debug=1");
@@ -47,7 +48,14 @@ System.out.println(group.keySet());
         Calendar cal = Calendar.getInstance();
         List<TTSS> list = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
 
-        list.stream().collect(collector)
+        Map<String, List<TTSS>> ttssByMonth = new HashMap<>();
+
+        for (TTSS t : list) {
+            if (!personByCity.containsKey(p.getCity())) {
+                personByCity.put(p.getCity(), new ArrayList<>());
+            }
+            personByCity.get(p.getCity()).add(p);
+        }
     }
 
     public void downloadXLS() {
