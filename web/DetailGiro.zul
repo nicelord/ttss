@@ -1,4 +1,4 @@
-<?init class="com.enseval.ttss.util.AuthenticationInit"?>
+
 <zk>   
     <style>
         .z-combobox-input{
@@ -119,20 +119,21 @@
                         <foot>
                             <footer span="2" align="left">
                                 <div style="float:left;" visible="@load(vm.giro.prosesKliring eq 'PENDING')">
-                                    <button iconSclass="glyphicon glyphicon-forward" sclass="btn-primary" onClick="@command('prosesKliring')">PROSES KLIRING</button>
+                                    <button iconSclass="glyphicon glyphicon-forward" sclass="btn-success" onClick="@command('prosesKliring')">PROSES KLIRING</button>
                                 </div>
-                               
+                                
+                             
                                 <div class="btn-group" style="float:left;" visible="@load(vm.giro.prosesKliring eq 'DONE')">
                                     <button onClick="@command('giroDitolak')" 
-                                            sclass="btn-warning"
+                                            sclass="btn-danger"
                                             iconSclass="glyphicon glyphicon-transfer" label="GIRO DITOLAK"/>
                                     <button onClick="@command('giroBatal')" 
-                                            sclass="btn-danger"
+                                            sclass="btn-warning"
                                             iconSclass="glyphicon glyphicon-remove-sign" >GIRO BATAL</button>
                                 </div>
                                 
                                 <div class="btn-group" style="float:left;" visible="@load(vm.giro.prosesKliring eq 'DITOLAK')">
-                                    <button iconSclass="glyphicon glyphicon-forward" sclass="btn-primary" onClick="@command('prosesKliring')">PROSES KLIRING</button>
+                                    <button iconSclass="glyphicon glyphicon-forward" sclass="btn-success" onClick="@command('prosesKliring')">PROSES KLIRING</button>
                                 
                                     <button onClick="@command('giroBatal')" 
                                             sclass="btn-danger"

@@ -46,7 +46,9 @@ public class DetailGiroVM {
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view, @ExecutionArgParam("gironya") Giro gironya) {
+
         this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+
         this.giro = gironya;
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
         this.listTag = Ebean.find((Class) Giro.class).select("tag").setDistinct(true).findList();
@@ -136,7 +138,7 @@ public class DetailGiroVM {
     }
 
     @Command
-    public void showHistory(@BindingParam("nomor")Long nomor) {
+    public void showHistory(@BindingParam("nomor") Long nomor) {
         Map m = new HashMap();
         m.put("nomor", nomor);
         Executions.createComponents("HistoryGiro.zul", null, m);

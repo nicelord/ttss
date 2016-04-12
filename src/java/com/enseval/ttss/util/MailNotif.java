@@ -26,7 +26,7 @@ public class MailNotif {
     public void emailGiroTolak(Giro gironya, String namaCustomer, String customerID) {
 
         String port = (Executions.getCurrent().getServerPort() == 80) ? "" : (":" + Executions.getCurrent().getServerPort());
-        String url = Executions.getCurrent().getScheme() + "://" + Executions.getCurrent().getServerName() + port + Executions.getCurrent().getContextPath() + "/giro.zul";
+        String url = Executions.getCurrent().getScheme() + "://" + Executions.getCurrent().getServerName() + port + Executions.getCurrent().getContextPath() + "/info_giro.zul";
 
         String msg = "<html>"
                 + "<head>"

@@ -22,10 +22,10 @@
             - GIRO KLIRING -
         </auxheader>
         <auxheader colspan="5">
-           <hlayout>
-                <button vflex="3" hflex="3" sclass="btn-primary btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"/>
-                <button vflex="3" hflex="3" sclass="btn-warning btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO TOLAK" onClick="@command('changePage', page='menuGiroTolak.zul')"/>
-                <button vflex="3" hflex="3" sclass="btn-danger btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO BATAL" onClick="@command('changePage', page='menuGiroBatal.zul')"/>
+            <hlayout>
+                <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"/>
+                <button vflex="3" hflex="3" sclass="btn-danger btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO TOLAK" onClick="@command('changePage', page='menuGiroTolak.zul')"/>
+                <button vflex="3" hflex="3" sclass="btn-warning btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO BATAL" onClick="@command('changePage', page='menuGiroBatal.zul')"/>
             </hlayout>
         </auxheader>
     </auxhead>
