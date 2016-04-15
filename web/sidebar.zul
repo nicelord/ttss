@@ -15,14 +15,14 @@
                             <listheader label=""/>
                         </listhead>
                         <listitem id="defaultMenu" style="border-bottom: 1px dotted #cfcfcf;" 
-                              if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                            
                                   onClick="@command('changePage', page='menuSetoran.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN MASUK"/>
                         </listitem>	
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                        if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                                   onClick="@command('changePage', page='menuSetoranKeluar.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN KELUAR"/>
@@ -48,11 +48,18 @@
                         </listitem>
                         -->
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                        if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                                   onClick="@command('changePage', page='menuGiroPending.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BON GIRO"/>
                         </listitem>
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                                  onClick="@command('changePage', page='menuMasterCustomer.zul')">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="MASTER CUSTOMER"/>
+                        </listitem>
+                        
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
                                   if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                                   onClick="@command('changePage', page='menuUserSetting.zul')">

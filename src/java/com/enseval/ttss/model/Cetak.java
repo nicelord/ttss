@@ -110,9 +110,9 @@ public class Cetak {
         JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         System.out.println(printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, (Object) printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, (Object) Boolean.FALSE);
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, (Object) Boolean.FALSE);
+        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printService[0].getAttributes());
+        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
+        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
         exporter.exportReport();
         OutputStream output = null;
         InputStream input = null;
@@ -162,9 +162,9 @@ public class Cetak {
         JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, (Object) jasperPrint);
         System.out.println(printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, (Object) printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, (Object) Boolean.FALSE);
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, (Object) Boolean.FALSE);
+        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printService[0].getAttributes());
+        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
+        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
         exporter.exportReport();
         OutputStream output = null;
         InputStream input = null;

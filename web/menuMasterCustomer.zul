@@ -1,0 +1,62 @@
+<?init class="com.enseval.ttss.util.AuthenticationInit"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <style>
+        .z-datebox-input,.z-combobox-input,.z-combobox-button,.z-datebox-button{
+        height:30px;
+        }
+        
+    </style>
+    <borderlayout>
+        <center>
+                
+          
+            <window title="CUSTOMER LIST" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuMasterCustomerVM')">
+                <listbox id="custList" mold="paging" width="100%" vflex="true" autopaging="true" 
+                     emptyMessage="Kosong euy!"
+                     model="@load(vm.listCustomer)"
+                     selectedItem="@bind(vm.customer)">  
+                            
+                    <auxhead>
+                        <auxheader>
+                            <longbox id="lboxId" hflex="3" value="@bind(vm.customer.id)" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox id="txtNama" hflex="3" value="@load(vm.customer.nama)" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox id="txtShipto" hflex="3" value="@load(vm.customer.shipto)" sclass="form-control input-primary"/> 
+                        </auxheader>
+                        <auxheader>
+                            <button class="btn-success" iconSclass="glyphicon glyphicon-plus" onClick="@command('saveCustomer')">TAMBAH/UPDATE</button>
+                                
+                        </auxheader>
+                    </auxhead>
+                            
+                                            
+                    <listhead>
+                        <listheader label="ID" width="100px"/>
+                        <listheader label="Nama" width="250px"/>
+                        <listheader label="Shipto" width="70%"/>
+                        <listheader label="HAPUS" width="150px"/>
+                    </listhead>
+                    <template name="model" var="s">
+                        <listitem sclass="custList">
+                            <listcell label="@load(s.id)"/>
+                            <listcell label="@load(s.nama)"/>
+                            <listcell label="@load(s.shipto)"/>
+                            <listcell>
+                                <button class="btn-xs btn-danger" iconSclass="glyphicon glyphicon-trash" onClick="@command('hapusCustomer',customernya=s)">HAPUS</button>
+                            </listcell>
+                                    
+                        </listitem>
+                    </template>
+                    <listfoot>
+                              
+                    </listfoot>
+                            
+                </listbox>
+            </window>
+        </center>
+    </borderlayout>
+</zk>
