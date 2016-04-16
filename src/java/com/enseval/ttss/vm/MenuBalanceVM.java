@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 
 public class MenuBalanceVM {
 
-    List<TTSS> listTTSS;
+    List<TTSS> listTTSS = new ArrayList<>();
     TTSS ttss;
     Long totalNilai;
     String filterNomor;
@@ -28,9 +28,8 @@ public class MenuBalanceVM {
     String filterJenisKas = "SEMUA";
     String filterTag;
     Timestamp cutOffDate;
-    List<Cetak> cetaks;
+    List<Cetak> cetaks = new ArrayList<>();
     User userLogin;
-    List<TTSS> selectedTTSS;
     Long saldo;
     Timestamp filterCutoff = new Timestamp(new Date().getTime());
 
@@ -38,16 +37,15 @@ public class MenuBalanceVM {
     String saldoAwalDropping = Util.setting("saldo_awal_dropping");
     Date tglSaldoAwal = Util.toDate(Util.setting("tgl_saldo_awal"));
 
+    List<Balance> listBalance = new ArrayList<>();
+
     public MenuBalanceVM() {
-        this.listTTSS = new ArrayList<>();
         this.totalNilai = 0L;
         this.filterNomor = "";
         this.filterNilai = "";
         this.filterPenyetor = "";
         this.filterJenisKas = "SEMUA";
         this.filterTag = "";
-        this.cetaks = new ArrayList<>();
-        this.selectedTTSS = new ArrayList<>();
         this.saldo = 0L;
 
     }
@@ -58,32 +56,59 @@ public class MenuBalanceVM {
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
         this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
 
-        Long nilai = 0L;
-        for (final TTSS ttss1 : this.listTTSS) {
-            nilai += ttss1.getNilai();
-        }
-        this.totalNilai = nilai;
-
         Long nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer")) + Long.valueOf(Util.setting("saldo_awal_dropping"));
-        if (filterJenisKas.equals("KAS TRANSFER")) {
-            nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer"));
-        }
 
-        if (filterJenisKas.equals("KAS DROPPING")) {
-            nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_dropping"));
-
-        }
-
-        for (int i = this.listTTSS.size() - 1; i >= 0; i--) {
-            if (this.listTTSS.get(i).getWktTerima().after(Util.toDate(Util.setting("tgl_saldo_awal")))) {
-                if (this.listTTSS.get(i).getTipe().equals("masuk")) {
-                    this.listTTSS.get(i).setSaldo(nilaiSaldo += this.listTTSS.get(i).getNilai());
+        for (int i = listTTSS.size() - 1; i >= 0; i--) {
+            if (listTTSS.get(i).getWktTerima().after(Util.toDate(Util.setting("tgl_saldo_awal")))) {
+                if (listTTSS.get(i).getTipe().equals("masuk")) {
+                    listTTSS.get(i).setSaldo(nilaiSaldo += listTTSS.get(i).getNilai());
                 } else {
-                    this.listTTSS.get(i).setSaldo(nilaiSaldo -= this.listTTSS.get(i).getNilai());
+                    listTTSS.get(i).setSaldo(nilaiSaldo -= listTTSS.get(i).getNilai());
                 }
             }
 
         }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        Date startDate = Util.toDate(Util.setting("tgl_saldo_awal"));
+
+        java.util.Calendar beginCalendar = java.util.Calendar.getInstance();
+        java.util.Calendar finishCalendar = java.util.Calendar.getInstance();
+
+        beginCalendar.setTime(startDate);
+        finishCalendar.setTime(listTTSS.get(0).getWktTerima());
+
+        while (beginCalendar.before(finishCalendar)) {
+            String date = sdf.format(beginCalendar.getTime()).toUpperCase();
+
+            Balance b = new Balance();
+            b.setPeriode(date);
+            List<TTSS> monthlyTTSS = getFilterOutput(listTTSS, date);
+            for (TTSS t : monthlyTTSS) {
+                if (t.getTipe().equals("keluar")) {
+                    b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
+                } else {
+                    b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
+                }
+            }
+            
+            b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size()-1).getSaldo()-monthlyTTSS.get(monthlyTTSS.size()-1).getNilai());
+            b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
+            listBalance.add(b);
+            beginCalendar.add(java.util.Calendar.MONTH, 1);
+        }
+
+    }
+
+    private static List<TTSS> getFilterOutput(List<TTSS> lines, String month) {
+        List<TTSS> result = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        for (TTSS line : lines) {
+            if (sdf.format(line.getWktTerima()).equals(month)) {
+                result.add(line);
+            }
+        }
+        return result;
     }
 
     @Command
@@ -141,23 +166,23 @@ public class MenuBalanceVM {
     @NotifyChange("*")
     public void refresh() {
         this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
-        
+
         //stupid code goes here
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-           boolean isTheDayBefore = dateFormat.parse(Util.toString(filterCutoff)).before(dateFormat.parse(Util.toString(new Date())));
-           if(isTheDayBefore){
-               SimpleDateFormat changeCutOff = new SimpleDateFormat("yyyy-MM-dd 23:59:00");
-               filterCutoff = Timestamp.valueOf(changeCutOff.format(filterCutoff));
-               
-           }
-        
+            boolean isTheDayBefore = dateFormat.parse(Util.toString(filterCutoff)).before(dateFormat.parse(Util.toString(new Date())));
+            if (isTheDayBefore) {
+                SimpleDateFormat changeCutOff = new SimpleDateFormat("yyyy-MM-dd 23:59:00");
+                filterCutoff = Timestamp.valueOf(changeCutOff.format(filterCutoff));
+
+            }
+
         } catch (ParseException ex) {
             Messagebox.show(ex.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
             return;
         }
         //End stupid 
-        
+
         if (!this.filterJenisKas.equals("SEMUA")) {
             this.listTTSS = Ebean.find(TTSS.class)
                     .where().eq("jenisKas", filterJenisKas)
@@ -267,20 +292,6 @@ public class MenuBalanceVM {
 
     @Command
     @NotifyChange({"listTTSS", "totalNilai"})
-    public void hapusSelectedTTSS() {
-        for (final TTSS ttss1 : this.selectedTTSS) {
-            try {
-                Ebean.delete((Class) Cetak.class, (Collection) Ebean.find((Class) Cetak.class).where("ttssnya.nomor = '" + ttss1.getNomor() + "'").findIds());
-                Ebean.delete((Class) TTSS.class, ttss1.getNomor());
-            } catch (Exception e) {
-                Logger.getLogger(MenuBalanceVM.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        this.refresh();
-    }
-
-    @Command
-    @NotifyChange({"listTTSS", "totalNilai"})
     public void filterKasTransfer() {
         this.filterJenisKas = "KAS TRANSFER";
         this.refresh();
@@ -303,7 +314,7 @@ public class MenuBalanceVM {
     @Command
     public void showCashOpname() {
         refresh();
-        
+
         Map m = new HashMap();
         m.put("jenisKas", filterJenisKas);
         m.put("tglCutoff", filterCutoff);
@@ -375,14 +386,6 @@ public class MenuBalanceVM {
         this.userLogin = userLogin;
     }
 
-    public List<TTSS> getSelectedTTSS() {
-        return this.selectedTTSS;
-    }
-
-    public void setSelectedTTSS(final List<TTSS> selectedTTSS) {
-        this.selectedTTSS = selectedTTSS;
-    }
-
     public String getFilterJenisKas() {
         return this.filterJenisKas;
     }
@@ -445,6 +448,14 @@ public class MenuBalanceVM {
 
     public void setSaldoAwalDropping(String saldoAwalDropping) {
         this.saldoAwalDropping = saldoAwalDropping;
+    }
+
+    public List<Balance> getListBalance() {
+        return listBalance;
+    }
+
+    public void setListBalance(List<Balance> listBalance) {
+        this.listBalance = listBalance;
     }
 
 }

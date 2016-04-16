@@ -12,9 +12,11 @@ package com.enseval.ttss.model;
 public class Balance {
     
     String periode;
+    long saldoAwal = 0L;
     long totalKeluar = 0L;
     long totalMasuk = 0L;
-
+    long saldoAkhir = 0L;
+    
     public String getPeriode() {
         return periode;
     }
@@ -37,6 +39,22 @@ public class Balance {
 
     public void setTotalMasuk(long totalMasuk) {
         this.totalMasuk = totalMasuk;
+    }
+
+    public long getSaldoAwal() {
+        return saldoAwal;
+    }
+
+    public void setSaldoAwal(long saldoAwal) {
+        this.saldoAwal = saldoAwal;
+    }
+
+    public long getSaldoAkhir() {
+        return saldoAkhir;
+    }
+
+    public void setSaldoAkhir(long saldoAkhir) {
+        this.saldoAkhir = saldoAkhir;
     }
 
   

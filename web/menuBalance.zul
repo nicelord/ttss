@@ -14,10 +14,9 @@
         <borderlayout>
             <center>
                
-                <listbox id="listTtss" mold="paging" width="100%" vflex="true" autopaging="true" 
-                         selectedItems="@bind(vm.selectedTTSS)"
+                <listbox id="listBalance" mold="paging" width="100%" vflex="true" autopaging="true" 
                          emptyMessage="Kosong euy!"
-                         model="@load(vm.listTTSS)">   
+                         model="@load(vm.listBalance)">   
                     <zscript>   <![CDATA[
                         listTtss.pagingChild.mold = "os";
                             ]]>   
@@ -35,41 +34,28 @@
                                 <comboitem label="KAS TRANSFER"/>
                                 <comboitem label="KAS DROPPING"/>
                             </combobox>
-                            Waktu Cutoff : 
-                            <datebox id="filterCutoff" format="dd/MMMM/yyyy" constraint="no future: now or never" readonly="true" hflex="3" style="height:30px;" value="@bind(vm.filterCutoff)" />
                             <button onClick="@command('refresh')" iconSclass="glyphicon glyphicon-filter" label="FILTER" sclass="btn-info"/>
-                        </auxheader>
-                        <auxheader colspan="2">
-                           <!-- <button onClick="@command('showCashOpname')" iconSclass="glyphicon glyphicon-usd" label="CASH OPNAME" sclass="btn-success" hflex="true"/>-->
                         </auxheader>
                     </auxhead>
                         
                     <listhead sizable="true" visible="true" >
 
-                        <listheader sort="auto(nomor)" label="NOMOR"/>
+                        <listheader label="PERIODE"/>
+                        <listheader label="SALDO AWAL"/>
+                        <listheader label="MUTASI MASUK"/>
+                        <listheader label="MUTASI KELUAR"/>
+                        <listheader label="SALDO AKHIR"/>
                         
-                        <listheader sort="auto(namaPenyetor)" label="PENYETOR/PENERIMA"/>
-                        <listheader sort="tag" label="TAG"/>
-                        <listheader sort="auto(jenisKas)" label="JENIS KAS"/>
-                        <listheader sort="auto(cutOffDate)" label="WAKTU"/>
-                        <listheader sort="auto(nilai)" label="NILAI"/>
-                        <listheader sort="auto(saldo)" label="SALDO"/>
                     </listhead>
                     
                     <template name="model" var="s">
-                        <listitem sclass="mainList" onClick="@command('showDetail', TTSS=s)">
+                        <listitem sclass="mainList">
 
-                            <listcell label="@load(s.nomor)"/>
-                           
-                            <listcell label="@load(s.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.tag)"/>
-                            <listcell label="@load(s.jenisKas)"/>
-                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                                <label value="@load(s.wktTerima) @converter('formatedDate', format='yyyy/MM/dd hh:mm')"/>
-                            </listcell>
-                            <listcell label="@load(vm.format(s.nilai))" if="${s.tipe=='masuk'}"/>
-                            <listcell label="@load(vm.format(-s.nilai))" if="${s.tipe=='keluar'}"/>
-                            <listcell label="@load(vm.format(s.saldo))"/>
+                            <listcell label="@load(s.periode)"/>
+                            <listcell label="@load(vm.format(s.saldoAwal))"/>
+                            <listcell label="@load(vm.format(s.totalMasuk))"/>
+                            <listcell label="@load(vm.format(s.totalKeluar))"/>
+                            <listcell label="@load(vm.format(s.saldoAkhir))"/>
                         </listitem>
                     </template>
                     

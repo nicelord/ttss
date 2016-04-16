@@ -57,10 +57,7 @@ public class TES {
         SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
 
         Calendar startCal = Calendar.getInstance();
-        startCal.set(Calendar.DATE, Integer.parseInt(Util.setting("tgl_saldo_awal").split("-")[2]));
-        startCal.set(Calendar.MONTH, Integer.parseInt(Util.setting("tgl_saldo_awal").split("-")[1]) - 1);
-        startCal.set(Calendar.YEAR, Integer.parseInt(Util.setting("tgl_saldo_awal").split("-")[0]));
-        Date startDate = startCal.getTime();
+        Date startDate = Util.toDate(Util.setting("tgl_saldo_awal"));
 
         Calendar endCal = Calendar.getInstance();
         Date endDate = endCal.getTime();

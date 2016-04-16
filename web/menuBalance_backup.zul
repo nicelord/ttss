@@ -10,7 +10,7 @@
     
     
 
-    <window id="mainWin" title="SALDO" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceVM')">
+    <window id="mainWin" title="SALDO" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceVM1Backup')">
         <borderlayout>
             <center>
                
