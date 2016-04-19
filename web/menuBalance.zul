@@ -30,17 +30,25 @@
                         <auxheader colspan="5">
                             Jenis Kas : 
                             <combobox id="filterJenis" hflex="3" readonly="true" value="@bind(vm.filterJenisKas)">
-                                <comboitem label="SEMUA"/>
                                 <comboitem label="KAS TRANSFER"/>
                                 <comboitem label="KAS DROPPING"/>
                             </combobox>
-                            <button onClick="@command('refresh')" iconSclass="glyphicon glyphicon-filter" label="FILTER" sclass="btn-info"/>
+                            Periode : 
+                            <combobox id="filterBulan" hflex="3" readonly="true" value="@bind(vm.filterBulan)" model="@load(vm.listBulan)">
+                                <template name="model" var="s">
+                                    <comboitem label="@load(s)"/>
+                                </template>
+                            </combobox>
+                            <button onClick="@command('filterDataBalance')" iconSclass="glyphicon glyphicon-filter" label="FILTER" sclass="btn-info"/>
+                            <button onClick="@command('showAllBalance')" iconSclass="glyphicon glyphicon-refresh" label="RESET" sclass="btn-warning"/>
+                        
                         </auxheader>
                     </auxhead>
                         
                     <listhead sizable="true" visible="true" >
 
                         <listheader label="PERIODE"/>
+                        <listheader label="JENIS KAS"/>
                         <listheader label="SALDO AWAL"/>
                         <listheader label="MUTASI MASUK"/>
                         <listheader label="MUTASI KELUAR"/>
@@ -52,6 +60,7 @@
                         <listitem sclass="mainList">
 
                             <listcell label="@load(s.periode)"/>
+                            <listcell label="@load(s.jenisKas)"/>
                             <listcell label="@load(vm.format(s.saldoAwal))"/>
                             <listcell label="@load(vm.format(s.totalMasuk))"/>
                             <listcell label="@load(vm.format(s.totalKeluar))"/>
@@ -75,7 +84,7 @@
                                 <label value="@load(vm.format(vm.saldoAwalDropping))" style="font-weight: bold;font-style: italic"/> 
                                 <space />
                                 <label value="*Tgl efektif : " style="font-style: italic"/> 
-                                <label value="@load(vm.tglSaldoAwal) @converter('formatedDate', format='yyyy/MM/dd')" style="font-weight: bold;font-style: italic"/>
+                                <label value="@load(vm.tglSaldoAwal) @converter('formatedDate', format='dd-MM-yyyy')" style="font-weight: bold;font-style: italic"/>
                             
                             </div>
                         </listfooter>
