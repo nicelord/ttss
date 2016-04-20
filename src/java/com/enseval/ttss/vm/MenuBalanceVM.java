@@ -21,12 +21,12 @@ public class MenuBalanceVM {
 
     List<TTSS> listTTSS = new ArrayList<>();
     TTSS ttss;
-    Long totalNilai;
-    String filterJenisKas = "KAS TRANSFER";
+    Long totalNilai = 0L;
+    String filterJenisKas = "SEMUA";
     Timestamp cutOffDate;
     List<Cetak> cetaks = new ArrayList<>();
     User userLogin;
-    Long saldo;
+    Long saldo = 0L;
     String filterBulan = "";
 
     String saldoAwal = Util.setting("saldo_awal_transfer");
@@ -37,19 +37,84 @@ public class MenuBalanceVM {
 
     List<String> listBulan = new ArrayList<>();
 
-    public MenuBalanceVM() {
-        this.totalNilai = 0L;
-        this.filterJenisKas = "SEMUA";
-        this.saldo = 0L;
-
-    }
-
     @AfterCompose
     public void initSetup() {
 
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+        this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
+        // List<TTSS> monthlyTTSS = getFilterOutput(listTTSS, "04-2016");
 
         showAllBalance();
+    }
+
+    @Command
+    @NotifyChange({"listBalance"})
+    public void showAllBalance() {
+        listBalance = new ArrayList<>();
+        if (listTTSS.isEmpty()) {
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        Date startDate = Util.toDate(Util.setting("tgl_saldo_awal"));
+
+        java.util.Calendar beginCalendar = java.util.Calendar.getInstance();
+        java.util.Calendar finishCalendar = java.util.Calendar.getInstance();
+
+        beginCalendar.setTime(startDate);
+        finishCalendar.setTime(new Date());
+        while (beginCalendar.before(finishCalendar)) {
+            String date = sdf.format(beginCalendar.getTime()).toUpperCase();
+
+            listBulan.add(date);
+
+            //balance transfer
+            this.filterJenisKas = "KAS TRANSFER";
+            refresh();
+            Balance b = new Balance();
+            b.setPeriode(date);
+            List<TTSS> monthlyTTSS = getFilterOutput(listTTSS, date);
+
+            if (!monthlyTTSS.isEmpty()) {
+                for (TTSS t : monthlyTTSS) {
+                    if (t.getTipe().equals("keluar")) {
+                        b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
+                    } else {
+                        b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
+                    }
+                }
+
+                b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
+                b.setJenisKas("KAS TRANSFER");
+                listBalance.add(b);
+            }
+
+            //balance dropping
+            this.filterJenisKas = "KAS DROPPING";
+            refresh();
+            b = new Balance();
+            b.setPeriode(date);
+            monthlyTTSS = getFilterOutput(listTTSS, date);
+
+            if (!monthlyTTSS.isEmpty()) {
+                for (TTSS t : monthlyTTSS) {
+                    if (t.getTipe().equals("keluar")) {
+                        b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
+                    } else {
+                        b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
+                    }
+                }
+
+                b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
+                b.setJenisKas("KAS DROPPING");
+                listBalance.add(b);
+            }
+            beginCalendar.add(java.util.Calendar.MONTH, 1);
+
+        }
+        Collections.reverse(listBalance);
 
     }
 
@@ -73,23 +138,27 @@ public class MenuBalanceVM {
             Balance b = new Balance();
             b.setPeriode(date);
             List<TTSS> monthlyTTSS = getFilterOutput(listTTSS, date);
-            for (TTSS t : monthlyTTSS) {
-                if (t.getTipe().equals("keluar")) {
-                    b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
-                } else {
-                    b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
-                }
-            }
+            if (!monthlyTTSS.isEmpty()) {
 
-            b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
-            b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
-            b.setJenisKas(filterJenisKas);
-            if (!filterBulan.isEmpty()) {
-                if (b.getPeriode().equals(filterBulan)) {
+                for (TTSS t : monthlyTTSS) {
+                    if (t.getTipe().equals("keluar")) {
+                        b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
+                    } else {
+                        b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
+                    }
+                }
+
+                b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
+                b.setJenisKas(filterJenisKas);
+                if (!filterBulan.isEmpty()) {
+                    if (b.getPeriode().equals(filterBulan)) {
+                        listBalance.add(b);
+                    }
+                } else {
                     listBalance.add(b);
                 }
-            } else {
-                listBalance.add(b);
+
             }
 
             beginCalendar.add(java.util.Calendar.MONTH, 1);
@@ -140,6 +209,7 @@ public class MenuBalanceVM {
         }
 
         Long nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer")) + Long.valueOf(Util.setting("saldo_awal_dropping"));
+
         if (filterJenisKas.equals("KAS TRANSFER")) {
             nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer"));
         }
@@ -203,66 +273,6 @@ public class MenuBalanceVM {
             e.printStackTrace();
         }
         filenya.delete();
-
-    }
-
-    @Command
-    @NotifyChange({"listBalance"})
-    public void showAllBalance() {
-        listBalance = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
-        Date startDate = Util.toDate(Util.setting("tgl_saldo_awal"));
-
-        java.util.Calendar beginCalendar = java.util.Calendar.getInstance();
-        java.util.Calendar finishCalendar = java.util.Calendar.getInstance();
-
-        beginCalendar.setTime(startDate);
-        finishCalendar.setTime(new Date());
-        while (beginCalendar.before(finishCalendar)) {
-            String date = sdf.format(beginCalendar.getTime()).toUpperCase();
-            listBulan.add(date);
-
-            //balance transfer
-            this.filterJenisKas = "KAS TRANSFER";
-            refresh();
-            Balance b = new Balance();
-            b.setPeriode(date);
-            List<TTSS> monthlyTTSS = getFilterOutput(listTTSS, date);
-            for (TTSS t : monthlyTTSS) {
-                if (t.getTipe().equals("keluar")) {
-                    b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
-                } else {
-                    b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
-                }
-            }
-
-            b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
-            b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
-            b.setJenisKas("KAS TRANSFER");
-            listBalance.add(b);
-
-            //balance dropping
-            this.filterJenisKas = "KAS DROPPING";
-            refresh();
-            b = new Balance();
-            b.setPeriode(date);
-            monthlyTTSS = getFilterOutput(listTTSS, date);
-            for (TTSS t : monthlyTTSS) {
-                if (t.getTipe().equals("keluar")) {
-                    b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
-                } else {
-                    b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
-                }
-            }
-
-            b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
-            b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
-            b.setJenisKas("KAS DROPPING");
-            listBalance.add(b);
-
-            beginCalendar.add(java.util.Calendar.MONTH, 1);
-        }
-        Collections.reverse(listBalance);
 
     }
 

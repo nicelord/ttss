@@ -31,10 +31,9 @@ public class Cetak {
     Timestamp wktCetak;
     String filePath;
     int cetakanKe;
-    
+
 //    @Transient
 //    Setting setting = Ebean.find(Setting.class, 1);
-
     public Long getId() {
         return this.id;
     }
@@ -107,18 +106,19 @@ public class Cetak {
         map.put("CABANG", Util.setting("nama_cabang"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/print.setoran.masuk.jasper", map, (JRDataSource) new JREmptyDataSource());
         jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
-        JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        System.out.println(printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
-        exporter.exportReport();
+        if (!printernya.equals("noprint")) {
+            JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            System.out.println(printService[0].getAttributes());
+            exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printService[0].getAttributes());
+            exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
+            exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
+            exporter.exportReport();
+        }
+
         OutputStream output = null;
         InputStream input = null;
         try {
-           
-            
             this.cetakanKe = this.ttssnya.itungCetakan() + 1;
             File dir = new File(pdfPath + this.ttssnya.getNomor() + "/");
             dir.mkdirs();
@@ -126,7 +126,7 @@ public class Cetak {
             output = new FileOutputStream(f);
             JasperExportManager.exportReportToPdfStream(jasperPrint, output);
             output.close();
-           // input.close();
+            // input.close();
             this.filePath = f.getAbsolutePath();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Cetak.class.getName()).log(Level.SEVERE, null, ex);
@@ -159,13 +159,15 @@ public class Cetak {
         map.put("CABANG", Util.setting("nama_cabang"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/print.setoran.keluar.jasper", map, (JRDataSource) new JREmptyDataSource());
         jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
-        JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, (Object) jasperPrint);
-        System.out.println(printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printService[0].getAttributes());
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
-        exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
-        exporter.exportReport();
+        if (!printernya.equals("noprint")) {
+            JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, (Object) jasperPrint);
+            System.out.println(printService[0].getAttributes());
+            exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.PRINT_SERVICE_ATTRIBUTE_SET, printService[0].getAttributes());
+            exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PAGE_DIALOG, Boolean.FALSE);
+            exporter.setParameter((JRExporterParameter) JRPrintServiceExporterParameter.DISPLAY_PRINT_DIALOG, Boolean.FALSE);
+            exporter.exportReport();
+        }
         OutputStream output = null;
         InputStream input = null;
         try {

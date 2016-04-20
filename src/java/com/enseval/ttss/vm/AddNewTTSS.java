@@ -40,14 +40,23 @@ public class AddNewTTSS {
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
 
+        this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
+        if (this.userLogin.getDefPrinter() == null) {
+            if (!Ebean.find(Printer.class).findList().isEmpty()) {
+                this.userLogin.setDefPrinter(Ebean.find(Printer.class).findList().get(0));
+            } else {
+                Messagebox.show("Mohon tambahkan printer dulu!", "Printer error", 1, "z-messagebox-icon z-messagebox-error");
+                view.detach();
+                return;
+            }
+
+        }
+        this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
+
         this.ttss = new TTSS();
         this.ttss.setJenisKas("KAS TRANSFER");
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
-        this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
-        if(this.userLogin.getDefPrinter()==null){
-            this.userLogin.setDefPrinter(Ebean.find(Printer.class).findList().get(0));
-        }
-        this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
+
         this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
 
         Selectors.wireComponents(view, (Object) this, false);
@@ -75,6 +84,7 @@ public class AddNewTTSS {
     @NotifyChange({"printernya"})
     public void cetak() {
         this.saveNewTTSS();
+        
         try {
             final Cetak c = new Cetak();
             c.setTtssnya(this.ttss);

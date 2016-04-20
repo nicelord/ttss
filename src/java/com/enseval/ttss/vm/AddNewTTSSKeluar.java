@@ -39,12 +39,21 @@ public class AddNewTTSSKeluar {
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
+        
         this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
         if (this.userLogin.getDefPrinter() == null) {
-            this.userLogin.setDefPrinter(Ebean.find(Printer.class).findList().get(0));
+            if (!Ebean.find(Printer.class).findList().isEmpty()) {
+                this.userLogin.setDefPrinter(Ebean.find(Printer.class).findList().get(0));
+            } else {
+                Messagebox.show("Mohon tambahkan printer dulu!", "Printer error", 1, "z-messagebox-icon z-messagebox-error");
+                view.detach();
+                return;
+            }
+
         }
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
+        this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
+ 
         this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
         this.ttss = new TTSS();
         this.ttss.setJenisKas("KAS TRANSFER");
