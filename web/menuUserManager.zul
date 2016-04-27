@@ -230,13 +230,13 @@
                                         TRANSFER
                                         <div class="input-group" hflex="3" width="100%">
                                             <span class="input-group-addon">Rp.</span>
-                                            <intbox id="nilaiTransfer" class="form-control input-primary" value="@bind(settingVM.saldoAwal)" maxlength="12" format=",###.#" constraint="no empty,no negative" readonly="@load(settingVM.saldoAwal eq 0?'false':'true')"/>
+                                            <longbox id="nilaiTransfer" class="form-control input-primary" value="@bind(settingVM.saldoAwal)" maxlength="20" format=",###.#" constraint="no empty,no negative" readonly="@load(settingVM.saldoAwal eq 0?'false':'true')"/>
                                             <span class="input-group-addon">,00</span>
                                         </div>
                                         DROPPING
                                         <div class="input-group" hflex="3" width="100%">
                                             <span class="input-group-addon">Rp.</span>
-                                            <intbox id="nilaiDropping" class="form-control input-primary" value="@bind(settingVM.saldoAwalDropping)" maxlength="12" format=",###.#" constraint="no empty,no negative" readonly="@load(settingVM.saldoAwalDropping eq 0?'false':'true')"/>
+                                            <longbox id="nilaiDropping" class="form-control input-primary" value="@bind(settingVM.saldoAwalDropping)" maxlength="20" format=",###.#" constraint="no empty,no negative" readonly="@load(settingVM.saldoAwalDropping eq 0?'false':'true')"/>
                                             <span class="input-group-addon">,00</span>
                                         </div>
                                     </row>

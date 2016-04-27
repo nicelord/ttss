@@ -43,6 +43,7 @@
                         <listheader label="ID" width="35px"/>
                         <listheader label="WAKTU OPNAME"/>
                         <listheader label="USER" />
+                        <listheader label="JENIS KAS" />
                         <listheader label="CUTOFF DATE" />
                         <listheader label="SALDO SISTEM" />
                         <listheader label="SALDO FISIK" />
@@ -53,6 +54,7 @@
                             <listcell label="@load(s.id)"/>
                             <listcell label="@load(s.tglOpname) @converter('formatedDate', format='dd/MMMM/yyyy HH:mm')"/>
                             <listcell label="@load(s.pelaksana)"/>
+                            <listcell label="@load(s.jenisKas)"/>
                             <listcell label="@load(s.tglCutoff) @converter('formatedDate', format='dd-MMMM-yyyy')"/>
                             <listcell label="@load(vm.format(s.saldoSistem))"/>
                             <listcell label="@load(vm.format(s.saldoFisik))"/>
