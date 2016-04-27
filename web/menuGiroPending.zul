@@ -120,7 +120,7 @@
                     <label value="Dari :" />
                     <datebox id="startDateJtTempo" value="@bind(vm.tglJtTempoAwal)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
                     <label value="Sampai :" />
-                    <datebox id="endDateJtTempo" value="@bind(vm.tglJtTempoAkhir)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                    <datebox id="endDateJtTempo" value="@bind(vm.tglJtTempoAkhir)" format="yyyy-MM-dd" readonly="true" hflex="3"/>
                     <div class="btn-group" hflex="3">
                         <button label="TAMPILKAN" onClick="@command('saringTglJtTempo')" sclass="btn-info btn-xs" hflex="3" />
                         <button label="RESET" onClick="@command('resetSaringTglJtTempo')" sclass="btn-default btn-xs" hflex="3" >
