@@ -26,7 +26,7 @@ public class AddNewGiro {
     @Wire("#banks")
     private Combobox cmbBank;
     @Wire("#txtCustID")
-    private Textbox txtCUstID;
+    private Longbox txtCUstID;
     @Wire("#txtCustName")
     private Textbox txtCustName;
 
@@ -63,8 +63,8 @@ public class AddNewGiro {
         this.giro.setNomor(Long.parseLong(this.giro.getLastNomor()) + 1L);
         this.giro.setUserLogin(this.userLogin);
         this.giro.setWktTerima(new Timestamp(new Date().getTime()));
-        if (!txtCUstID.getValue().isEmpty()) {
-            this.giro.setCustID(Long.valueOf(txtCUstID.getValue()));
+        if (txtCUstID.getValue()!=null) {
+            this.giro.setCustomer(Ebean.find(Customer.class, txtCUstID.getValue()));
         }
         Ebean.save(this.giro);
         DsPenyetor dsp = (DsPenyetor) Ebean.find((Class) DsPenyetor.class).where("nama = '" + this.giro.getNamaPenyetor() + "'").findUnique();
@@ -75,12 +75,11 @@ public class AddNewGiro {
         }
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
-        
+
         saveHistory();
 
-
     }
-    
+
     public void saveHistory() {
         Giro g = Ebean.find(Giro.class, this.giro.getNomor());
         GiroHistory gh = new GiroHistory();
@@ -89,7 +88,7 @@ public class AddNewGiro {
         gh.setNomorGiro(g.getNomorGiro());
         gh.setBank(g.getBank());
         gh.setUserLogin(g.getUserLogin());
-        gh.setCustID(g.getCustID());
+        // gh.setCustID(g.getCustID());
         gh.setNilai(g.getNilai());
         gh.setProsesKliring(g.getProsesKliring());
         gh.setNamaPenyetor(g.getNamaPenyetor());
@@ -111,8 +110,10 @@ public class AddNewGiro {
 
     @GlobalCommand
     public void setCustomer(@BindingParam("customer") Customer customer) {
-        txtCUstID.setValue(customer.getId().toString());
+        giro.setCustomer(customer);
+        txtCUstID.setValue(customer.getId());
         txtCustName.setValue(customer.getNama());
+        
 
     }
 
@@ -204,13 +205,15 @@ public class AddNewGiro {
         this.listStatus = listStatus;
     }
 
-    public Textbox getTxtCUstID() {
+    public Longbox getTxtCUstID() {
         return txtCUstID;
     }
 
-    public void setTxtCUstID(Textbox txtCUstID) {
+    public void setTxtCUstID(Longbox txtCUstID) {
         this.txtCUstID = txtCUstID;
     }
+
+  
 
     public Textbox getTxtCustName() {
         return txtCustName;

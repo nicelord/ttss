@@ -32,7 +32,6 @@
     
     <listhead sizable="true" visible="true" >
         <listheader width="30px" />
-        <listheader sort="auto(nomor)" label="ID" width="80px" />
         <listheader sort="auto(nomorGiro)" label="NO GIRO"/>
         <listheader sort="auto(bank)" label="BANK"/>
         <listheader sort="auto(nilai)" label="NILAI" width="150px" />
@@ -49,9 +48,6 @@
     <auxhead>
         <auxheader>
             <image id="" src="img/filter.png" width=""  height=""/>
-        </auxheader>
-        <auxheader>
-            <textbox instant="true" value="@bind(vm.filterNomor)" hflex="3" onChange="@command('saring')"/>
         </auxheader>
         <auxheader>
             <textbox instant="true" value="@bind(vm.filterNomorGiro)" hflex="3" onChange="@command('saring')"/>
@@ -169,7 +165,6 @@
     <template name="model" var="g">
         <listitem sclass="mainList">
             <listcell />
-            <listcell label="@load(g.nomor)"/>
             <listcell label="@load(g.nomorGiro)"/>
             <listcell label="@load(g.bank)"/>
             <listcell label="@load(vm.format(g.nilai))"/>

@@ -95,7 +95,7 @@
                             <row>
                                 Customer
                                 <hlayout>
-                                    <textbox id="txtCustID" sclass="form-control input-primary" width="90px" placeholder="Cust ID" readonly="true"/>
+                                    <longbox id="txtCustID" sclass="form-control input-primary" width="90px" placeholder="Cust ID" readonly="true"/>
                                     <textbox id="txtCustName" sclass="form-control input-primary" hflex="3" placeholder="Nama Customer" readonly="true"/>
                                     <button id="btnCustID" iconSclass="glyphicon glyphicon-search" sclass="btn-primary"  width="50px" onClick="@command('showCustomer')"/>
                                 </hlayout>  

@@ -34,7 +34,7 @@ public class MenuGiroPendingVM {
     List<Giro> listGiro;
     Giro giro;
     Long totalNilai;
-    String filterNomor;
+    String filterCustomer;
     String filterNomorGiro;
     String filterBank;
     String filterNilai;
@@ -52,10 +52,10 @@ public class MenuGiroPendingVM {
     public MenuGiroPendingVM() {
         this.listGiro = new ArrayList<>();
         this.totalNilai = 0L;
-        this.filterNomor = "";
         this.filterNomorGiro = "";
         this.filterBank = "";
         this.filterNilai = "";
+        this.filterCustomer = "";
         this.filterPenyetor = "";
         this.filterTag = "";
         this.filterDKLK = "";
@@ -68,7 +68,7 @@ public class MenuGiroPendingVM {
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
 
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
-        this.listGiro = Ebean.find(Giro.class).where().eq("prosesKliring", "PENDING").setMaxRows(50).orderBy("nomor desc").findList();
+        this.listGiro = Ebean.find(Giro.class).where().eq("prosesKliring", "PENDING").setMaxRows(50).orderBy("tglJtTempo asc").findList();
 
         Long nilai = 0L;
         for (Giro giro1 : this.listGiro) {
@@ -77,7 +77,6 @@ public class MenuGiroPendingVM {
         this.totalNilai = nilai;
 
     }
-
 
     @Command
     public String format(final long nilai) {
@@ -117,43 +116,46 @@ public class MenuGiroPendingVM {
     public void refresh() {
         this.listGiro = Ebean.find(Giro.class)
                 .where().eq("prosesKliring", "PENDING")
-                .where().like("nomor", "%" + this.filterNomor + "%")
+                .where().like("customer.nama", "%" + this.filterCustomer + "%")
                 .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                 .where().like("bank", "%" + this.filterBank + "%")
+                .where().like("nilai", "%" + this.filterNilai + "%")
                 .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
                 .where().like("tag", "%" + this.filterTag + "%")
                 .where().like("DKLK", "%" + this.filterDKLK + "%")
                 .where().like("status", "%" + this.filterStatus + "%")
-                .orderBy("nomor DESC")
+                .orderBy("tglJtTempo ASC")
                 .findList();
 
         if (this.tsAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
                     .where().eq("prosesKliring", "PENDING")
-                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("customer", "%" + this.filterCustomer + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("tglJtTempo ASC")
                     .findList();
         }
 
         if (this.tglJtTempoAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
                     .where().eq("prosesKliring", "PENDING")
-                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("customer", "%" + this.filterCustomer + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
-                    .orderBy("nomor DESC")
+                     .orderBy("tglJtTempo ASC")
                     .findList();
 
         }
@@ -162,16 +164,17 @@ public class MenuGiroPendingVM {
 
             this.listGiro = Ebean.find(Giro.class)
                     .where().eq("prosesKliring", "PENDING")
-                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("customer", "%" + this.filterCustomer + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
-                    .orderBy("nomor DESC")
+                     .orderBy("tglJtTempo ASC")
                     .findList();
         }
 
@@ -219,7 +222,7 @@ public class MenuGiroPendingVM {
     @Command
     @NotifyChange({"listGiro"})
     public void downloadXLS() {
-        
+
         File filenya = new File(Util.setting("pdf_path") + "giro-reports.xls");
         try {
             InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/giro.jasper");
@@ -266,7 +269,7 @@ public class MenuGiroPendingVM {
             refresh();
 
         }
-        
+
         selectedGiro = null;
 
     }
@@ -327,11 +330,10 @@ public class MenuGiroPendingVM {
         BindUtils.postGlobalCommand((String) null, (String) null, "doChangePage", map);
 
     }
-    
-    
+
     @Command
-    @NotifyChange({"giro","listGiro"})
-    public void detailGiro(@BindingParam("giro") Giro giro ) {
+    @NotifyChange({"giro", "listGiro"})
+    public void detailGiro(@BindingParam("giro") Giro giro) {
         final Map args = new HashMap();
         args.put("gironya", giro);
         Executions.createComponents("DetailGiro.zul", null, args);
@@ -345,13 +347,14 @@ public class MenuGiroPendingVM {
         this.totalNilai = totalNilai;
     }
 
-    public String getFilterNomor() {
-        return this.filterNomor;
+    public String getFilterCustomer() {
+        return filterCustomer;
     }
 
-    public void setFilterNomor(final String filterNomor) {
-        this.filterNomor = filterNomor;
+    public void setFilterCustomer(String filterCustomer) {
+        this.filterCustomer = filterCustomer;
     }
+
 
     public String getFilterNilai() {
         return this.filterNilai;

@@ -18,19 +18,15 @@
     <auxhead>
         <auxheader colspan="3">
             <hlayout>
-                
-           
                 <button vflex="3" hflex="3" sclass="btn-primary btn-xs" iconSclass="glyphicon glyphicon-file" label="CREATE NEW" onClick="@command('buatGiroBaru')" 
                         if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-        
-      
             </hlayout>
         </auxheader>
         <auxheader colspan="4" align="center">
             - GIRO PENDING -
         </auxheader>
         <auxheader colspan="5">
-             <hlayout>
+            <hlayout>
                 <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"/>
                 <button vflex="3" hflex="3" sclass="btn-danger btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO TOLAK" onClick="@command('changePage', page='menuGiroTolak.zul')"/>
                 <button vflex="3" hflex="3" sclass="btn-warning btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO BATAL" onClick="@command('changePage', page='menuGiroBatal.zul')"/>
@@ -40,12 +36,12 @@
                         
     <listhead sizable="true" visible="true" >
         <listheader width="30px" />
-        <listheader sort="auto(nomor)" label="ID" width="80px" />
         <listheader sort="auto(nomorGiro)" label="NO GIRO"/>
         <listheader sort="auto(bank)" label="BANK"/>
         <listheader sort="auto(nilai)" label="NILAI" width="150px" />
         <listheader sort="auto(namaPenyetor)" label="PENYETOR"/>
         <listheader sort="tag" label="TAG"/>
+        <listheader sort="auto(customer.nama)" label="CUST"/>
         <listheader sort="auto(DKLK)" label="DK/LK" width="50px"/>
         <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
         <listheader sort="auto(tglJtTempo)" label="TGL JT TEMPO"/>
@@ -56,9 +52,6 @@
     <auxhead>
         <auxheader>
             <image id="" src="img/filter.png" width=""  height=""/>
-        </auxheader>
-        <auxheader>
-            <textbox instant="true" value="@bind(vm.filterNomor)" hflex="3" onChange="@command('saring')"/>
         </auxheader>
         <auxheader>
             <textbox instant="true" value="@bind(vm.filterNomorGiro)" hflex="3" onChange="@command('saring')"/>
@@ -74,6 +67,9 @@
         </auxheader>
         <auxheader>
             <textbox instant="true" value="@bind(vm.filterTag)" hflex="3" onChange="@command('saring')"/>
+        </auxheader>
+        <auxheader>
+            <textbox instant="true" value="@bind(vm.filterCustomer)" hflex="3" onChange="@command('saring')"/>
         </auxheader>
         <auxheader>
             <button popup="popupDKLK" iconSclass="glyphicon glyphicon-filter" label="" onClick="" sclass="btn-info btn-xs" hflex="3" />
@@ -145,20 +141,24 @@
                 </div>
             </popup>
         </auxheader>
+        
         <auxheader>
-                                    
+            
         </auxheader>
+        
+     
+  
     </auxhead>
                     
     <template name="model" var="g">
         <listitem sclass="mainList">
             <listcell />
-            <listcell label="@load(g.nomor)"/>
             <listcell label="@load(g.nomorGiro)"/>
             <listcell label="@load(g.bank)"/>
             <listcell label="@load(vm.format(g.nilai))"/>
             <listcell label="@load(g.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
             <listcell label="@load(g.tag)"/>
+            <listcell label="@load(g.customer.nama)" style="text-overflow: ellipsis; white-space: nowrap;"/>
             <listcell label="@load(g.DKLK)"/>
             <listcell style="text-overflow: ellipsis; white-space: nowrap;">
                 <label value="@load(g.wktTerima) @converter('formatedDate', format='yyyy/MM/dd hh:mm')"/>

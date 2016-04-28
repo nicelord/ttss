@@ -29,7 +29,8 @@ public class Giro implements Serializable {
     String tag;
     String DKLK = "DK";
     String status = "OK";
-    Long custID;
+    @ManyToOne
+    Customer customer;
     String prosesKliring = "DONE";
     @Temporal(TemporalType.TIMESTAMP)
     Timestamp lastUpdate = new Timestamp(new Date().getTime());
@@ -159,13 +160,15 @@ public class Giro implements Serializable {
         this.bank = bank;
     }
 
-    public Long getCustID() {
-        return custID;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustID(Long custID) {
-        this.custID = custID;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
+
+ 
 
     public String getProsesKliring() {
         return prosesKliring;
