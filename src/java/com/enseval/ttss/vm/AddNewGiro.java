@@ -63,7 +63,7 @@ public class AddNewGiro {
         this.giro.setNomor(Long.parseLong(this.giro.getLastNomor()) + 1L);
         this.giro.setUserLogin(this.userLogin);
         this.giro.setWktTerima(new Timestamp(new Date().getTime()));
-        if (txtCUstID.getValue()!=null) {
+        if (txtCUstID.getValue() != null) {
             this.giro.setCustomer(Ebean.find(Customer.class, txtCUstID.getValue()));
         }
         Ebean.save(this.giro);
@@ -73,7 +73,7 @@ public class AddNewGiro {
             dsp.setNama(this.giro.getNamaPenyetor().toUpperCase());
             Ebean.save(dsp);
         }
-        BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
+        BindUtils.postGlobalCommand(null, null, "refresh", null);
         this.win.detach();
 
         saveHistory();
@@ -88,7 +88,11 @@ public class AddNewGiro {
         gh.setNomorGiro(g.getNomorGiro());
         gh.setBank(g.getBank());
         gh.setUserLogin(g.getUserLogin());
-        // gh.setCustID(g.getCustID());
+        try {
+            gh.setCustID(g.getCustomer().getId());
+        } catch (NullPointerException e) {
+
+        }
         gh.setNilai(g.getNilai());
         gh.setProsesKliring(g.getProsesKliring());
         gh.setNamaPenyetor(g.getNamaPenyetor());
@@ -113,7 +117,6 @@ public class AddNewGiro {
         giro.setCustomer(customer);
         txtCUstID.setValue(customer.getId());
         txtCustName.setValue(customer.getNama());
-        
 
     }
 
@@ -212,8 +215,6 @@ public class AddNewGiro {
     public void setTxtCUstID(Longbox txtCUstID) {
         this.txtCUstID = txtCUstID;
     }
-
-  
 
     public Textbox getTxtCustName() {
         return txtCustName;

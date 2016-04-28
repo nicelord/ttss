@@ -155,12 +155,19 @@
                             <row>
                                 Customer
                                 <hlayout>
-                                    <textbox id="txtCustID" 
+                                    <longbox id="txtCustID" 
                                              sclass="form-control input-primary" 
                                              width="90px" 
                                              placeholder="Cust ID" 
+                                             readonly="true"
+                                             value="@bind(vm.giro.customer.id)"
+                                    />
+                                    <textbox id="txtCustName" 
+                                             sclass="form-control input-primary" 
+                                             hflex="3" 
+                                             placeholder="Nama Customer" 
+                                             value="@bind(vm.giro.customer.nama)"
                                              readonly="true"/>
-                                    <textbox id="txtCustName" sclass="form-control input-primary" hflex="3" placeholder="Nama Customer" readonly="true"/>
                                     <button id="btnCustID" 
                                             iconSclass="glyphicon glyphicon-search" 
                                             sclass="btn-primary"  

@@ -22,14 +22,21 @@
                         if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
             </hlayout>
         </auxheader>
-        <auxheader colspan="4" align="center">
-            - GIRO PENDING -
+        <auxheader colspan="3" align="center">
+            
+            - KLIRING <label value="@load(vm.state)"/> -
         </auxheader>
-        <auxheader colspan="5">
+        <auxheader colspan="6">
             <hlayout>
-                <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="SUDAH KLIRING" onClick="@command('changePage', page='menuGiroKliring.zul')"/>
-                <button vflex="3" hflex="3" sclass="btn-danger btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO TOLAK" onClick="@command('changePage', page='menuGiroTolak.zul')"/>
-                <button vflex="3" hflex="3" sclass="btn-warning btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO BATAL" onClick="@command('changePage', page='menuGiroBatal.zul')"/>
+                <button vflex="3" hflex="3" sclass="btn-warning btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO PENDING" onClick="@command('filterState',s='PENDING')"/>
+                <button vflex="3" hflex="3" sclass="btn-success btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO KLIRING" onClick="@command('filterState',s='DONE')"/>
+                <button vflex="3" hflex="3" sclass="btn-danger btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO TOLAK" onClick="@command('filterState',s='DITOLAK')"/>
+                <button vflex="3" hflex="3" sclass="btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="GIRO BATAL" onClick="@command('filterState',s='BATAL')"/>
+            </hlayout>
+        </auxheader>
+        <auxheader>
+            <hlayout>
+                <button vflex="3" hflex="3" sclass="btn-primary btn-xs" iconSclass="glyphicon glyphicon-list-alt" label="ALL" onClick="@command('filterState',s='')"/>
             </hlayout>
         </auxheader>
     </auxhead>
@@ -43,10 +50,11 @@
         <listheader sort="tag" label="TAG"/>
         <listheader sort="auto(customer.nama)" label="CUST"/>
         <listheader sort="auto(DKLK)" label="DK/LK" width="50px"/>
-        <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
-        <listheader sort="auto(tglJtTempo)" label="TGL JT TEMPO"/>
+        <listheader sort="auto(wktTerima)" label="TERIMA"/>
+        <listheader sort="auto(tglJtTempo)" label="JT TEMPO"/>
+        <listheader sort="auto(tglKliring)" label="KLIRING"/>
         <listheader sort="auto(status)" label="DOKUMEN" width="130px" />
-        <listheader label="DETAIL"/>
+        <listheader/>
     </listhead>
                         
     <auxhead>
@@ -130,6 +138,29 @@
             </popup>
                             
         </auxheader>
+        
+        <auxheader>
+            <button popup="popTimeKliring" iconSclass="glyphicon glyphicon-filter" label="FILTER" onClick="" sclass="btn-info btn-xs" hflex="3" />
+                          
+            <popup id="popTimeKliring" width="200px" style="word-wrap">
+                <vlayout>
+                    <label value="Dari :" />
+                    <datebox id="startDateKliring" value="@bind(vm.tglKliringAwal)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                    <label value="Sampai :" />
+                    <datebox id="endDateKliring" value="@bind(vm.tglKliringAkhir)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                    <div class="btn-group" hflex="3">
+                        <button label="TAMPILKAN" onClick="@command('saringTglKliring')" sclass="btn-info btn-xs" hflex="3" />
+                        <button label="RESET" onClick="@command('resetSaringTglKliring')" sclass="btn-default btn-xs" hflex="3" >
+                            <attribute name="onClick">
+                                startDateKliring.setText("");
+                                startDateKliring.setText("");
+                            </attribute>
+                        </button>
+                    </div>
+                </vlayout>
+            </popup>
+                            
+        </auxheader>
                     
         <auxheader>
             <button popup="popStatus" iconSclass="glyphicon glyphicon-filter" label="FILTER" onClick="" sclass="btn-info btn-xs" hflex="3" />
@@ -142,9 +173,11 @@
             </popup>
         </auxheader>
         
+
         <auxheader>
-            
+            <button iconSclass="glyphicon glyphicon-refresh" label="Reset" onClick="@command('reset')" sclass="btn-info btn-xs" hflex="3" />
         </auxheader>
+     
         
      
   
@@ -155,7 +188,7 @@
             <listcell />
             <listcell label="@load(g.nomorGiro)"/>
             <listcell label="@load(g.bank)"/>
-            <listcell label="@load(vm.format(g.nilai))"/>
+            <listcell label="@load(vm.format(g.nilai))" style="text-overflow: ellipsis; white-space: nowrap;"/>
             <listcell label="@load(g.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
             <listcell label="@load(g.tag)"/>
             <listcell label="@load(g.customer.nama)" style="text-overflow: ellipsis; white-space: nowrap;"/>
@@ -165,6 +198,9 @@
             </listcell>
             <listcell style="text-overflow: ellipsis; white-space: nowrap;">
                 <label value="@load(g.tglJtTempo) @converter('formatedDate', format='yyyy/MM/dd')"/>
+            </listcell>
+            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                <label value="@load(g.tglKliring) @converter('formatedDate', format='yyyy/MM/dd')"/>
             </listcell>
             <listcell label="@load(g.status)"/>
             <listcell>
@@ -177,9 +213,8 @@
     <listfoot>
         <listfooter span="12" valign="middle">
             <div style="float:left;">
-                                
-                <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-download-alt" label="DOWNLOAD EXCEL DAN PROSES KLIRING">
-                </button>
+                          
+                <button iconSclass="glyphicon glyphicon-forward" sclass="btn-success" onClick="@command('showKonfirmasiTglKliring')">PROSES KLIRING</button>
             </div>
             <div style="float:right;">
                 <label value="TOTAL NILAI "/>
