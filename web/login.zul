@@ -9,12 +9,18 @@
         }
         
         .z-window{
-        background: #3F89C7;
+        background: #0B2027;
+        
+        }
+        .z-window-header{
+        color: white;
+        text-align:center;
         }
         
         body *:not([class*="glyphicon"]):not([class*="z-icon-"])  {
         font-family: "Segoe UI";
         font-size: 13px;
+        
         }
         
     </style>

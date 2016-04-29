@@ -212,9 +212,19 @@
                     
     <listfoot>
         <listfooter span="12" valign="middle">
-            <div style="float:left;">
-                          
-                <button iconSclass="glyphicon glyphicon-forward" sclass="btn-success" onClick="@command('showKonfirmasiTglKliring')">PROSES KLIRING</button>
+            <div style="float:left;">     
+                <button iconSclass="glyphicon glyphicon-forward" 
+                        sclass="btn-success" 
+                        onClick="@command('showKonfirmasiTglKliring')"
+                        label="PROSES KLIRING"
+                        visible="@load(vm.state eq 'PENDING')"
+                />
+                <button 
+                    onClick="@command('downloadXLS')" 
+                    iconSclass="glyphicon glyphicon-download-alt" 
+                    label="DOWNLOAD EXCEL"
+                    visible="@load(vm.state ne 'PENDING')"
+                />
             </div>
             <div style="float:right;">
                 <label value="TOTAL NILAI "/>
