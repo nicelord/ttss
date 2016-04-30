@@ -7,10 +7,6 @@
                      mold="paging" width="100%" vflex="true" autopaging="true" 
                      emptyMessage="Kosong euy!"
                      model="@load(vm.listGiro)">     
-                                             
-         
-
-    
                 <listhead sizable="true" visible="true" >
                     <listheader sort="auto(nomorGiro)" label="NO GIRO"/>
                     <listheader sort="auto(bank)" label="BANK"/>
@@ -157,6 +153,7 @@
                             <span class="label label-success" visible="@load(g.prosesKliring eq 'DONE')">
                                 done
                             </span>
+
                             <span class="label label-warning" visible="@load(g.prosesKliring eq 'PENDING')">
                                 pending
                             </span>
@@ -178,10 +175,9 @@
                     <listfooter span="12" valign="middle">
                         
                     </listfooter>
-                </listfoot>		
+                </listfoot>	
+                	
             </listbox>
-
-        
         </center>
     </borderlayout>
 

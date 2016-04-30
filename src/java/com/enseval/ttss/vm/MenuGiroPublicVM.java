@@ -34,7 +34,6 @@ public class MenuGiroPublicVM {
     List<Giro> listGiro;
     Giro giro;
     Long totalNilai;
-    String filterNomor;
     String filterNomorGiro;
     String filterBank;
     String filterNilai;
@@ -56,7 +55,6 @@ public class MenuGiroPublicVM {
     public MenuGiroPublicVM() {
         this.listGiro = new ArrayList<>();
         this.totalNilai = 0L;
-        this.filterNomor = "";
         this.filterNomorGiro = "";
         this.filterBank = "";
         this.filterNilai = "";
@@ -75,7 +73,7 @@ public class MenuGiroPublicVM {
 //            Executions.sendRedirect("chromeDownload.zul");
 //        }
 
-        this.listGiro = Ebean.find(Giro.class).setMaxRows(50).orderBy("nomor desc").findList();
+        this.listGiro = Ebean.find(Giro.class).orderBy("lastUpdate desc").findList();
 
         Long nilai = 0L;
         for (Giro giro1 : this.listGiro) {
@@ -122,7 +120,6 @@ public class MenuGiroPublicVM {
     @NotifyChange({"listGiro", "totalNilai"})
     public void refresh() {
         this.listGiro = Ebean.find(Giro.class)
-                .where().like("nomor", "%" + this.filterNomor + "%")
                 .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                 .where().like("bank", "%" + this.filterBank + "%")
                 .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -130,12 +127,11 @@ public class MenuGiroPublicVM {
                 .where().like("tag", "%" + this.filterTag + "%")
                 .where().like("DKLK", "%" + this.filterDKLK + "%")
                 .where().like("status", "%" + this.filterStatus + "%")
-                .orderBy("nomor DESC")
+                .orderBy("lastUpdate DESC")
                 .findList();
 
         if (this.tsAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -144,13 +140,12 @@ public class MenuGiroPublicVM {
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("lastUpdate DESC")
                     .findList();
         }
 
         if (this.tglJtTempoAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -159,14 +154,13 @@ public class MenuGiroPublicVM {
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("lastUpdate DESC")
                     .findList();
 
         }
 
         if (this.tglKliringAwal != null) {
             this.listGiro = Ebean.find(Giro.class)
-                    .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -175,14 +169,13 @@ public class MenuGiroPublicVM {
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("lastUpdate DESC")
                     .findList();
         }
 
         if (this.tsAwal != null && this.tglJtTempoAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -192,14 +185,13 @@ public class MenuGiroPublicVM {
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("lastUpdate DESC")
                     .findList();
         }
 
         if (this.tsAwal != null && this.tglKliringAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -209,14 +201,13 @@ public class MenuGiroPublicVM {
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("lastUpdate DESC")
                     .findList();
         }
 
         if (this.tglJtTempoAwal != null && this.tglKliringAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -226,14 +217,13 @@ public class MenuGiroPublicVM {
                     .where().like("status", "%" + this.filterStatus + "%")
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("lastUpdate DESC")
                     .findList();
         }
 
         if (this.tsAwal != null && this.tglJtTempoAwal != null && this.tglKliringAwal != null) {
 
             this.listGiro = Ebean.find(Giro.class)
-                    .where().like("nomor", "%" + this.filterNomor + "%")
                     .where().like("nomorGiro", "%" + this.filterNomorGiro + "%")
                     .where().like("bank", "%" + this.filterBank + "%")
                     .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
@@ -244,7 +234,7 @@ public class MenuGiroPublicVM {
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
-                    .orderBy("nomor DESC")
+                    .orderBy("lastUpdate DESC")
                     .findList();
         }
 
@@ -421,14 +411,6 @@ public class MenuGiroPublicVM {
 
     public void setTotalNilai(final Long totalNilai) {
         this.totalNilai = totalNilai;
-    }
-
-    public String getFilterNomor() {
-        return this.filterNomor;
-    }
-
-    public void setFilterNomor(final String filterNomor) {
-        this.filterNomor = filterNomor;
     }
 
     public String getFilterNilai() {
