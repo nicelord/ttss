@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 10.163.142.70
-Source Server Version : 50525
-Source Host           : 10.163.142.70:3306
+Source Server         : localhost
+Source Server Version : 50505
+Source Host           : localhost:3306
 Source Database       : cashmon
 
 Target Server Type    : MYSQL
-Target Server Version : 50525
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-04-30 10:22:46
+Date: 2016-04-30 19:25:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -5211,7 +5211,6 @@ INSERT INTO `giro` VALUES ('160429009', 'MY 6 351085', '5950000', '8', 'WAHYUDI'
 INSERT INTO `giro` VALUES ('160429010', 'YJ 308631', '22000000', '8', 'SAFII', '2016-04-29 17:00:55', null, '2016-05-06', '', 'FIN', 'DK', 'OK', 'PENDING', 'MANDIRI', '962488', '2016-04-29 17:00:04');
 INSERT INTO `giro` VALUES ('160429011', 'XJ 643366', '9100000', '8', 'SAFII', '2016-04-29 17:01:30', null, '2016-05-04', '', 'FIN', 'DK', 'OK', 'PENDING', 'MANDIRI', '392303', '2016-04-29 17:01:02');
 INSERT INTO `giro` VALUES ('160429012', 'XJ 642489', '5834500', '8', 'SAFII', '2016-04-29 17:02:05', null, '2016-05-02', '', 'FIN', 'DK', 'OK', 'PENDING', 'MANDIRI', '923258', '2016-04-29 17:01:31');
-INSERT INTO `giro` VALUES ('160429013', '', null, null, null, null, '0000-00-00', null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for giro_history
