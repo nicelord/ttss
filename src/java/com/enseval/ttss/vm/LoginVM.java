@@ -53,10 +53,10 @@ public class LoginVM
     @NotifyChange({ "browser" })
     public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
         Selectors.wireComponents(view, (Object)this, false);
-        this.setBrowser(Executions.getCurrent().getBrowser());
-        if (!this.browser.equals("webkit")) {
-            Executions.sendRedirect("chromeDownload.zul");
-        }
+//        this.setBrowser(Executions.getCurrent().getBrowser());
+//        if (!this.browser.equals("webkit")) {
+//            Executions.sendRedirect("chromeDownload.zul");
+//        }
     }
     
     @Command

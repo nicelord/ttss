@@ -83,8 +83,16 @@ public class MenuBalanceVM {
                         b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
                     }
                 }
-
-                b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+//
+//                System.out.println("/////////////////////////////////////////////////////////////");
+//                System.out.println(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo());
+//                System.out.println(monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+//                System.out.println("/////////////////////////////////////////////////////////////");
+                if (monthlyTTSS.get(monthlyTTSS.size() - 1).getTipe().equals("keluar")) {
+                    b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() + monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                } else {
+                    b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                }
                 b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
                 b.setJenisKas("KAS TRANSFER");
                 listBalance.add(b);
@@ -106,7 +114,12 @@ public class MenuBalanceVM {
                     }
                 }
 
-                b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+               // b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                if (monthlyTTSS.get(monthlyTTSS.size() - 1).getTipe().equals("keluar")) {
+                    b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() + monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                } else {
+                    b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                }
                 b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
                 b.setJenisKas("KAS DROPPING");
                 listBalance.add(b);
@@ -148,7 +161,12 @@ public class MenuBalanceVM {
                     }
                 }
 
-                b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                // b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                if (monthlyTTSS.get(monthlyTTSS.size() - 1).getTipe().equals("keluar")) {
+                    b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() + monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                } else {
+                    b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
+                }
                 b.setSaldoAkhir(monthlyTTSS.get(0).getSaldo());
                 b.setJenisKas(filterJenisKas);
                 if (!filterBulan.isEmpty()) {
