@@ -91,7 +91,7 @@ public class CetakUlangTTSSVM {
             c.setTtssnya(this.ttss);
             c.setUserLogin(this.userLogin);
             c.setWktCetak(new Timestamp(new Date().getTime()));
-            c.doCetak(this.printernya, Util.setting("pdf_path"));
+            c.doCetakKeluar(this.printernya, Util.setting("pdf_path"));
             this.UpdateTTSS();
             Ebean.save((Object) c);
         } catch (JRException | ArrayIndexOutOfBoundsException | PrinterException ex2) {
