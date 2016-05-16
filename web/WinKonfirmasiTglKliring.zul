@@ -43,7 +43,7 @@
                             <datebox format="yyyy/MM/dd" 
                                      onCreate="self.value = new Date()" 
                                      readonly="true"
-                                     constraint="no empty, no past"
+                                     constraint="no empty"
                                      value="@bind(vm.tglKliring)"
                             />
                         </row>
