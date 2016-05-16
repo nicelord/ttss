@@ -56,6 +56,7 @@ public class DetailGiroVM {
 
     @Command
     public void prosesKliring() {
+
         List<Giro> listGiro = new ArrayList<>();
         listGiro.add(giro);
         Map args = new HashMap();
@@ -92,9 +93,11 @@ public class DetailGiroVM {
     @Command
     @GlobalCommand
     public void UpdateGiro() {
+        
         this.giro.setLastUpdate(new Timestamp(new Date().getTime()));
         this.giro.setUserLogin(userLogin);
         Ebean.save(this.giro);
+
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
         saveHistory();

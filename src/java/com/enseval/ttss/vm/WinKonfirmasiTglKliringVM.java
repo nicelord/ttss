@@ -7,6 +7,8 @@ package com.enseval.ttss.vm;
 
 import com.avaje.ebean.Ebean;
 import com.enseval.ttss.model.Giro;
+import com.enseval.ttss.model.GiroHistory;
+import com.enseval.ttss.util.MailNotif;
 import com.enseval.ttss.util.Util;
 import java.io.File;
 import java.io.FileInputStream;
@@ -108,7 +110,7 @@ public class WinKonfirmasiTglKliringVM {
                     Filedownload.save((InputStream) inputStream, new MimetypesFileTypeMap().getContentType(filenya), filenya.getName());
                 }
             } catch (FileNotFoundException e) {
-                Messagebox.show(e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+                Messagebox.show(e.getMessage(), "ERROR", Messagebox.OK, Messagebox.ERROR);
             }
             filenya.delete();
 
@@ -125,12 +127,20 @@ public class WinKonfirmasiTglKliringVM {
             win.detach();
 
         } else {
-
             for (Giro giroSelected : selectedGiro) {
+                if (Util.setting("email_aktif").equals("YA")) {
+                    Giro gh = Ebean.find(Giro.class).where().eq("nomor", giroSelected.getNomor()).findUnique();
+                    //System.out.println(gh.getProsesKliring() + "//////////////////////////////////////////");
+                    if (gh.getProsesKliring().equals("DITOLAK")) {
+                        MailNotif mailNotif = new MailNotif();
+                        mailNotif.emailTolakUpdate(giroSelected);
 
+                    }
+                }
+
+                
                 giroSelected.setProsesKliring("DONE");
                 giroSelected.setTglKliring(tglKliring);
-
                 Ebean.save(giroSelected);
 
             }
