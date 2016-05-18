@@ -24,7 +24,7 @@
                 style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;"
                 position="center,top" 
                 mode="modal" 
-                width="500px" 
+                width="700px" 
                 vflex="1" 
                 title="CARI CUSTOMER" 
                 border="normal" 
@@ -34,15 +34,15 @@
         
             <listbox id="listCust" mold="paging" width="100%" vflex="true" 
                      
-                     pageSize="13"
+                     pageSize="10"
                      emptyMessage="Kosong euy!"
                      selectedItem="@bind(vm.customer)"
                      model="@load(vm.listCustomers)">        
                                              
                 <auxhead>
-                    <auxheader colspan="2">
+                    <auxheader colspan="3">
                         <hlayout >
-                            <textbox id="txtCari" hflex="3" width="420px" value="" sclass="form-control input-primary" placeholder="customer id atau nama"/>
+                            <textbox id="txtCari" hflex="3" width="620px" value="" sclass="form-control input-primary" placeholder="customer id atau nama"/>
                             <button id="btnCustID" iconSclass="glyphicon glyphicon-search" sclass="btn-primary" onClick="@command('cari')"/>
                         </hlayout>
                     </auxheader>
@@ -51,13 +51,15 @@
                 <listhead sizable="true" visible="true" >
                     <listheader sort="auto(id)" label="ID" width="130px" />
                     <listheader sort="auto(nama)" label="NAMA" />
+                    <listheader label="SHIPTO" width="300px" />
                 </listhead>
                         
                 
                 <template name="model" var="s">
                     <listitem sclass="mainList">
                         <listcell label="@load(s.id)"/>
-                        <listcell label="@load(s.nama)"/>
+                        <listcell label="@load(s.nama)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                        <listcell label="@load(s.shipto)" style="text-overflow: ellipsis; white-space: nowrap;"/>
                     </listitem>
                 </template>
                     

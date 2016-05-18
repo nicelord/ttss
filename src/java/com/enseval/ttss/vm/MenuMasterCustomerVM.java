@@ -20,6 +20,7 @@ public class MenuMasterCustomerVM {
     @Wire("#txtShipto")
     Textbox txtShipto;
     Customer customer = new Customer();
+    String filterId = "", filterNama = "", filterShipto = "";
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
@@ -31,10 +32,12 @@ public class MenuMasterCustomerVM {
     @Command
     @NotifyChange("listCustomer")
     public void doFilter() {
-//        this.listCustomer = Ebean.find(Customer.class).where().or(
-//                Expr.like("id", "%" + txtCari.getValue() + "%"),
-//                Expr.like("nama", "%" + txtCari.getValue() + "%"))
-//                .findList();
+
+        listCustomer = Ebean.find(Customer.class)
+                .where().like("id", "%" + filterId  + "%")
+                .where().like("nama", "%" + filterNama  + "%")
+                .where().like("shipto", "%" + filterShipto  + "%")
+                .orderBy("id desc").findList();
 
     }
 
@@ -62,7 +65,7 @@ public class MenuMasterCustomerVM {
 
             Messagebox.show("Customer ditambahkan", "Info", Messagebox.OK, Messagebox.INFORMATION);
             listCustomer = Ebean.find(Customer.class).orderBy("id desc").findList();
-            
+
             customer = null;
 
         }
@@ -120,6 +123,30 @@ public class MenuMasterCustomerVM {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public String getFilterId() {
+        return filterId;
+    }
+
+    public void setFilterId(String filterId) {
+        this.filterId = filterId;
+    }
+
+    public String getFilterNama() {
+        return filterNama;
+    }
+
+    public void setFilterNama(String filterNama) {
+        this.filterNama = filterNama;
+    }
+
+    public String getFilterShipto() {
+        return filterShipto;
+    }
+
+    public void setFilterShipto(String filterShipto) {
+        this.filterShipto = filterShipto;
     }
 
 }

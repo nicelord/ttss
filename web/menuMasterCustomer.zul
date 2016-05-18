@@ -32,6 +32,8 @@
                                 
                         </auxheader>
                     </auxhead>
+                    
+                    
                             
                                             
                     <listhead>
@@ -40,6 +42,20 @@
                         <listheader label="Shipto" width="70%"/>
                         <listheader label="HAPUS" width="150px"/>
                     </listhead>
+                    
+                    <auxhead>
+                        <auxheader>
+                            <textbox instant="true" hflex="3" value="@bind(vm.filterId)" sclass="form-control input-primary" onChange="@command('doFilter')"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox instant="true" hflex="3" value="@bind(vm.filterNama)" sclass="form-control input-primary" onChange="@command('doFilter')"/> 
+                        </auxheader>
+                        <auxheader>
+                            <textbox instant="true" hflex="3" value="@bind(vm.filterShipto)" sclass="form-control input-primary" onChange="@command('doFilter')"/> 
+                        </auxheader>
+                    </auxhead>
+                    
+                    
                     <template name="model" var="s">
                         <listitem sclass="custList">
                             <listcell label="@load(s.id)"/>
