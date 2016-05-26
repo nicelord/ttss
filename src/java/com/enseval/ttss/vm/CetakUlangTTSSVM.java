@@ -54,7 +54,7 @@ public class CetakUlangTTSSVM {
     @Command
     public void UpdateTTSS() {
         this.ttss.setUserLogin(this.userLogin);
-        this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
+        //this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
         Ebean.save((Object) this.ttss);
         DsPenyetor dsp = (DsPenyetor) Ebean.find((Class) DsPenyetor.class).where("nama = '" + this.ttss.getNamaPenyetor() + "'").findUnique();
         if (dsp == null) {

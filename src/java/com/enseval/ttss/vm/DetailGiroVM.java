@@ -32,6 +32,7 @@ public class DetailGiroVM {
     List<String> listStatus;
     User userLogin;
     String DKLK;
+    boolean isReadonly = false;
 
     public DetailGiroVM() {
         this.listPenyetor = new ArrayList<>();
@@ -44,6 +45,9 @@ public class DetailGiroVM {
     public void initSetup(@ContextParam(ContextType.VIEW) Component view, @ExecutionArgParam("gironya") Giro gironya) {
 
         this.userLogin = new AuthenticationServiceImpl().getUserCredential().getUser();
+        
+        isReadonly = (userLogin.getAkses().equals("ADMINISTRATOR") || userLogin.getAkses().equals("KASIR"));
+     
 
         this.giro = gironya;
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
@@ -228,6 +232,14 @@ public class DetailGiroVM {
 
     public void setCmbStatus(Combobox cmbStatus) {
         this.cmbStatus = cmbStatus;
+    }
+
+    public boolean isIsReadonly() {
+        return isReadonly;
+    }
+
+    public void setIsReadonly(boolean isReadonly) {
+        this.isReadonly = isReadonly;
     }
 
 }

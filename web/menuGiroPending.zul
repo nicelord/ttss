@@ -218,6 +218,7 @@
                         onClick="@command('showKonfirmasiTglKliring')"
                         label="PROSES KLIRING"
                         visible="@load(vm.state eq 'PENDING')"
+                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
                 />
                 <button 
                     onClick="@command('downloadXLS')" 
