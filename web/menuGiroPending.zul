@@ -12,8 +12,8 @@
          model="@load(vm.listGiro)"
          apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuGiroPendingVM')">        
                                              
-    <custom-attributes org.zkoss.zul.listbox.rod="true" 
-                       if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
+    <!--custom-attributes org.zkoss.zul.listbox.rod="true" 
+                       if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/-->
                      
     <auxhead>
         <auxheader colspan="3">
