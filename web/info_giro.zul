@@ -54,9 +54,9 @@
                         <popup id="popupTimeChooser" width="200px" style="word-wrap">
                             <vlayout>
                                 <label value="Dari :" />
-                                <datebox id="startDate" value="@bind(vm.tsAwal)" format="yyyy-MM-dd HH:mm" constraint="no future: now or never" readonly="true" hflex="3"/>
+                                <datebox id="startDate" value="@bind(vm.tsAwal)" format="yyyy-MM-dd HH:mm" readonly="true" hflex="3"/>
                                 <label value="Sampai :" />
-                                <datebox id="endDate" value="@bind(vm.tsAkhir)" format="yyyy-MM-dd HH:mm" constraint="no future: now or never" readonly="true" hflex="3"/>
+                                <datebox id="endDate" value="@bind(vm.tsAkhir)" format="yyyy-MM-dd HH:mm" readonly="true" hflex="3"/>
                                 <div class="btn-group" hflex="3">
                                     <button label="TAMPILKAN" onClick="@command('saringTgl')" sclass="btn-info btn-xs" hflex="3" />
                                     <button label="RESET" onClick="@command('resetSaringWkt')" sclass="btn-default btn-xs" hflex="3" >
@@ -77,9 +77,9 @@
                         <popup id="popTimeJtTempo" width="200px" style="word-wrap">
                             <vlayout>
                                 <label value="Dari :" />
-                                <datebox id="startDateJtTempo" value="@bind(vm.tglJtTempoAwal)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                                <datebox id="startDateJtTempo" value="@bind(vm.tglJtTempoAwal)" format="yyyy-MM-dd" readonly="true" hflex="3"/>
                                 <label value="Sampai :" />
-                                <datebox id="endDateJtTempo" value="@bind(vm.tglJtTempoAkhir)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                                <datebox id="endDateJtTempo" value="@bind(vm.tglJtTempoAkhir)" format="yyyy-MM-dd" readonly="true" hflex="3"/>
                                 <div class="btn-group" hflex="3">
                                     <button label="TAMPILKAN" onClick="@command('saringTglJtTempo')" sclass="btn-info btn-xs" hflex="3" />
                                     <button label="RESET" onClick="@command('resetSaringTglJtTempo')" sclass="btn-default btn-xs" hflex="3" >
@@ -100,9 +100,9 @@
                         <popup id="popTimeKliring" width="200px" style="word-wrap">
                             <vlayout>
                                 <label value="Dari :" />
-                                <datebox id="startDateKliring" value="@bind(vm.tglKliringAwal)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                                <datebox id="startDateKliring" value="@bind(vm.tglKliringAwal)" format="yyyy-MM-dd" readonly="true" hflex="3"/>
                                 <label value="Sampai :" />
-                                <datebox id="endDateKliring" value="@bind(vm.tglKliringAkhir)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                                <datebox id="endDateKliring" value="@bind(vm.tglKliringAkhir)" format="yyyy-MM-dd" readonly="true" hflex="3"/>
                                 <div class="btn-group" hflex="3">
                                     <button label="TAMPILKAN" onClick="@command('saringTglKliring')" sclass="btn-info btn-xs" hflex="3" />
                                     <button label="RESET" onClick="@command('resetSaringTglKliring')" sclass="btn-default btn-xs" hflex="3" >

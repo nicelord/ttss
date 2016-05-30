@@ -5,13 +5,10 @@ import org.zkoss.zk.ui.*;
 import com.enseval.ttss.util.*;
 import com.avaje.ebean.*;
 import org.zkoss.zk.ui.select.*;
-import java.text.*;
 import org.zkoss.bind.*;
 import java.util.*;
 import com.enseval.ttss.model.*;
 import org.zkoss.zul.*;
-import net.sf.jasperreports.engine.*;
-import java.awt.print.*;
 import java.sql.Timestamp;
 import org.zkoss.bind.annotation.*;
 
@@ -45,9 +42,12 @@ public class DetailGiroVM {
     public void initSetup(@ContextParam(ContextType.VIEW) Component view, @ExecutionArgParam("gironya") Giro gironya) {
 
         this.userLogin = new AuthenticationServiceImpl().getUserCredential().getUser();
-        
-        isReadonly = (userLogin.getAkses().equals("ADMINISTRATOR") || userLogin.getAkses().equals("KASIR"));
-     
+
+        try {
+            isReadonly = (userLogin.getAkses().equals("ADMINISTRATOR") || userLogin.getAkses().equals("KASIR"));
+        } catch (Exception e) {
+
+        }
 
         this.giro = gironya;
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
@@ -97,7 +97,7 @@ public class DetailGiroVM {
     @Command
     @GlobalCommand
     public void UpdateGiro() {
-        
+
         this.giro.setLastUpdate(new Timestamp(new Date().getTime()));
         this.giro.setUserLogin(userLogin);
         Ebean.save(this.giro);
