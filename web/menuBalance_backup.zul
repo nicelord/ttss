@@ -16,7 +16,7 @@
                
                 <listbox id="listTtss" mold="paging" width="100%" vflex="true" autopaging="true" 
                          selectedItems="@bind(vm.selectedTTSS)"
-                         emptyMessage="Kosong euy!"
+                         emptyMessage="Tidak ada data"
                          model="@load(vm.listTTSS)">   
                     <zscript>   <![CDATA[
                         listTtss.pagingChild.mold = "os";

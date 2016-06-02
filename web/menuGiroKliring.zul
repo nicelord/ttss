@@ -8,7 +8,7 @@
          multiple="true" 
          selectedItem="@bind(vm.giro)"
          selectedItems="@bind(vm.selectedGiro)"
-         emptyMessage="Kosong euy!"
+         emptyMessage="Tidak ada data"
          model="@load(vm.listGiro)"
          apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuGiroKliringVM')">        
                                              

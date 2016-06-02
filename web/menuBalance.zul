@@ -15,7 +15,7 @@
             <center>
                
                 <listbox id="listBalance" mold="paging" width="100%" vflex="true" autopaging="true" 
-                         emptyMessage="Kosong euy!"
+                         emptyMessage="Tidak ada data"
                          model="@load(vm.listBalance)">   
                     <zscript>   <![CDATA[
                         listTtss.pagingChild.mold = "os";

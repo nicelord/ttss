@@ -13,7 +13,7 @@
           
             <window title="CUSTOMER LIST" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuMasterCustomerVM')">
                 <listbox id="custList" mold="paging" width="100%" vflex="true" autopaging="true" 
-                     emptyMessage="Kosong euy!"
+                     emptyMessage="Tidak ada data"
                      model="@load(vm.listCustomer)"
                      selectedItem="@bind(vm.customer)">  
                             

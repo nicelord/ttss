@@ -35,7 +35,7 @@
             <listbox id="listCust" mold="paging" width="100%" vflex="true" 
                      
                      pageSize="10"
-                     emptyMessage="Kosong euy!"
+                     emptyMessage="Tidak ada data"
                      selectedItem="@bind(vm.customer)"
                      model="@load(vm.listCustomers)">        
                                              

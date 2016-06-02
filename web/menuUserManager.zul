@@ -24,7 +24,7 @@
                                          checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
                                          multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
                                          selectedItems="@bind(vm.selectedUsers)"
-                                         emptyMessage="Kosong euy!"
+                                         emptyMessage="Tidak ada data"
                                          model="@load(vm.users)">        
                                              
                                     <custom-attributes org.zkoss.zul.listbox.rod="false"/>
@@ -157,7 +157,7 @@
                     <window title="REGISTER PRINTER" apply="org.zkoss.bind.BindComposer"  viewModel="@id('prn') @init('com.enseval.ttss.vm.MenuPrinterSettingVM')">
                         <listbox id="box" 
                                  mold="paging" width="100%" vflex="true" pageSize="10" 
-                                 emptyMessage="Kosong euy!"
+                                 emptyMessage="Tidak ada data"
                                  model="@load(prn.printers)"
                                  selectedItem="@bind(prn.printer)">  
                             
@@ -263,7 +263,7 @@
                                 </rows>
                             </grid>
                         </window>
-                        <window title="SETTING EMAIL">
+                        <!--window title="SETTING EMAIL">
                             <grid>
                                 <columns>
                                     <column align="right" width="30%"/>
@@ -304,7 +304,7 @@
                                     </row>
                                 </rows>
                             </grid>
-                        </window>
+                        </window-->
                         <separator spacing="20px" bar="true"/>
                         <div class="btn-group" style="float:right;">
                             <button onClick="@command('simpanSetting')" iconSclass="glyphicon glyphicon-floppy-disk" label="SIMPAN" >

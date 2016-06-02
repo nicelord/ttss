@@ -7,7 +7,7 @@
                      checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
                      multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
                      selectedItems="@bind(vm.selectedTTSS)"
-                     emptyMessage="Kosong euy!"
+                     emptyMessage="Tidak ada data"
                      model="@load(vm.listTTSS)">        
                                              
                 <custom-attributes org.zkoss.zul.listbox.rod="true" 

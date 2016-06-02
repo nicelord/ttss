@@ -29,7 +29,7 @@
                          mold="paging"
                          pageSize="13"
                          width="100%" vflex="3"  
-                         emptyMessage="Kosong euy!"
+                         emptyMessage="Tidak ada data"
                          model="@load(vm.listOpname)"
                 >  
                             

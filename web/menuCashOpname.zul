@@ -22,7 +22,7 @@
                     viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuCashOpname')">
                 <listbox id="box" 
                          mold="paging" width="100%" vflex="true" autopaging="true" 
-                         emptyMessage="Kosong euy!"
+                         emptyMessage="Tidak ada data"
                          model="@load(vm.listOpname)">  
                             
                     <auxhead>

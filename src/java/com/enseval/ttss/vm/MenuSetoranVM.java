@@ -116,9 +116,28 @@ public class MenuSetoranVM {
     @NotifyChange({"listTTSS", "totalNilai"})
     public void refresh() {
         if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
+            // this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and ( tag like '%" + this.filterTag + "%' or tag IS NULL ) and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("tipe", "masuk")
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .or(Expr.like("tag", "%" + this.filterTag + "%"), Expr.isNull("tag"))
+                    .where().like("jenisKas", "%" + this.filterJenisKas + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .orderBy("wktTerima DESC")
+                    .findList();
         } else {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+            // this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and (tag like '%" + this.filterTag + "%' or tag IS NULL ) and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("tipe", "masuk")
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .or(Expr.like("tag", "%" + this.filterTag + "%"), Expr.isNull("tag"))
+                    .where().like("jenisKas", "%" + this.filterJenisKas + "%")
+                    .orderBy("wktTerima DESC")
+                    .findList();
         }
         Long nilai = 0L;
         for (final TTSS ttss1 : this.listTTSS) {
@@ -131,9 +150,30 @@ public class MenuSetoranVM {
     @NotifyChange({"listTTSS", "totalNilai"})
     public void saring() {
         if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
+            //this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("tipe", "masuk")
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .or(Expr.like("tag", "%" + this.filterTag + "%"), Expr.isNull("tag"))
+                    .where().like("jenisKas", "%" + this.filterJenisKas + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .orderBy("wktTerima DESC")
+                    .findList();
+
         } else {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+            // this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("tipe", "masuk")
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .or(Expr.like("tag", "%" + this.filterTag + "%"), Expr.isNull("tag"))
+                    .where().like("jenisKas", "%" + this.filterJenisKas + "%")
+                    .orderBy("wktTerima DESC")
+                    .findList();
+
         }
         Long nilai = 0L;
         for (final TTSS ttss1 : this.listTTSS) {
@@ -146,9 +186,29 @@ public class MenuSetoranVM {
     @NotifyChange({"listTTSS", "totalNilai"})
     public void saringTgl() {
         if (this.tsAwal != null | this.tsAkhir != null) {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
+            //this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%' and wktTerima >= '" + this.tsAwal + "' and wktTerima <= '" + this.tsAkhir + "'").orderBy("wktTerima desc").findList();
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("tipe", "masuk")
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .or(Expr.like("tag", "%" + this.filterTag + "%"), Expr.isNull("tag"))
+                    .where().like("jenisKas", "%" + this.filterJenisKas + "%")
+                    .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .orderBy("wktTerima DESC")
+                    .findList();
+
         } else {
-            this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%'  and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+            this.listTTSS = Ebean.find(TTSS.class)
+                    .where().eq("tipe", "masuk")
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                    .or(Expr.like("tag", "%" + this.filterTag + "%"), Expr.isNull("tag"))
+                    .where().like("jenisKas", "%" + this.filterJenisKas + "%")
+                    // .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                    .orderBy("wktTerima DESC")
+                    .findList();
         }
         Long nilai = 0L;
         for (final TTSS ttss1 : this.listTTSS) {
@@ -162,7 +222,18 @@ public class MenuSetoranVM {
     public void resetSaringWkt() {
         this.tsAwal = null;
         this.tsAkhir = null;
-        this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+        //this.listTTSS = (List<TTSS>) Ebean.find((Class) TTSS.class).where("tipe = 'masuk' and nomor like '%" + this.filterNomor + "%' and nilai like '%" + this.filterNilai + "%' and namaPenyetor like '%" + this.filterPenyetor + "%' and tag like '%" + this.filterTag + "%' and jenisKas like '%" + this.filterJenisKas + "%'").orderBy("wktTerima desc").findList();
+        this.listTTSS = Ebean.find(TTSS.class)
+                .where().eq("tipe", "masuk")
+                .where().like("nomor", "%" + this.filterNomor + "%")
+                .where().like("nilai", "%" + this.filterNilai + "%")
+                .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
+                .or(Expr.like("tag", "%" + this.filterTag + "%"), Expr.isNull("tag"))
+                .where().like("jenisKas", "%" + this.filterJenisKas + "%")
+                //.where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
+                .orderBy("wktTerima DESC")
+                .findList();
+
         Long nilai = 0L;
         for (final TTSS ttss1 : this.listTTSS) {
             nilai += ttss1.getNilai();

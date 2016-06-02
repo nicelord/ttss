@@ -42,8 +42,6 @@ public class MenuBalanceVM {
 
         this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
         this.listTTSS = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
-        // List<TTSS> monthlyTTSS = getFilterOutput(listTTSS, "04-2016");
-
         showAllBalance();
     }
 
@@ -63,6 +61,8 @@ public class MenuBalanceVM {
 
         beginCalendar.setTime(startDate);
         finishCalendar.setTime(new Date());
+        finishCalendar.add(java.util.Calendar.MONTH, 1);
+
         while (beginCalendar.before(finishCalendar)) {
             String date = sdf.format(beginCalendar.getTime()).toUpperCase();
 
@@ -83,11 +83,7 @@ public class MenuBalanceVM {
                         b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
                     }
                 }
-//
-//                System.out.println("/////////////////////////////////////////////////////////////");
-//                System.out.println(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo());
-//                System.out.println(monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
-//                System.out.println("/////////////////////////////////////////////////////////////");
+
                 if (monthlyTTSS.get(monthlyTTSS.size() - 1).getTipe().equals("keluar")) {
                     b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() + monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
                 } else {
@@ -114,7 +110,6 @@ public class MenuBalanceVM {
                     }
                 }
 
-               // b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() - monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
                 if (monthlyTTSS.get(monthlyTTSS.size() - 1).getTipe().equals("keluar")) {
                     b.setSaldoAwal(monthlyTTSS.get(monthlyTTSS.size() - 1).getSaldo() + monthlyTTSS.get(monthlyTTSS.size() - 1).getNilai());
                 } else {
@@ -125,9 +120,13 @@ public class MenuBalanceVM {
                 listBalance.add(b);
             }
             beginCalendar.add(java.util.Calendar.MONTH, 1);
-
         }
-        Collections.reverse(listBalance);
+
+        Collections.reverse(listBalance);        
+        
+        if(beginCalendar.get(java.util.Calendar.MONTH)>finishCalendar.get(java.util.Calendar.MONTH)){
+            listBulan.remove(listBulan.get(listBulan.size()-1));
+        }
 
     }
 
@@ -142,7 +141,7 @@ public class MenuBalanceVM {
         java.util.Calendar finishCalendar = java.util.Calendar.getInstance();
 
         beginCalendar.setTime(startDate);
-        finishCalendar.setTime(new Date());
+        finishCalendar.add(java.util.Calendar.MONTH, 1);
 
         while (beginCalendar.before(finishCalendar)) {
             String date = sdf.format(beginCalendar.getTime()).toUpperCase();

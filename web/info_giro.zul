@@ -5,7 +5,7 @@
         <center>
             <listbox id="listGiro" 
                      mold="paging" width="100%" vflex="true" autopaging="true" 
-                     emptyMessage="Kosong euy!"
+                     emptyMessage="Tidak ada data"
                      model="@load(vm.listGiro)">     
                 <listhead sizable="true" visible="true" >
                     <listheader sort="auto(nomorGiro)" label="NO GIRO"/>

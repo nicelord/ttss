@@ -23,7 +23,7 @@
                     <row  if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
                         DEFAULT PRINTER : 
                         <listbox id="box" multiple="false" checkmark="true"
-                                 emptyMessage="Kosong euy!"
+                                 emptyMessage="Tidak ada data"
                                  model="@load(vm.printers)"
                                     selectedItem="@bind(vm.userLogin.defPrinter)">                       
                             <listhead>
