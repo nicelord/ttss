@@ -1,19 +1,43 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 10.163.142.70
-Source Server Version : 50525
-Source Host           : 10.163.142.70:3306
+Source Server         : localhost
+Source Server Version : 50505
+Source Host           : localhost:3306
 Source Database       : cashmon
 
 Target Server Type    : MYSQL
-Target Server Version : 50525
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-05-30 08:08:38
+Date: 2016-06-14 00:56:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for backtrap
+-- ----------------------------
+DROP TABLE IF EXISTS `backtrap`;
+CREATE TABLE `backtrap` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nilai` bigint(20) DEFAULT NULL,
+  `user_backtrap_id` bigint(20) DEFAULT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
+  `tag` varchar(255) DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `ttss_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_backtrap` (`user_backtrap_id`),
+  KEY `ttss` (`ttss_id`),
+  CONSTRAINT `ttss` FOREIGN KEY (`ttss_id`) REFERENCES `ttss` (`nomor`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `user_backtrap` FOREIGN KEY (`user_backtrap_id`) REFERENCES `user_backtrap` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of backtrap
+-- ----------------------------
+INSERT INTO `backtrap` VALUES ('1', '123', '0', 'qeqw', 'EXP', '2016-06-13 22:41:40', null);
 
 -- ----------------------------
 -- Table structure for cash_opname
@@ -10745,3 +10769,22 @@ INSERT INTO `user` VALUES ('9', 'YUNI INDRAWATI', 'KSSK', 'YUNIKSSK123', 'SUPERV
 INSERT INTO `user` VALUES ('13', 'YUNI INDRAWATI', 'operator', 'operator', 'OPERATOR', '14');
 INSERT INTO `user` VALUES ('14', 'Risto Christian Astianto', 'KSSA', 'kssa123', 'OPERATOR', '14');
 INSERT INTO `user` VALUES ('15', 'Jusman Rerung Paningo', 'OPRC', 'oprc123', 'OPERATOR', '14');
+
+-- ----------------------------
+-- Table structure for user_backtrap
+-- ----------------------------
+DROP TABLE IF EXISTS `user_backtrap`;
+CREATE TABLE `user_backtrap` (
+  `id` bigint(20) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `divisi` varchar(255) DEFAULT NULL,
+  `pin` varchar(255) DEFAULT NULL,
+  `default_pin` varchar(255) DEFAULT NULL,
+  `pin_expired` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of user_backtrap
+-- ----------------------------
+INSERT INTO `user_backtrap` VALUES ('0', 'zul', 'EXP', '123', '123', '2016-06-14');

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class UserByPin implements Serializable
+public class UserBacktrap implements Serializable
 {
     @Id
     @GeneratedValue

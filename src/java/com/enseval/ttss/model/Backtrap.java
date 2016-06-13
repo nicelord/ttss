@@ -11,15 +11,17 @@ import java.sql.Timestamp;
 public class Backtrap implements Serializable {
 
     @Id
+    @GeneratedValue
     private Long id;
     Long nilai;
     @ManyToOne
-    UserByPin userByPin;
+    UserBacktrap userBacktrap;
     @Lob
-    String keterangan;
+    String keterangan = "";
     String tag;
     @Temporal(TemporalType.TIMESTAMP)
     Timestamp createDate;
+    TTSS ttss;
 
     public Long getId() {
         return id;
@@ -37,13 +39,14 @@ public class Backtrap implements Serializable {
         this.nilai = nilai;
     }
 
-    public UserByPin getUserByPin() {
-        return userByPin;
+    public UserBacktrap getUserBacktrap() {
+        return userBacktrap;
     }
 
-    public void setUserByPin(UserByPin userByPin) {
-        this.userByPin = userByPin;
+    public void setUserBacktrap(UserBacktrap userBacktrap) {
+        this.userBacktrap = userBacktrap;
     }
+
 
     public String getKeterangan() {
         return keterangan;
@@ -67,6 +70,14 @@ public class Backtrap implements Serializable {
 
     public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
+    }
+
+    public TTSS getTtss() {
+        return ttss;
+    }
+
+    public void setTtss(TTSS ttss) {
+        this.ttss = ttss;
     }
 
 }
