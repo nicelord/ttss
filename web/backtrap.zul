@@ -59,7 +59,7 @@
                     </grid>
                     <label id="message" style="color:red" value="@bind(vm.msg)" />
                     
-                    <button id="login" label="Lanjutkan.." onClick="@command('')" hflex="3" sclass="btn-success" iconSclass="glyphicon glyphicon-step-forward" >
+                    <button id="login" label="LANJUTKAN" onClick="@command('')" hflex="3" sclass="btn-success" iconSclass="glyphicon glyphicon-step-forward" >
                         <attribute name="onClick">
                             nilai.getValue();
                             keterangan.getValue();
