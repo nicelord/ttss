@@ -9,6 +9,7 @@ import com.enseval.ttss.model.Backtrap;
 import java.util.HashMap;
 import java.util.Map;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -30,10 +31,13 @@ public class BacktrapInputVM {
     }
     
     @Command
+    @GlobalCommand
     @NotifyChange({"backtrap"})
     public void reset() {
        backtrap = new Backtrap();
     }
+    
+  
 
     public String getMsg() {
         return msg;

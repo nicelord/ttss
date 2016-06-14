@@ -19,7 +19,7 @@
             <window id="win_konfirm"  
                     style="border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;" 
                     mode="modal" width="600px" vflex="1" 
-                    title="MASUKKAN PIN ANDA!" 
+                    title="KONFIRMASI DAN INPUT PIN" 
                     border="normal" 
                     apply="org.zkoss.bind.BindComposer" 
                     viewModel="@id('vm') @init('com.enseval.ttss.vm.WinInputPinVM')" 
@@ -56,7 +56,7 @@
                                 
                                 <vlayout>
                                     <label value="MASUKKAN PIN ANDA!" style="font-size:20px;"/>
-                                    <textbox type="password" value="@bind(vm.pin)" style="font-size: 20px;text-align:center"/>
+                                    <textbox type="password" value="@bind(vm.pin)" style="font-size: 20px;text-align:center" width="150px" onOK="@command('saveBacktrap')"/>
                                     <label value="Pastikan data-data diatas sudah benar!" style="font: italic bold 12px/30px monospace;"/>
                                 </vlayout>
                             </cell>

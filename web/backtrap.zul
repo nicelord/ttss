@@ -24,7 +24,7 @@
         
     </style>
     
-    <hbox vflex="1" hflex="1" align="center" pack="center" spacing="20px" style="background-image: url('bg.jpg');background-size: 100%;">
+    <hbox vflex="1" hflex="1" align="center" pack="center" spacing="20px" style="background-color:#000000;">
         
         <vlayout apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.BacktrapInputVM')" width="600px">
             
@@ -45,6 +45,7 @@
                                         </span>
                                         <longbox id="nilai" 
                                                  style="font-size:40pt;height:100px;text-align:center;"
+                                                 onOK="@command('inputPin')"
                                                  class="form-control input-primary" 
                                                  value="@bind(vm.backtrap.nilai)" 
                                                  maxlength="20" format=",###.#" 

@@ -49,6 +49,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
@@ -59,7 +60,7 @@ import org.zkoss.zul.Window;
  */
 public class WinInputPinVM {
 
-    @Wire("#win_konfirm_kliring")
+    @Wire("#win_konfirm")
     Window win;
     UserBacktrap userBacktrap = null;
     String pin = "";
@@ -80,11 +81,14 @@ public class WinInputPinVM {
     
     
     public boolean validasiPin(){
+        Clients.showBusy("HARAP TUNGGU.. SEDANG MELAKUKAN VALIDASI PIN USER!!");
         userBacktrap = Ebean.find(UserBacktrap.class).where().eq("pin", pin).findUnique();
+        Clients.clearBusy();
         return userBacktrap != null;
     }
     
     @Command
+    @NotifyChange("pin")
     public void saveBacktrap(){
         if(validasiPin()){
             backtrap.setUserBacktrap(userBacktrap);
@@ -92,6 +96,11 @@ public class WinInputPinVM {
             backtrap.setCreateDate(new Timestamp(new Date().getTime()));
             Ebean.save(backtrap);
             win.detach();
+            Messagebox.show("DATA TITIPAN TERSIMPAN.\nSILAHKAN SIMPAN UANG KE TEMPAT YANG TELAH DISEDIAKAN.\nTERIMA KASIH", "INFORMASI", Messagebox.OK, Messagebox.INFORMATION);
+            BindUtils.postGlobalCommand((String) null, (String) null, "reset", (Map) null);
+        }else{
+            Messagebox.show("PIN SALAH!", "ERROR", Messagebox.OK, Messagebox.ERROR);
+            this.pin = "";
         }
     }
     
