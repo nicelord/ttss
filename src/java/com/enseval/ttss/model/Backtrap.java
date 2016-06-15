@@ -21,6 +21,7 @@ public class Backtrap implements Serializable {
     String tag;
     @Temporal(TemporalType.TIMESTAMP)
     Timestamp createDate;
+    @OneToOne
     TTSS ttss;
 
     public Long getId() {

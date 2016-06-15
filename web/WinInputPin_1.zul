@@ -27,22 +27,22 @@
                 
                 <grid>
                     <columns>
-                        <column width="150px" align="right"/>
+                        <column width="150px"/>
                         <column/>
                     </columns>
                     <rows>
                         <row>
                             
-                            <label value="JUMLAH TITIPAN :" style="font-size:14px"/>
+                            <label value="JUMLAH TITIPAN" style="font-size:18px"/>
                             <label value="@load(vm.formatRupiah)" style="font-size:18px"/>
                         </row>
                         <row>
                             
-                            <label value="TERBILANG :" style="font-size:14px"/>
+                            <label value="TERBILANG" style="font-size:18px"/>
                             <label value="@load(vm.terbilang)" style="font-size:18px"/>
                         </row>
                         <row>
-                            <label value="KETERANGAN :" style="font-size:14px"/>
+                            <label value="KETERANGAN" style="font-size:18px"/>
                             <label value="@load(vm.backtrap.keterangan)" style="font-size:18px"/>
                         </row>
                         <row>
@@ -55,7 +55,7 @@
                             <cell colspan="2"  align="center">
                                 
                                 <vlayout>
-                                    <label value="MASUKKAN PIN ANDA!" style="font-weight:bold;font-size:20px;"/>
+                                    <label value="MASUKKAN PIN ANDA!" style="font-size:20px;"/>
                                     <textbox type="password" value="@bind(vm.pin)" style="font-size: 20px;text-align:center" width="150px" onOK="@command('saveBacktrap')"/>
                                     <label value="Pastikan data-data diatas sudah benar!" style="font: italic bold 12px/30px monospace;"/>
                                 </vlayout>

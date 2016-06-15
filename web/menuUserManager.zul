@@ -263,7 +263,7 @@
                                 </rows>
                             </grid>
                         </window>
-                        <!--window title="SETTING EMAIL">
+                        <window title="SETTING EMAIL">
                             <grid>
                                 <columns>
                                     <column align="right" width="30%"/>
@@ -304,7 +304,7 @@
                                     </row>
                                 </rows>
                             </grid>
-                        </window-->
+                        </window>
                         <separator spacing="20px" bar="true"/>
                         <div class="btn-group" style="float:right;">
                             <button onClick="@command('simpanSetting')" iconSclass="glyphicon glyphicon-floppy-disk" label="SIMPAN" >

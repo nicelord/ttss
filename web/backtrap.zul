@@ -38,7 +38,7 @@
                             
                             <row>
                                 <vlayout>
-                                    <label value="MASUKKAN JUMLAH TITIPAN!" style="font-size:20px;"/>
+                                    <label value="MASUKKAN JUMLAH TITIPAN!" style="font-weight:bold;font-size:20px;"/>
                                     <div class="input-group" hflex="3" width="100%">
                                         <span class="input-group-addon">
                                             <label value="Rp." style="font-size:40px;"/>
@@ -61,7 +61,7 @@
                             </row>
                             <row>
                                 <vlayout>
-                                    <label value="TAMBAHKAN KETERANGAN JIKA ADA" style="font-size:20px;"/>
+                                    <label value="TAMBAHKAN KETERANGAN JIKA ADA" style="font-style:italic;font-size:14px;"/>
                                     <textbox id="keterangan" multiline="true" rows="3" hflex="3" value="@bind(vm.backtrap.keterangan)" sclass="form-control input-primary" style="font-size:20px;">
                                                    
                                     </textbox>
