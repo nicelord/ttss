@@ -23,6 +23,15 @@
                         </columns>
                         <rows>
                             <row>
+                                Jenis Kas
+                                <groupbox id="gb" width="100%">
+                                    <radiogroup selectedItem="@bind(vm.ttss.jenisKas)">
+                                        <radio label="KAS TRANSFER" value="KAS TRANSFER"/>
+                                        <radio label="KAS DROPPING" value="KAS DROPPING"/>
+                                    </radiogroup>
+                                </groupbox>
+                            </row>
+                            <row>
                                 Nilai
                                 <div class="input-group" hflex="3" width="100%">
                                     <span class="input-group-addon">Rp.</span>
@@ -46,16 +55,7 @@
                                         <comboitem label="@load(each.tag.toUpperCase())"/>
                                     </template>
                                 </combobox>
-                            </row> 
-                            <row>
-                                Jenis Kas
-                                <groupbox id="gb" width="100%">
-                                    <radiogroup selectedItem="@bind(vm.ttss.jenisKas)">
-                                        <radio label="KAS TRANSFER" value="KAS TRANSFER"/>
-                                        <radio label="KAS DROPPING" value="KAS DROPPING"/>
-                                    </radiogroup>
-                                </groupbox>
-                            </row> 
+                            </row>  
                             <row>
                                 Nama Penerima
                                 <textbox id="penerima" hflex="3" value="@load(vm.userLogin.nama)" sclass="form-control input-primary" readonly="true"/> 

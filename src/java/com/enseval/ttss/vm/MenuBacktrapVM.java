@@ -44,7 +44,9 @@ public class MenuBacktrapVM {
     
     @Command
     public void cetak() {
-        Executions.createComponents("AddNewTTSS.zul", (Component) null, (Map) null);
+        Map m = new HashMap();
+        m.put("backtrapnya", this.selectedBacktrap);
+        Executions.createComponents("AddNewTTSS.zul", null, m);
     }
 
     @Command

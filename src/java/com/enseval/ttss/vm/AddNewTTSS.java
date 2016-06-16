@@ -29,6 +29,7 @@ public class AddNewTTSS {
     List<TTSS> listTag;
     User userLogin;
     String printernya = "";
+    Backtrap backtrap;
 
     public AddNewTTSS() {
         this.listPenyetor = new ArrayList<>();
@@ -37,9 +38,12 @@ public class AddNewTTSS {
     }
 
     @AfterCompose
-    public void initSetup(@ContextParam(ContextType.VIEW) final Component view) {
-        this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+    public void initSetup(@ContextParam(ContextType.VIEW) final Component view,
+            @ExecutionArgParam("backtrapnya") Backtrap backtrap) {
 
+        this.userLogin = Ebean.find(User.class, new AuthenticationServiceImpl().getUserCredential().getUser().getId());
+        this.backtrap = backtrap;
+        
         this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
         if (this.userLogin.getDefPrinter() == null) {
             if (!Ebean.find(Printer.class).findList().isEmpty()) {
@@ -55,6 +59,14 @@ public class AddNewTTSS {
 
         this.ttss = new TTSS();
         this.ttss.setJenisKas("KAS TRANSFER");
+
+        if (backtrap != null) {
+            this.ttss.setNilai(this.backtrap.getNilai());
+            this.ttss.setNamaPenyetor(this.backtrap.getUserBacktrap().getNama());
+            this.ttss.setTag(this.backtrap.getTag());
+            this.ttss.setKeterangan(this.backtrap.getKeterangan());
+        }
+
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
 
         this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
@@ -76,6 +88,11 @@ public class AddNewTTSS {
             dsp.setNama(this.ttss.getNamaPenyetor().toUpperCase());
             Ebean.save(dsp);
         }
+        
+        this.backtrap = Ebean.find(Backtrap.class,backtrap.getId());
+        this.backtrap.setTtss(ttss);
+        Ebean.save(this.backtrap);
+        
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
         this.win.detach();
     }
@@ -84,7 +101,7 @@ public class AddNewTTSS {
     @NotifyChange({"printernya"})
     public void cetak() {
         this.saveNewTTSS();
-        
+
         try {
             final Cetak c = new Cetak();
             c.setTtssnya(this.ttss);
