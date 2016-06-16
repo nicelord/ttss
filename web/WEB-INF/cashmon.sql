@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-06-14 00:56:31
+Date: 2016-06-16 09:46:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,18 +26,24 @@ CREATE TABLE `backtrap` (
   `keterangan` varchar(255) DEFAULT NULL,
   `tag` varchar(255) DEFAULT NULL,
   `create_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `ttss_id` bigint(20) DEFAULT NULL,
+  `ttss_nomor` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_backtrap` (`user_backtrap_id`),
-  KEY `ttss` (`ttss_id`),
-  CONSTRAINT `ttss` FOREIGN KEY (`ttss_id`) REFERENCES `ttss` (`nomor`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  KEY `ttss` (`ttss_nomor`),
+  CONSTRAINT `ttss` FOREIGN KEY (`ttss_nomor`) REFERENCES `ttss` (`nomor`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `user_backtrap` FOREIGN KEY (`user_backtrap_id`) REFERENCES `user_backtrap` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of backtrap
 -- ----------------------------
 INSERT INTO `backtrap` VALUES ('1', '123', '0', 'qeqw', 'EXP', '2016-06-13 22:41:40', null);
+INSERT INTO `backtrap` VALUES ('2', '123123', '0', '', 'EXP', '2016-06-14 15:40:20', null);
+INSERT INTO `backtrap` VALUES ('3', '123', '0', '', 'EXP', '2016-06-14 15:44:50', null);
+INSERT INTO `backtrap` VALUES ('4', '2222', '0', '', 'EXP', '2016-06-14 15:49:11', null);
+INSERT INTO `backtrap` VALUES ('5', '1212313', '0', '', 'EXP', '2016-06-14 16:00:29', null);
+INSERT INTO `backtrap` VALUES ('6', '123', '0', '', 'EXP', '2016-06-15 10:41:13', null);
+INSERT INTO `backtrap` VALUES ('7', '231231', '0', '', 'EXP', '2016-06-15 16:31:09', null);
 
 -- ----------------------------
 -- Table structure for cash_opname
@@ -10788,3 +10794,21 @@ CREATE TABLE `user_backtrap` (
 -- Records of user_backtrap
 -- ----------------------------
 INSERT INTO `user_backtrap` VALUES ('0', 'zul', 'EXP', '123', '123', '2016-06-14');
+
+-- ----------------------------
+-- Table structure for user_by_pin
+-- ----------------------------
+DROP TABLE IF EXISTS `user_by_pin`;
+CREATE TABLE `user_by_pin` (
+  `id` bigint(20) NOT NULL,
+  `nama` varchar(255) DEFAULT NULL,
+  `divisi` varchar(255) DEFAULT NULL,
+  `pin` varchar(255) DEFAULT NULL,
+  `default_pin` varchar(255) DEFAULT NULL,
+  `pin_expired` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of user_by_pin
+-- ----------------------------
