@@ -12,7 +12,12 @@ public class ContentVM
     String thePage;
     
     public ContentVM() {
-        this.thePage = "/menuSetoran.zul";
+        if(new AuthenticationServiceImpl().getUserCredential().getRoles().equals("OPERATOR")){
+            this.thePage = "/menuInputCashOpname.zul";
+        }else{
+            this.thePage = "/menuSetoran.zul";
+        }
+        
     }
     
     @AfterCompose

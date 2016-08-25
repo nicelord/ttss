@@ -99,7 +99,7 @@ public class Cetak {
         map.put("KETERANGAN", this.ttssnya.getKeterangan());
         map.put("PENYETOR", this.ttssnya.getNamaPenyetor().toUpperCase());
         map.put("NOMOR", this.ttssnya.getNomor().toString());
-        map.put("PENERIMA", this.userLogin.getNama().toUpperCase());
+        map.put("PENERIMA", this.ttssnya.getUserLogin().getNama().toUpperCase());
         map.put("TANGGAL", tgl.toUpperCase());
         map.put("JENIS_KAS", this.ttssnya.getJenisKas().toUpperCase());
         map.put("CETAK_ULANG", Integer.toString(this.ttssnya.itungCetakan() + 1));
@@ -152,13 +152,15 @@ public class Cetak {
         map.put("KETERANGAN", this.ttssnya.getKeterangan());
         map.put("PENYETOR", this.ttssnya.getNamaPenyetor().toUpperCase());
         map.put("NOMOR", this.ttssnya.getNomor().toString());
-        map.put("PENERIMA", this.userLogin.getNama().toUpperCase());
+        map.put("PENERIMA", this.ttssnya.getUserLogin().getNama().toUpperCase());
         map.put("TANGGAL", tgl.toUpperCase());
         map.put("JENIS_KAS", this.ttssnya.getJenisKas().toUpperCase());
         map.put("CETAK_ULANG", Integer.toString(this.ttssnya.itungCetakan() + 1));
         map.put("CABANG", Util.setting("nama_cabang"));
         JasperPrint jasperPrint = JasperFillManager.fillReport(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/print.setoran.keluar.jasper", map, (JRDataSource) new JREmptyDataSource());
         jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
+//        jasperPrint.setPageWidth(612);
+//        jasperPrint.setPageHeight(396);
         if (!printernya.equals("noprint")) {
             JRExporter exporter = (JRExporter) new JRPrintServiceExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, (Object) jasperPrint);

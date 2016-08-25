@@ -126,14 +126,7 @@
                             <column/>
                         </columns>
                         <rows>
-                            <row>
-                                USER
-                                <div>
-                                    <label value="@load(vm.ttss.userLogin.username)"/>
-                                </div>
-                                        
-                            </row>
-                                    
+                                                              
                             <row>
                                 NOMOR
                                 <label value="@load(vm.ttss.nomor)"/>

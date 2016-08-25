@@ -63,7 +63,7 @@
                             </row> 
                             <row>
                                 Nama Penyetor
-                                <textbox id="penerima" hflex="3" value="@load(vm.userLogin.nama)" sclass="form-control input-primary" readonly="true"/> 
+                                <textbox id="penerima" hflex="3" value="@load(vm.ttss.userLogin.nama)" sclass="form-control input-primary" readonly="true"/> 
                             </row> 
                             <row>
                                 Keterangan

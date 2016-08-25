@@ -8,7 +8,7 @@
         <include id="mainInclude" mode="defer" src="@load(e.thePage)" progressing="@load(e.thePage eq '/menuSetoran.zul' ? 'true' : 'false')" 
                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"/>
         
-        <include id="mainInclude" mode="defer" src="/menuInputCashOpname.zul" progressing="true" 
+        <include id="mainInclude" mode="defer" src="@load(e.thePage)" progressing="@load(e.thePage eq '/menuInputCashOpname.zul' ? 'true' : 'false')" 
                          if="${sessionScope.userCredential.getRoles()=='OPERATOR'}"/>
     
     </div>

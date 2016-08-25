@@ -41,8 +41,8 @@ public class MenuSetoranVM {
         this.filterPenyetor = "";
         this.filterJenisKas = "";
         this.filterTag = "";
-        this.cetaks = new ArrayList<Cetak>();
-        this.selectedTTSS = new ArrayList<TTSS>();
+        this.cetaks = new ArrayList<>();
+        this.selectedTTSS = new ArrayList<>();
     }
 
     @AfterCompose

@@ -12,6 +12,7 @@
                     <listheader sort="auto(bank)" label="BANK"/>
                     <listheader sort="auto(nilai)" label="NILAI" width="150px" />
                     <listheader sort="auto(namaPenyetor)" label="PENYETOR"/>
+                    <listheader sort="auto(customer.nama)" label="CUSTOMER"/>
                     <listheader sort="auto(DKLK)" label="DK/LK" width="50px"/>
                     <listheader sort="auto(wktTerima)" label="WKT TERIMA"/>
                     <listheader sort="auto(tglJtTempo)" label="JT TEMPO"/>
@@ -33,6 +34,9 @@
                     </auxheader>
                     <auxheader>
                         <textbox instant="true" value="@bind(vm.filterPenyetor)" hflex="3" onChange="@command('saring')"/>
+                    </auxheader>
+                    <auxheader>
+                        <textbox instant="true" value="@bind(vm.filterCustomer)" hflex="3" onChange="@command('saring')"/>
                     </auxheader>
                     <auxheader>
                         <button popup="popupDKLK" iconSclass="glyphicon glyphicon-filter" label="" onClick="" sclass="btn-info btn-xs" hflex="3" />
@@ -127,8 +131,19 @@
                             </div>
                         </popup>
                     </auxheader>
+                    
                     <auxheader>
-                                    
+                        <button popup="popProgress" iconSclass="glyphicon glyphicon-filter" label="FILTER" onClick="" sclass="btn-info btn-xs" hflex="3" />
+                        <popup id="popProgress" width="150px" style="word-wrap">
+                            <div class="btn-group-vertical" hflex="3">
+                                <button label="ALL" onClick="@command('filterProgress',status='ALL')" sclass="btn-default btn-xs"/>
+                                <button label="done" onClick="@command('filterProgress',status='done')" sclass="btn-success btn-xs"/>
+                                <button label="pending" onClick="@command('filterProgress', status='pending')" sclass="btn-warning btn-xs" hflex="3" />
+                                <button label="ditolak" onClick="@command('filterProgress', status='ditolak')" sclass="btn-danger btn-xs" hflex="3" />
+                                <button label="batal" onClick="@command('filterProgress', status='batal')" sclass="btn-default btn-xs" hflex="3" />
+                            
+                            </div>
+                        </popup>
                     </auxheader>
                 </auxhead>
                     
@@ -138,6 +153,7 @@
                         <listcell label="@load(g.bank)"/>
                         <listcell label="@load(vm.format(g.nilai))"/>
                         <listcell label="@load(g.namaPenyetor.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                        <listcell label="@load(g.customer.nama)"/>
                         <listcell label="@load(g.DKLK)"/>
                         <listcell style="text-overflow: ellipsis; white-space: nowrap;">
                             <label value="@load(g.wktTerima) @converter('formatedDate', format='yyyy/MM/dd hh:mm')"/>

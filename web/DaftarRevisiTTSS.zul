@@ -16,7 +16,7 @@
                     <columns>
                         <column label="NOMOR" width="10%"/>
                         <column label="CETAKAN KE" width="12%"/>
-                        <column label="USER" />
+                        <column label="USER PENCETAK" />
                         <column label="WKT CETAK" />
                         <column label="DOWNLOAD PDF" />
                     </columns>

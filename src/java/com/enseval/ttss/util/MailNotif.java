@@ -100,7 +100,7 @@ public class MailNotif {
                 + "</style>"
                 + "</head>"
                 + "<p>Yth, </p>"
-                + "<p>Berikut kami informasikan giro tolakan berikut sudah di proses;</p> "
+                + "<p>Berikut kami informasikan giro tolakan berikut sudah di proses kliring ulang;</p> "
                 + "<br/>"
                 + "<p><pre>"
                 + "Customer ID      : " + gironya.getCustomer().getId() + "<br/>"

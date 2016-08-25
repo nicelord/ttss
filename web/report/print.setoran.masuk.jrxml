@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="396" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="7dafb8d3-fcf1-47c3-aee8-9b45e3b6027d">
 	<property name="ireport.zoom" value="1.4641000000000026"/>
-	<property name="ireport.x" value="37"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.x" value="260"/>
+	<property name="ireport.y" value="65"/>
 	<parameter name="JUMLAH_UANG" class="java.lang.String"/>
 	<parameter name="TERBILANG" class="java.lang.String"/>
 	<parameter name="KETERANGAN" class="java.lang.String"/>
@@ -101,13 +101,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PENYETOR}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="484" y="285" width="77" height="26" uuid="c9bef323-b0b3-40de-8515-0f3d9882d9bd"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Mengetahui,]]></text>
-			</staticText>
 			<textField>
 				<reportElement x="155" y="217" width="404" height="19" uuid="497191e8-1d36-4fb8-8135-0e3ead5b26d7"/>
 				<textElement>
@@ -162,12 +155,6 @@
 			</line>
 			<line>
 				<reportElement x="381" y="351" width="81" height="1" uuid="bf883b31-0d2a-43c2-8101-a68921bb1d41"/>
-				<graphicElement>
-					<pen lineWidth="0.75" lineStyle="Dashed"/>
-				</graphicElement>
-			</line>
-			<line>
-				<reportElement x="485" y="351" width="81" height="1" uuid="d32b52ef-c087-4169-a951-bce9bab7f6be"/>
 				<graphicElement>
 					<pen lineWidth="0.75" lineStyle="Dashed"/>
 				</graphicElement>

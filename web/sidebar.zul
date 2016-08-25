@@ -53,18 +53,20 @@
                         </listitem-->
                        
                         
-                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  onClick="@command('changePage', page='menuCashOpname.zul')" 
-                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}">
-                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
-                            <listcell label="CASH OPNAME"/>
-                        </listitem>
+                        
                     
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
                                   onClick="@command('changePage', page='menuInputCashOpname.zul')" 
                                   if="${sessionScope.userCredential.getRoles()=='OPERATOR'}">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
-                            <listcell label="CASH OPNAME"/>
+                            <listcell label="INPUT CASH OPNAME"/>
+                        </listitem>
+                        
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                  onClick="@command('changePage', page='menuCashOpname.zul')" 
+                                  if="${sessionScope.userCredential.getRoles()!='KASIR'}">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="HASIL CASH OPNAME"/>
                         </listitem>
                             
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 

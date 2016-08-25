@@ -42,6 +42,8 @@ public class MenuGiroPublicVM {
     String filterTag;
     String filterDKLK;
     String filterStatus;
+    String filterProgress;
+    String filterCustomer;
     Timestamp tsAwal = null;
     Timestamp tsAkhir = null;
     User userLogin;
@@ -64,6 +66,8 @@ public class MenuGiroPublicVM {
         this.filterStatus = "";
         this.selectedGiro = new ArrayList<>();
         this.filterUser = "";
+        this.filterProgress = "";
+        this.filterCustomer = "";
 
     }
 
@@ -125,8 +129,10 @@ public class MenuGiroPublicVM {
                 .where().like("namaPenyetor", "%" + this.filterPenyetor + "%")
                 .where().like("userLogin.nama", "%" + this.filterUser + "%")
                 .where().like("tag", "%" + this.filterTag + "%")
+                .where().like("customer.nama", "%" + this.filterCustomer + "%")
                 .where().like("DKLK", "%" + this.filterDKLK + "%")
                 .where().like("status", "%" + this.filterStatus + "%")
+                .where().like("prosesKliring", "%" + this.filterProgress + "%")
                 .orderBy("lastUpdate DESC")
                 .findList();
 
@@ -139,6 +145,7 @@ public class MenuGiroPublicVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().like("prosesKliring", "%" + this.filterProgress + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .orderBy("lastUpdate DESC")
                     .findList();
@@ -153,6 +160,7 @@ public class MenuGiroPublicVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().like("prosesKliring", "%" + this.filterProgress + "%")
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
                     .orderBy("lastUpdate DESC")
                     .findList();
@@ -168,6 +176,7 @@ public class MenuGiroPublicVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().like("prosesKliring", "%" + this.filterProgress + "%")
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
                     .orderBy("lastUpdate DESC")
                     .findList();
@@ -183,6 +192,7 @@ public class MenuGiroPublicVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().like("prosesKliring", "%" + this.filterProgress + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
                     .orderBy("lastUpdate DESC")
@@ -199,6 +209,7 @@ public class MenuGiroPublicVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().like("prosesKliring", "%" + this.filterProgress + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
                     .orderBy("lastUpdate DESC")
@@ -215,6 +226,7 @@ public class MenuGiroPublicVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().like("prosesKliring", "%" + this.filterProgress + "%")
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
                     .orderBy("lastUpdate DESC")
@@ -231,6 +243,7 @@ public class MenuGiroPublicVM {
                     .where().like("tag", "%" + this.filterTag + "%")
                     .where().like("DKLK", "%" + this.filterDKLK + "%")
                     .where().like("status", "%" + this.filterStatus + "%")
+                    .where().like("prosesKliring", "%" + this.filterProgress + "%")
                     .where().ge("wktTerima", this.tsAwal).where().le("wktTerima", this.tsAkhir)
                     .where().ge("tglJtTempo", this.tglJtTempoAwal).where().le("tglJtTempo", this.tglJtTempoAkhir)
                     .where().ge("tglKliring", this.tglKliringAwal).where().le("tglKliring", this.tglKliringAkhir)
@@ -382,6 +395,19 @@ public class MenuGiroPublicVM {
             this.filterStatus = "";
         } else {
             this.filterStatus = status;
+        }
+
+        refresh();
+
+    }
+    
+    @Command
+    @NotifyChange({"listGiro", "totalNilai"})
+    public void filterProgress(@BindingParam("status") String status) {
+        if (status.equals("ALL")) {
+            this.filterProgress = "";
+        } else {
+            this.filterProgress = status;
         }
 
         refresh();
@@ -555,6 +581,22 @@ public class MenuGiroPublicVM {
 
     public void setFilterUser(String filterUser) {
         this.filterUser = filterUser;
+    }
+
+    public String getFilterProgress() {
+        return filterProgress;
+    }
+
+    public void setFilterProgress(String filterProgress) {
+        this.filterProgress = filterProgress;
+    }
+
+    public String getFilterCustomer() {
+        return filterCustomer;
+    }
+
+    public void setFilterCustomer(String filterCustomer) {
+        this.filterCustomer = filterCustomer;
     }
 
 }
