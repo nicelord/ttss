@@ -39,8 +39,7 @@
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  onClick="@command('changePage', page='menuBalance.zul')" 
-                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}">
+                                  onClick="@command('changePage', page='menuBalance.zul')" >
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BALANCE"/>
                         </listitem>
@@ -63,8 +62,7 @@
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  onClick="@command('changePage', page='menuCashOpname.zul')" 
-                                  if="${sessionScope.userCredential.getRoles()!='KASIR'}">
+                                  onClick="@command('changePage', page='menuCashOpname.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="HASIL CASH OPNAME"/>
                         </listitem>
