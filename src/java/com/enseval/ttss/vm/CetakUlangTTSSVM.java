@@ -31,7 +31,6 @@ public class CetakUlangTTSSVM {
     public CetakUlangTTSSVM() {
         this.listPenyetor = new ArrayList<>();
         this.printers = new ArrayList<>();
-        this.listTag = new ArrayList<>();
     }
 
     @AfterCompose
@@ -47,7 +46,7 @@ public class CetakUlangTTSSVM {
             this.printernya = Ebean.find(Printer.class).findList().get(0).getNamaPrinter();
 
         }
-        this.listTag = Ebean.find(TTSS.class).select("tag").setDistinct(true).findList();
+        
         Selectors.wireComponents(view, this, false);
     }
 
@@ -55,7 +54,7 @@ public class CetakUlangTTSSVM {
     public void UpdateTTSS() {
         
         //this.ttss.setWktTerima(new Timestamp(new Date().getTime()));
-        //Ebean.save((Object) this.ttss);
+        Ebean.save((Object) this.ttss);
         DsPenyetor dsp = (DsPenyetor) Ebean.find((Class) DsPenyetor.class).where("nama = '" + this.ttss.getNamaPenyetor() + "'").findUnique();
         if (dsp == null) {
             dsp = new DsPenyetor();

@@ -8,6 +8,7 @@ import com.enseval.ttss.util.*;
 import org.zkoss.zk.ui.*;
 import org.zkoss.bind.annotation.*;
 import java.util.*;
+import org.zkoss.zul.Messagebox;
 
 public class MenuBacktrapVM {
 
@@ -41,9 +42,13 @@ public class MenuBacktrapVM {
     public void showDetail(@BindingParam("BT") Backtrap backtrap) {
         this.selectedBacktrap = backtrap;
     }
-    
+
     @Command
     public void cetak() {
+        if (selectedBacktrap == null) {
+            Messagebox.show("Tidak ada backtrap terpilih", "Error", Messagebox.OK, Messagebox.ERROR);
+            return;
+        }
         Map m = new HashMap();
         m.put("backtrapnya", this.selectedBacktrap);
         Executions.createComponents("AddNewTTSS.zul", null, m);

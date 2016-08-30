@@ -26,7 +26,6 @@ public class AddNewTTSS {
     TTSS ttss;
     List<DsPenyetor> listPenyetor;
     List<Printer> printers;
-    List<TTSS> listTag;
     User userLogin;
     String printernya = "";
     Backtrap backtrap;
@@ -34,7 +33,6 @@ public class AddNewTTSS {
     public AddNewTTSS() {
         this.listPenyetor = new ArrayList<>();
         this.printers = new ArrayList<>();
-        this.listTag = new ArrayList<>();
     }
 
     @AfterCompose
@@ -59,6 +57,7 @@ public class AddNewTTSS {
 
         this.ttss = new TTSS();
         this.ttss.setJenisKas("KAS TRANSFER");
+        this.ttss.setTag("COLLECTOR");
 
         if (backtrap != null) {
             this.ttss.setNilai(this.backtrap.getNilai());
@@ -68,8 +67,6 @@ public class AddNewTTSS {
         }
 
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
-
-        this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
 
         Selectors.wireComponents(view, (Object) this, false);
     }
@@ -176,11 +173,4 @@ public class AddNewTTSS {
         this.cmbTag = cmbTag;
     }
 
-    public List<TTSS> getListTag() {
-        return this.listTag;
-    }
-
-    public void setListTag(final List<TTSS> listTag) {
-        this.listTag = listTag;
-    }
 }

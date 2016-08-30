@@ -50,11 +50,14 @@
                             </row> 
                             <row>
                                 TAG
-                                <combobox id="tag"  model="@load(vm.listTag)" autodrop="true" buttonVisible="false" value="@bind(vm.ttss.tag)" width="100%">
-                                    <template name="model">
-                                        <comboitem label="@load(each.tag.toUpperCase())"/>
-                                    </template>
-                                </combobox>
+                                <groupbox id="tag" width="100%">
+                                    <radiogroup selectedItem="@bind(vm.ttss.tag)">
+                                        <radio label="COLLECTOR" value="COLLECTOR"/>
+                                        <radio label="SALESMAN" value="SALESMAN"/>
+                                        <radio label="EXPEDISI" value="EXPEDISI"/>
+                                        <radio label="LAIN-LAIN" value="LAIN-LAIN"/>
+                                    </radiogroup>
+                                </groupbox>
                             </row>  
                             <row>
                                 Nama Penerima

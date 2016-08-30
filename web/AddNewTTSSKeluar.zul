@@ -49,12 +49,14 @@
                                 </combobox>
                             </row> 
                             <row>
-                                TAG
-                                <combobox id="tag"  model="@load(vm.listTag)" autodrop="true" buttonVisible="false" value="@bind(vm.ttss.tag)" width="100%">
-                                    <template name="model">
-                                        <comboitem label="@load(each.tag.toUpperCase())"/>
-                                    </template>
-                                </combobox>
+                               TAG
+                                <groupbox id="tag" width="100%">
+                                    <radiogroup selectedItem="@bind(vm.ttss.tag)">
+                                        <radio label="BANK/PICKUP" value="BANK/PICKUP"/>
+                                        <radio label="CN OUTLET" value="CN OUTLET"/>
+                                        <radio label="LAIN-LAIN" value="LAIN-LAIN"/>
+                                    </radiogroup>
+                                </groupbox>
                             </row>  
                             <row>
                                 Nama Penyetor
@@ -69,15 +71,6 @@
                         </rows>
                         <foot>
                             <footer span="2" align="left">
-                                <!--                                <div style="float:left;">
-                                    <button onClick="@command('cetak')" sclass="btn-danger" iconSclass="glyphicon glyphicon-print" label="CETAK DAN SIMPAN">
-                                        <attribute name="onClick">
-                                            nomor.getValue();
-                                            nilai.getValue();
-                                            penyerah.getValue();
-                                        </attribute>
-                                    </button>
-                                </div>-->
                                 
                                 Printer : 
                                 <combobox id="printer"  model="@load(vm.printers)" value="@load(vm.userLogin.defPrinter.namaPrinter) @save(vm.printernya)" hflex="3" vflex="3" readonly="true" constraint="no empty">

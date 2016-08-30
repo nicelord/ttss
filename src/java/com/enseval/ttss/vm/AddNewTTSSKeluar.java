@@ -26,14 +26,12 @@ public class AddNewTTSSKeluar {
     TTSS ttss;
     List<DsPenyetor> listPenyetor;
     List<Printer> printers;
-    List<TTSS> listTag;
     User userLogin;
     String printernya;
 
     public AddNewTTSSKeluar() {
         this.listPenyetor = new ArrayList<DsPenyetor>();
         this.printers = new ArrayList<Printer>();
-        this.listTag = new ArrayList<TTSS>();
     }
 
     @AfterCompose
@@ -54,9 +52,9 @@ public class AddNewTTSSKeluar {
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
         this.listPenyetor = (List<DsPenyetor>) Ebean.find((Class) DsPenyetor.class).findList();
  
-        this.listTag = (List<TTSS>) Ebean.find((Class) TTSS.class).select("tag").setDistinct(true).findList();
         this.ttss = new TTSS();
         this.ttss.setJenisKas("KAS TRANSFER");
+        this.ttss.setTag("BANK/PICKUP");
         Selectors.wireComponents(view, (Object) this, false);
     }
 
@@ -152,11 +150,5 @@ public class AddNewTTSSKeluar {
         this.cmbTag = cmbTag;
     }
 
-    public List<TTSS> getListTag() {
-        return this.listTag;
-    }
-
-    public void setListTag(final List<TTSS> listTag) {
-        this.listTag = listTag;
-    }
+ 
 }
