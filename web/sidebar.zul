@@ -4,13 +4,13 @@
     <div>
         <tabbox mold="accordion" style="border: 0; border-bottom: 1px solid #cfcfcf;">
             <tabs>
-                <tab label="USER MENU" />
-                <tab label="LAPORAN" />
-                <tab label="SISTEM" />
+                <tab />
+
             </tabs>
             
             <tabpanels>
                 <tabpanel style="padding: 0px; border: 0;">
+                    
                     <listbox id="sidebar" zclass="mylist-cell">
                         
                         <listhead>
@@ -19,99 +19,83 @@
                         </listhead>
                         
                         <listitem id="defaultMenu" style="border-bottom: 1px dotted #cfcfcf;" 
-                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                            
-                                  onClick="@command('changePage', page='menuSetoran.zul')">
+                                      onClick="@command('changePage', page='menuSetoran.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN MASUK"/>
                         </listitem>
                         	
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                  onClick="@command('changePage', page='menuSetoranKeluar.zul')">
+                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                      onClick="@command('changePage', page='menuSetoranKeluar.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN KELUAR"/>
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                  onClick="@command('changePage', page='menuBacktrap.zul')">
+                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                      onClick="@command('changePage', page='menuBacktrap.zul')">
                             <listcell iconSclass="glyphicon glyphicon-briefcase"/>
                             <listcell label="BACKTRAP"/>
                         </listitem>
                   
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  onClick="@command('changePage', page='menuInputCashOpname.zul')" 
-                                  if="${sessionScope.userCredential.getRoles()=='OPERATOR'}">
+                                      onClick="@command('changePage', page='menuInputCashOpname.zul')" 
+                                      if="${sessionScope.userCredential.getRoles()=='OPERATOR'}">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="INPUT CASH OPNAME"/>
                         </listitem>
                         
 
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                  onClick="@command('changePage', page='menuGiroPending.zul')">
+                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                      onClick="@command('changePage', page='menuGiroPending.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BON GIRO"/>
                         </listitem>
                         
-                        		
-                    </listbox>
-                </tabpanel>
-                <tabpanel style="padding: 0px; border: 0;">
-                    
-                    <listbox zclass="mylist-cell">
-                        <listhead>
-                            <listheader label="" width="35px"/>
-                            <listheader label=""/>
-                        </listhead>
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  onClick="@command('changePage', page='menuBalance.zul')" >
+                                       onClick="@command('changePage', page='menuCashOpname.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
-                            <listcell label="BALANCE"/>
-                        </listitem>    
-                        
+                            <listcell label="LAPORAN SETORAN"/>
+                        </listitem>  
+                            
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  onClick="@command('changePage', page='menuCashOpname.zul')">
+                                       onClick="@command('changePage', page='menuCashOpname.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="HASIL CASH OPNAME"/>
                         </listitem>  
-                
-                    </listbox>
-                    
-                </tabpanel>
-                
-                <tabpanel style="padding: 0px; border: 0;">
-                    
-                    <listbox zclass="mylist-cell">
-                        <listhead>
-                            <listheader label="" width="35px"/>
-                            <listheader label=""/>
-                        </listhead>
-                        
+                            
+                            
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
-                                  onClick="@command('changePage', page='menuMasterCustomer.zul')">
+                                      onClick="@command('changePage', page='menuBalance.zul')" >
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="BALANCE"/>
+                        </listitem>    
+                            
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                      if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                                      onClick="@command('changePage', page='menuMasterCustomer.zul')">
                             <listcell iconSclass="glyphicon glyphicon-hdd"/>
                             <listcell label="MASTER CUSTOMER"/>
                         </listitem>
              
-                    
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                  if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                  onClick="@command('changePage', page='menuUserSetting.zul')">
+                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                      onClick="@command('changePage', page='menuUserSetting.zul')">
                             <listcell iconSclass="glyphicon glyphicon-user" />
                             <listcell label="PENGATURAN PROFIL"/>
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" onClick="@command('changePage', page='menuUserManager.zul')"
-                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                                      if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
                             <listcell iconSclass="z-icon-cogs"/>
                             <listcell label="PENGATURAN SISTEM"/>
                         </listitem>
-                    </listbox>
+                            
+                    </listbox>                    
                 </tabpanel>
-                
             </tabpanels>
         </tabbox>
     </div>
