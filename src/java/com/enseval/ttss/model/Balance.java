@@ -5,19 +5,25 @@
  */
 package com.enseval.ttss.model;
 
+import java.io.Serializable;
+import javax.persistence.Id;
+
 /**
  *
  * @author Reza Elborneo
  */
-public class Balance {
-    
+
+public class Balance implements Serializable {
+
+    @Id
+    long id;
     String periode;
     String jenisKas;
     long saldoAwal = 0L;
     long totalKeluar = 0L;
     long totalMasuk = 0L;
     long saldoAkhir = 0L;
-    
+
     public String getPeriode() {
         return periode;
     }
@@ -66,8 +72,12 @@ public class Balance {
         this.jenisKas = jenisKas;
     }
 
-  
-    
-    
-    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
 }

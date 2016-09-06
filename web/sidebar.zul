@@ -56,7 +56,7 @@
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                       onClick="@command('changePage', page='menuCashOpname.zul')">
+                                       onClick="@command('changePage', page='menuBalanceDaily.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="LAPORAN SETORAN"/>
                         </listitem>  

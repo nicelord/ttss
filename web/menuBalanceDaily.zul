@@ -1,0 +1,108 @@
+<?init class="com.enseval.ttss.util.AuthenticationInit"?>
+<zk>
+    
+    <style>
+        .z-datebox-input,.z-combobox-input,.z-combobox-button,.z-datebox-button{
+        height:30px;
+        }
+        
+    </style>
+    
+    
+
+    <window id="mainWin" title="DAILY REPORT" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuBalanceDailyVM')">
+        <borderlayout>
+            <center>
+               
+                <listbox id="listBalanceDaily" width="100%" vflex="true" 
+                         emptyMessage="Tidak ada data"
+                         model="@load(vm.listBalanceDaily)">                   
+                                             
+                    <custom-attributes org.zkoss.zul.listbox.rod="true" 
+                                       if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
+                     
+                    <auxhead>
+                        <auxheader colspan="5">
+                            <label value="Dari :" />
+                            <datebox id="startDate" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                            <label value="Sampai :" />
+                            <datebox id="endDate" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                            
+                        </auxheader>
+                        <auxheader colspan="2">
+                            <div class="btn-group" hflex="3">
+                                <button onClick="@command('filterDataBalance')" iconSclass="glyphicon glyphicon-filter" label="GENERATE REPORT" sclass="btn-info"/>
+                                <button onClick="@command('showAllBalance')" iconSclass="glyphicon glyphicon-refresh" label="RESET"/>
+                            </div>
+                        </auxheader>
+                    </auxhead>
+                    
+                    <auxhead>
+                        <auxheader />
+                        <auxheader colspan="4" label="Rekapan Setoran Ke Kasir (Penerimaan Kasir)"/>
+                        <auxheader colspan="3" label="Pengeluaran Kasir (Secara Fisik)"/>
+                    </auxhead>
+                    
+                    <listhead sizable="true" visible="true" >
+
+                        <listheader label="TANGGAL"/>
+                        <listheader label="COLLECTOR"/>
+                        <listheader label="SALESMAN"/>
+                        <listheader label="EXPEDISI"/>
+                        <listheader label="LAIN-LAIN"/>
+                        <listheader label="BANK/PICKUP"/>
+                        <listheader label="CN OUTLET"/>
+                        <listheader label="LAIN-LAIN"/>
+                        
+                    </listhead>
+                    
+                    <template name="model" var="s">
+                        <listitem sclass="mainList">
+                            <listcell label="@load(s.tanggal)"/>
+                            <listcell label="@load(vm.format(s.totalCollector))"/>
+                            <listcell label="@load(vm.format(s.totalSalesman))"/>
+                            <listcell label="@load(vm.format(s.totalExpedisi))"/>
+                            <listcell label="@load(vm.format(s.totalLainnya))"/>
+                            <listcell label="@load(vm.format(s.totalBank))"/>
+                            <listcell label="@load(vm.format(s.totalCNOutlet))"/>
+                            <listcell label="@load(vm.format(s.totalLainnyaOut))"/>
+                        </listitem>
+                    </template>	
+                    
+                    <listfoot>
+                     
+                        <listfooter>
+                         
+                            <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-download-alt" label="DOWNLOAD" 
+                                        if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                            </button>
+                      
+                        </listfooter>
+                        <listfooter>
+                            <label value="This is footer2" />
+                        </listfooter>
+                        <listfooter>
+                            <label value="This is footer2" />
+                        </listfooter>
+                        <listfooter>
+                            <label value="This is footer2" />
+                        </listfooter>
+                        <listfooter>
+                            <label value="This is footer2" />
+                        </listfooter>
+                        <listfooter>
+                            <label value="This is footer2" />
+                        </listfooter>
+                        <listfooter>
+                            <label value="This is footer2" />
+                        </listfooter>
+                        <listfooter>
+                            <label value="This is footer2" />
+                        </listfooter>
+                    </listfoot>
+          
+                </listbox>
+            </center>
+        </borderlayout>
+    </window>
+</zk>

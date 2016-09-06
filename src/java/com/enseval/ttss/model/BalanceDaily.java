@@ -5,36 +5,36 @@
  */
 package com.enseval.ttss.model;
 
+import com.avaje.ebean.annotation.Sql;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Reza Elborneo
  */
+
 public class BalanceDaily {
-    
-    Date tanggal;
-    long saldoAwal = 0L;
+
+    String tanggal;
+
     long totalCollector = 0L;
     long totalSalesman = 0L;
     long totalExpedisi = 0L;
     long totalLainnya = 0L;
-    long saldoAkhir = 0L;
+    
+    long totalBank = 0L;
+    long totalCNOutlet = 0L;
+    long totalLainnyaOut = 0L;
 
-    public Date getTanggal() {
+    public String getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(Date tanggal) {
+    public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
-    }
-
-    public long getSaldoAwal() {
-        return saldoAwal;
-    }
-
-    public void setSaldoAwal(long saldoAwal) {
-        this.saldoAwal = saldoAwal;
     }
 
     public long getTotalCollector() {
@@ -69,14 +69,30 @@ public class BalanceDaily {
         this.totalLainnya = totalLainnya;
     }
 
-    public long getSaldoAkhir() {
-        return saldoAkhir;
+    public long getTotalBank() {
+        return totalBank;
     }
 
-    public void setSaldoAkhir(long saldoAkhir) {
-        this.saldoAkhir = saldoAkhir;
+    public void setTotalBank(long totalBank) {
+        this.totalBank = totalBank;
+    }
+
+    public long getTotalCNOutlet() {
+        return totalCNOutlet;
+    }
+
+    public void setTotalCNOutlet(long totalCNOutlet) {
+        this.totalCNOutlet = totalCNOutlet;
+    }
+
+    public long getTotalLainnyaOut() {
+        return totalLainnyaOut;
+    }
+
+    public void setTotalLainnyaOut(long totalLainnyaOut) {
+        this.totalLainnyaOut = totalLainnyaOut;
     }
     
     
-    
+
 }
