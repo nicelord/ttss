@@ -22,37 +22,39 @@
                                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
                      
                     <auxhead>
-                        <auxheader colspan="5">
+                        <auxheader colspan="6">
                             <label value="Dari :" />
-                            <datebox id="startDate" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                            <datebox id="startDate" format="yyyy-MM-dd" value="@bind(vm.startDate)" constraint="no future: now or never" readonly="true" hflex="3"/>
                             <label value="Sampai :" />
-                            <datebox id="endDate" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
+                            <datebox id="endDate" format="yyyy-MM-dd" value="@bind(vm.endDate)" constraint="no future: now or never" readonly="true" hflex="3"/>
                             
                         </auxheader>
-                        <auxheader colspan="2">
+                        <auxheader colspan="4">
                             <div class="btn-group" hflex="3">
-                                <button onClick="@command('filterDataBalance')" iconSclass="glyphicon glyphicon-filter" label="GENERATE REPORT" sclass="btn-info"/>
-                                <button onClick="@command('showAllBalance')" iconSclass="glyphicon glyphicon-refresh" label="RESET"/>
+                                <button onClick="@command('refreshDailyReport')" iconSclass="glyphicon glyphicon-filter" label="GENERATE REPORT" sclass="btn-info"/>
+                                <button onClick="@command('resetDailyReport')" iconSclass="glyphicon glyphicon-refresh" label="RESET"/>
                             </div>
                         </auxheader>
                     </auxhead>
                     
                     <auxhead>
                         <auxheader />
-                        <auxheader colspan="4" label="Rekapan Setoran Ke Kasir (Penerimaan Kasir)"/>
-                        <auxheader colspan="3" label="Pengeluaran Kasir (Secara Fisik)"/>
+                        <auxheader colspan="5" label="Rekapan Setoran Ke Kasir (Penerimaan Kasir)"/>
+                        <auxheader colspan="4" label="Pengeluaran Kasir (Secara Fisik)"/>
                     </auxhead>
                     
                     <listhead sizable="true" visible="true" >
 
-                        <listheader label="TANGGAL"/>
+                        <listheader label="TANGGAL" width="120px"/>
                         <listheader label="COLLECTOR"/>
                         <listheader label="SALESMAN"/>
                         <listheader label="EXPEDISI"/>
                         <listheader label="LAIN-LAIN"/>
+                        <listheader label="TOTAL"/>
                         <listheader label="BANK/PICKUP"/>
                         <listheader label="CN OUTLET"/>
                         <listheader label="LAIN-LAIN"/>
+                        <listheader label="TOTAL"/>
                         
                     </listhead>
                     
@@ -63,9 +65,11 @@
                             <listcell label="@load(vm.format(s.totalSalesman))"/>
                             <listcell label="@load(vm.format(s.totalExpedisi))"/>
                             <listcell label="@load(vm.format(s.totalLainnya))"/>
+                            <listcell label="@load(vm.format(s.getTotalHarianIn()))" style="font-weight: bold;"/>
                             <listcell label="@load(vm.format(s.totalBank))"/>
                             <listcell label="@load(vm.format(s.totalCNOutlet))"/>
                             <listcell label="@load(vm.format(s.totalLainnyaOut))"/>
+                            <listcell label="@load(vm.format(s.getTotalHarianOut()))" style="font-weight: bold;"/>
                         </listitem>
                     </template>	
                     
@@ -73,31 +77,37 @@
                      
                         <listfooter>
                          
-                            <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-download-alt" label="DOWNLOAD" 
+                            <button sclass="btn-success" onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-download-alt" label="DOWNLOAD" 
                                         if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
                             </button>
                       
                         </listfooter>
                         <listfooter>
-                            <label value="This is footer2" />
+                            <label value="@load(vm.format(vm.totalListCollector))" style="color:blue"/>
                         </listfooter>
                         <listfooter>
-                            <label value="This is footer2" />
+                            <label value="@load(vm.format(vm.totalListSalesman))" style="color:blue"/>
                         </listfooter>
                         <listfooter>
-                            <label value="This is footer2" />
+                            <label value="@load(vm.format(vm.totalListExpedisi))" style="color:blue"/>
                         </listfooter>
                         <listfooter>
-                            <label value="This is footer2" />
+                            <label value="@load(vm.format(vm.totalListLainnyaIn))" style="color:blue"/>
                         </listfooter>
                         <listfooter>
-                            <label value="This is footer2" />
+                            <label value="@load(vm.format(vm.totalListAllIn))" style="font-weight:bold;color:blue"/>
                         </listfooter>
                         <listfooter>
-                            <label value="This is footer2" />
+                            <label value="@load(vm.format(vm.totalListBank))" style="color:red"/>
                         </listfooter>
                         <listfooter>
-                            <label value="This is footer2" />
+                            <label value="@load(vm.format(vm.totalListCn))" style="color:red"/>
+                        </listfooter>
+                        <listfooter>
+                            <label value="@load(vm.format(vm.totalListLainnyaOut))" style="color:red"/>
+                        </listfooter>
+                        <listfooter>
+                            <label value="@load(vm.format(vm.totalListAllOut))" style="font-weight:bold;color:red"/>
                         </listfooter>
                     </listfoot>
           

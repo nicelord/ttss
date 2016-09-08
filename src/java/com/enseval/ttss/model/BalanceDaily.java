@@ -15,7 +15,6 @@ import javax.persistence.Temporal;
  *
  * @author Reza Elborneo
  */
-
 public class BalanceDaily {
 
     String tanggal;
@@ -24,10 +23,12 @@ public class BalanceDaily {
     long totalSalesman = 0L;
     long totalExpedisi = 0L;
     long totalLainnya = 0L;
-    
+    long totalHarianIn = 0L;
+
     long totalBank = 0L;
     long totalCNOutlet = 0L;
     long totalLainnyaOut = 0L;
+    long totalHarianOut = 0L;
 
     public String getTanggal() {
         return tanggal;
@@ -92,7 +93,23 @@ public class BalanceDaily {
     public void setTotalLainnyaOut(long totalLainnyaOut) {
         this.totalLainnyaOut = totalLainnyaOut;
     }
-    
-    
+
+    public long getTotalHarianIn() {
+        totalHarianIn = totalCollector + totalExpedisi + totalSalesman + totalLainnya;
+        return totalHarianIn;
+    }
+
+    public void setTotalHarianIn(long totalHarianIn) {
+        this.totalHarianIn = totalHarianIn;
+    }
+
+    public long getTotalHarianOut() {
+        totalHarianOut = totalBank+totalCNOutlet+totalLainnyaOut;
+        return totalHarianOut;
+    }
+
+    public void setTotalHarianOut(long totalHarianOut) {
+        this.totalHarianOut = totalHarianOut;
+    }
 
 }

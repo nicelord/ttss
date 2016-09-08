@@ -58,7 +58,7 @@
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
                                        onClick="@command('changePage', page='menuBalanceDaily.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
-                            <listcell label="LAPORAN SETORAN"/>
+                            <listcell label="REKAP HARIAN"/>
                         </listitem>  
                             
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
