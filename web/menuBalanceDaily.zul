@@ -45,16 +45,16 @@
                     
                     <listhead sizable="true" visible="true" >
 
-                        <listheader label="TANGGAL" width="120px"/>
-                        <listheader label="COLLECTOR"/>
-                        <listheader label="SALESMAN"/>
-                        <listheader label="EXPEDISI"/>
-                        <listheader label="LAIN-LAIN"/>
-                        <listheader label="TOTAL"/>
-                        <listheader label="BANK/PICKUP"/>
-                        <listheader label="CN OUTLET"/>
-                        <listheader label="LAIN-LAIN"/>
-                        <listheader label="TOTAL"/>
+                        <listheader label="TANGGAL" width="120px" />
+                        <listheader label="COLLECTOR" sort="auto(totalCollector)" />
+                        <listheader label="SALESMAN" sort="auto(totalSalesman)" />
+                        <listheader label="EXPEDISI" sort="auto(totalExpedisi)" />
+                        <listheader label="LAIN-LAIN" sort="auto(totalLainnya)" />
+                        <listheader label="TOTAL" sort="auto(totalHarianIn)" />
+                        <listheader label="BANK/PICKUP"  sort="auto(totalBank)" />
+                        <listheader label="CN OUTLET" sort="auto(totalCNOutlet)" />
+                        <listheader label="LAIN-LAIN" sort="auto(totalLainnyaOut)" />
+                        <listheader label="TOTAL" sort="auto(totalHarianOut)" />
                         
                     </listhead>
                     

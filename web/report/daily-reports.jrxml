@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="daily-reports" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="1db2a07a-4e7e-44c4-b72f-e8c0ea3f8c68">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="39"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" whenResourceMissingType="Empty" uuid="e6deefb1-a36f-457a-85a0-076518d9eb5e">
+		<parameter name="totalListCollector" class="java.lang.Long"/>
+		<parameter name="totalListSalesman" class="java.lang.Long"/>
+		<parameter name="totalListExpedisi" class="java.lang.Long"/>
+		<parameter name="totalListLainnyaIn" class="java.lang.Long"/>
+		<parameter name="totalListAllIn" class="java.lang.Long"/>
+		<parameter name="totalListBank" class="java.lang.Long"/>
+		<parameter name="totalListCn" class="java.lang.Long"/>
+		<parameter name="totalListLainnyaOut" class="java.lang.Long"/>
+		<parameter name="totalListAllOut" class="java.lang.Long"/>
+		<field name="tanggal" class="java.lang.String"/>
+		<field name="totalCollector" class="java.lang.Long"/>
+		<field name="totalSalesman" class="java.lang.Long"/>
+		<field name="totalExpedisi" class="java.lang.Long"/>
+		<field name="totalLainnya" class="java.lang.Long"/>
+		<field name="totalHarianIn" class="java.lang.Long"/>
+		<field name="totalBank" class="java.lang.Long"/>
+		<field name="totalCNOutlet" class="java.lang.Long"/>
+		<field name="totalLainnyaOut" class="java.lang.Long"/>
+		<field name="totalHarianOut" class="java.lang.Long"/>
+		<variable name="total" class="java.lang.Long" calculation="Sum">
+			<variableExpression><![CDATA[]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<parameter name="BALANCE_DAILY" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="totalListCollector" class="java.lang.Long"/>
+	<parameter name="totalListSalesman" class="java.lang.Long"/>
+	<parameter name="totalListExpedisi" class="java.lang.Long"/>
+	<parameter name="totalListLainnyaIn" class="java.lang.Long"/>
+	<parameter name="totalListAllIn" class="java.lang.Long"/>
+	<parameter name="totalListBank" class="java.lang.Long"/>
+	<parameter name="totalListCn" class="java.lang.Long"/>
+	<parameter name="totalListLainnyaOut" class="java.lang.Long"/>
+	<parameter name="totalListAllOut" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="173">
+			<componentElement>
+				<reportElement key="table 3" style="table 3" x="0" y="0" width="802" height="141" uuid="ad2b3939-1823-4ecc-8493-419c395d681d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="cb73c702-a9eb-4190-aec6-9cafb354e8b8">
+						<datasetParameter name="REPORT_DATA_SOURCE">
+							<datasetParameterExpression><![CDATA[$P{BALANCE_DAILY}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListCollector">
+							<datasetParameterExpression><![CDATA[$P{totalListCollector}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListSalesman">
+							<datasetParameterExpression><![CDATA[$P{totalListSalesman}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListExpedisi">
+							<datasetParameterExpression><![CDATA[$P{totalListExpedisi}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListLainnyaIn">
+							<datasetParameterExpression><![CDATA[$P{totalListLainnyaIn}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListAllIn">
+							<datasetParameterExpression><![CDATA[$P{totalListAllIn}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListBank">
+							<datasetParameterExpression><![CDATA[$P{totalListBank}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListCn">
+							<datasetParameterExpression><![CDATA[$P{totalListCn}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListLainnyaOut">
+							<datasetParameterExpression><![CDATA[$P{totalListLainnyaOut}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="totalListAllOut">
+							<datasetParameterExpression><![CDATA[$P{totalListAllOut}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:column width="66" uuid="b813bc7e-4c0a-4606-b58e-91df9f15e2d6">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="66" height="23" uuid="0d6386a6-a924-4e59-b11e-58b9294ea26b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[TANGGAL]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1"/>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="66" height="18" uuid="20d4686b-95c8-4cea-8038-7426a57d4a6d"/>
+								<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75" uuid="164f436b-87d0-4cdd-9440-9de454648d53">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="75" height="23" forecolor="#0000FF" backcolor="#F0F0F0" uuid="9e945ea1-c59d-4a17-8ddc-99e89f701f3d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[COLLECTOR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="75" height="20" forecolor="#0000FF" uuid="cf8c94d4-c4eb-4d01-a1cc-fd73d7bca8a8"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListCollector}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="75" height="18" uuid="ed2508d2-6816-468d-a72a-e8735bf79a69"/>
+								<textFieldExpression><![CDATA[$F{totalCollector}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79" uuid="f9361021-bba2-484d-bbc6-c19060e4f244">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="23" forecolor="#0000FF" backcolor="#F0F0F0" uuid="bbf51d88-f424-4c84-a88e-4937b061f212"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[SALESMAN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="79" height="20" forecolor="#0000FF" uuid="8227367c-63e8-4a39-a77e-396164993754"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListSalesman}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="79" height="18" uuid="0f083e02-592d-4631-adb9-d5eae8c6f61f"/>
+								<textFieldExpression><![CDATA[$F{totalSalesman}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="75" uuid="7f58f196-c339-4bd4-8bce-81ebf9aa5df1">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="75" height="23" forecolor="#0000FF" backcolor="#F0F0F0" uuid="745d799b-951b-49a7-8e68-d6a092c3f170"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[EXPEDISI]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="75" height="20" forecolor="#0000FF" uuid="a01cda60-2ebc-4731-8308-acd2b3293a2e"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListExpedisi}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="75" height="18" uuid="ec0163d1-f53d-4b52-a9da-d66ac8cc36bc"/>
+								<textFieldExpression><![CDATA[$F{totalExpedisi}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="77" uuid="c9562a74-0a67-4064-9ee2-ca57750e286f">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="77" height="23" forecolor="#0000FF" backcolor="#F0F0F0" uuid="1ab866c0-38d9-4be2-a474-51ee7ca71be6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[LAIN-LAIN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="77" height="20" forecolor="#0000FF" uuid="2ad4944e-be5b-43b6-b7b8-96bb5b238656"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListLainnyaIn}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="77" height="18" uuid="300d5eee-d2d6-420b-87f2-8b86d67e1134"/>
+								<textFieldExpression><![CDATA[$F{totalLainnya}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="85" uuid="990bfa9d-2d90-4d99-bd73-56a9a19e4097">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="85" height="23" forecolor="#0000FF" backcolor="#F0F0F0" uuid="5bab39ba-f236-4f8d-8a5a-faab1d527dc8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[TOTAL MASUK]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="85" height="20" forecolor="#0000FF" uuid="8a426cde-57ac-4f09-b64e-bf784ce66ae3"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListAllIn}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="85" height="18" uuid="0e708880-c462-4296-a663-f71013a79076"/>
+								<textFieldExpression><![CDATA[$F{totalHarianIn}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="82" uuid="43a80282-d3c4-48a1-ae4b-70b0ecca5e14">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="82" height="23" forecolor="#FF0000" backcolor="#F0F0F0" uuid="cb3e3656-8268-40fe-b8e8-ea5ff8eba638"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[BANK/PICKUP]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="82" height="20" forecolor="#FF0000" uuid="d9536590-951f-4a62-bd76-04b1e03b2935"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListBank}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="82" height="18" uuid="8c178725-5062-4e4e-ba89-16ac4400f216"/>
+								<textFieldExpression><![CDATA[$F{totalBank}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="85" uuid="e829744f-b06e-435f-b532-dccfb892487d">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="85" height="23" forecolor="#FF0000" backcolor="#F0F0F0" uuid="18be107e-61c0-4f71-82f5-b125491f2bda"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[CN OUTLET]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="85" height="20" forecolor="#FF0000" uuid="3886ed77-7174-4b4e-9c16-615c533a5881"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListCn}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="85" height="18" uuid="9af4ecf5-0e9d-442a-90be-1b8a9abbfe6a"/>
+								<textFieldExpression><![CDATA[$F{totalCNOutlet}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="84" uuid="1726a971-a9de-4904-9dd2-9958a11bf396">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="84" height="23" forecolor="#FF0000" backcolor="#F0F0F0" uuid="0b07758e-bb27-47f9-a7ec-17b13c922f04"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[LAIN-LAIN]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="84" height="20" forecolor="#FF0000" uuid="047f0c0a-0d1c-452c-b12b-706bdb8f2f73"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListLainnyaOut}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="84" height="18" uuid="d8abfa69-a9f5-484d-a96b-30cd462b3e4b"/>
+								<textFieldExpression><![CDATA[$F{totalLainnyaOut}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="82f36975-9d4f-408f-8820-6deb58b91d6d">
+						<jr:tableHeader style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="90" height="23" forecolor="#FF0000" backcolor="#F0F0F0" uuid="b5364637-7491-48cf-882c-7e1700f51f9f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[TOTAL KELUAR]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 3_CH" height="20" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="90" height="20" forecolor="#FF0000" uuid="44e61ecc-4b9f-4c46-b42d-ae8b6e6bce57"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$P{totalListAllOut}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 3_TD" height="19" rowSpan="1">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="90" height="18" uuid="39811961-be45-44ed-9a02-9cead95c971f"/>
+								<textFieldExpression><![CDATA[$F{totalHarianOut}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

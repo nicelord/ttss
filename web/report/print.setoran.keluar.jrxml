@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="396" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="7dafb8d3-fcf1-47c3-aee8-9b45e3b6027d">
 	<property name="ireport.zoom" value="1.4641000000000026"/>
-	<property name="ireport.x" value="260"/>
+	<property name="ireport.x" value="119"/>
 	<property name="ireport.y" value="265"/>
 	<parameter name="JUMLAH_UANG" class="java.lang.String"/>
 	<parameter name="TERBILANG" class="java.lang.String"/>
@@ -134,7 +134,7 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="436" y="237" width="100" height="28" uuid="2d2ac686-73fc-44d5-9541-21190902e9cf"/>
+				<reportElement x="415" y="237" width="144" height="28" uuid="2d2ac686-73fc-44d5-9541-21190902e9cf"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
 				</textElement>
@@ -188,14 +188,14 @@
 				<textFieldExpression><![CDATA[$P{JENIS_KAS}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="425" y="237" width="12" height="28" uuid="e8b87400-ac31-4124-bdc0-40d2746be44d"/>
+				<reportElement x="404" y="237" width="12" height="28" uuid="e8b87400-ac31-4124-bdc0-40d2746be44d"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[,]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="328" y="237" width="98" height="28" uuid="aac1c345-627a-47af-844b-28c7a76d4546"/>
+				<reportElement x="307" y="237" width="98" height="28" uuid="aac1c345-627a-47af-844b-28c7a76d4546"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Monospaced" size="10" pdfFontName="Courier" isPdfEmbedded="true"/>
 				</textElement>

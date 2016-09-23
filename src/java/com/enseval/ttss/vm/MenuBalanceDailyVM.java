@@ -70,17 +70,28 @@ public class MenuBalanceDailyVM {
     }
 
     @Command
-    @NotifyChange({"listBalance"})
+    @NotifyChange({"listBalanceDaily"})
     public void downloadXLS() {
 
-        File filenya = new File(Util.setting("pdf_path") + "balance-reports.xls");
+        File filenya = new File(Util.setting("pdf_path") + "daily-reports.xls");
         try {
-            InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/balance.jasper");
+            InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/daily-reports.jasper");
             JRDataSource datasource = new JRBeanCollectionDataSource(listBalanceDaily);
             JRDataSource beanColDataSource = new JRBeanCollectionDataSource(listBalanceDaily);
             Map map = new HashMap();
             map.put("REPORT_DATA_SOURCE", datasource);
-            map.put("BALANCE", beanColDataSource);
+            map.put("BALANCE_DAILY", beanColDataSource);
+            map.put("totalListCollector", totalListCollector);
+            map.put("totalListSalesman", totalListSalesman);
+            map.put("totalListExpedisi", totalListExpedisi);
+            map.put("totalListLainnyaIn", totalListLainnyaIn);
+            map.put("totalListAllIn", totalListAllIn);
+            
+            map.put("totalListBank", totalListBank);
+            map.put("totalListCn", totalListCn);
+            map.put("totalListLainnyaOut", totalListLainnyaOut);
+            map.put("totalListAllOut", totalListAllOut);
+           
             final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
             final OutputStream outputStream = new FileOutputStream(filenya);
             final JRXlsExporter exporterXLS = new JRXlsExporter();
@@ -215,6 +226,8 @@ public class MenuBalanceDailyVM {
             totalListLainnyaOut += listBalanceDaily1.getTotalLainnyaOut();
             totalListAllOut += listBalanceDaily1.getTotalHarianOut();
         }
+        
+        Collections.reverse(listBalanceDaily);
 
     }
     
