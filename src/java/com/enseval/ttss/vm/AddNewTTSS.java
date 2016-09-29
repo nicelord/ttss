@@ -29,10 +29,26 @@ public class AddNewTTSS {
     User userLogin;
     String printernya = "";
     Backtrap backtrap;
+    boolean isMultipleCetak = false;
 
     public AddNewTTSS() {
         this.listPenyetor = new ArrayList<>();
         this.printers = new ArrayList<>();
+    }
+
+    public AddNewTTSS(Backtrap backtrap, String printernya, User userlogin) {
+        this.userLogin = userlogin;
+        this.printernya = printernya;
+        this.backtrap = backtrap;
+        this.isMultipleCetak = true;
+
+        this.ttss = new TTSS();
+        this.ttss.setJenisKas("KAS TRANSFER");
+        this.ttss.setNilai(this.backtrap.getNilai());
+        this.ttss.setNamaPenyetor(this.backtrap.getUserBacktrap().getNama());
+        this.ttss.setTag(this.backtrap.getTag());
+        this.ttss.setKeterangan(this.backtrap.getKeterangan());
+
     }
 
     @AfterCompose
@@ -51,7 +67,6 @@ public class AddNewTTSS {
                 view.detach();
                 return;
             }
-
         }
         this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
 
@@ -95,7 +110,10 @@ public class AddNewTTSS {
         }
 
         BindUtils.postGlobalCommand((String) null, (String) null, "refresh", (Map) null);
-        this.win.detach();
+        if(!isMultipleCetak){
+            this.win.detach();
+        }
+        
     }
 
     @Command
@@ -171,6 +189,22 @@ public class AddNewTTSS {
 
     public void setCmbTag(final Combobox cmbTag) {
         this.cmbTag = cmbTag;
+    }
+
+    public Backtrap getBacktrap() {
+        return backtrap;
+    }
+
+    public void setBacktrap(Backtrap backtrap) {
+        this.backtrap = backtrap;
+    }
+
+    public boolean isIsMultipleCetak() {
+        return isMultipleCetak;
+    }
+
+    public void setIsMultipleCetak(boolean isMultipleCetak) {
+        this.isMultipleCetak = isMultipleCetak;
     }
 
 }

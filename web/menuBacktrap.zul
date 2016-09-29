@@ -79,7 +79,17 @@
                     
                 <listfoot>
                     <listfooter span="6" valign="middle">
-                      
+                        <div style="float:left;">
+                            <image id="" src="img/arrow_ltr.png" width=""  height=""/>
+                            Printer : 
+                            <combobox id="printer"  model="@load(vm.printers)" value="@load(vm.userLogin.defPrinter.namaPrinter) @save(vm.printernya)" hflex="3" vflex="3" readonly="true" constraint="no empty">
+                                <template name="model">
+                                    <comboitem label="@load(each.namaPrinter)" />
+                                </template>
+                            </combobox>
+                            <button onClick="@command('cetakMultiple')" hflex="3" sclass="btn-danger" iconSclass="glyphicon glyphicon-print" label="MULTI CETAK" 
+                                    if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                        </div>
                         <div style="float:right;">
                             <label value="TOTAL NILAI "/>
                             <label value="@load(vm.format(vm.totalNilai))"/>
@@ -134,8 +144,8 @@
                         <foot>
                             <footer span="2">
                                 <hlayout>
-                                   <button onClick="@command('cetak')" hflex="3" sclass="btn-danger" iconSclass="glyphicon glyphicon-print" label="CETAK" 
-                                            if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
+                                    <button onClick="@command('cetak')" hflex="3" sclass="btn-danger" iconSclass="glyphicon glyphicon-print" label="CETAK" 
+                                           if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
                                 </hlayout>
                             </footer>
                         </foot>

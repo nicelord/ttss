@@ -8,6 +8,7 @@ import com.enseval.ttss.util.*;
 import org.zkoss.zk.ui.*;
 import org.zkoss.bind.annotation.*;
 import java.util.*;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Messagebox;
 
 public class MenuBacktrapVM {
@@ -24,11 +25,21 @@ public class MenuBacktrapVM {
     Timestamp tsAwal;
     Timestamp tsAkhir;
     User userLogin;
+    List<Printer> printers;
+    String printernya = "";
 
     @AfterCompose
     public void initSetup() {
         this.userLogin = (User) Ebean.find((Class) User.class, (Object) new AuthenticationServiceImpl().getUserCredential().getUser().getId());
         this.listBacktrap = Ebean.find(Backtrap.class).where().isNull("ttss").orderBy("createDate DESC").findList();
+
+        this.printers = (List<Printer>) Ebean.find((Class) Printer.class).findList();
+        if (this.userLogin.getDefPrinter() == null) {
+            if (!Ebean.find(Printer.class).findList().isEmpty()) {
+                this.userLogin.setDefPrinter(Ebean.find(Printer.class).findList().get(0));
+            }
+        }
+        this.printernya = this.userLogin.getDefPrinter().getNamaPrinter();
 
         Long nilai = 0L;
         for (Backtrap b : this.listBacktrap) {
@@ -52,6 +63,30 @@ public class MenuBacktrapVM {
         Map m = new HashMap();
         m.put("backtrapnya", this.selectedBacktrap);
         Executions.createComponents("AddNewTTSS.zul", null, m);
+    }
+
+    @Command
+    @NotifyChange({"printernya"})
+    public void cetakMultiple() {
+        if (listSelectedBacktrap.isEmpty() | listSelectedBacktrap == null) {
+            Messagebox.show("Tidak ada backtrap terpilih", "Error", Messagebox.OK, Messagebox.ERROR);
+            return;
+        }
+        Messagebox.show("Multi cetak tidak menampilkan data lengkap cetakan terlebih dahulu.\n\nKonfirmasi untuk melanjutkan " + listSelectedBacktrap.size() + " cetakan secara bersamaan?", "Konfirmasi Multi Cetak", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener() {
+        
+            public void onEvent(Event evt) throws InterruptedException {
+                if (evt.getName().equals("onOK")) {
+                    for (Backtrap backtrap : listSelectedBacktrap) {
+                        AddNewTTSS ant = new AddNewTTSS(backtrap, printernya, userLogin);
+                        ant.cetak();
+                    }
+
+                } else {
+
+                }
+            }
+        });
+
     }
 
     @Command
@@ -284,4 +319,21 @@ public class MenuBacktrapVM {
     public void setFilterTag(final String filterTag) {
         this.filterTag = filterTag;
     }
+
+    public List<Printer> getPrinters() {
+        return printers;
+    }
+
+    public void setPrinters(List<Printer> printers) {
+        this.printers = printers;
+    }
+
+    public String getPrinternya() {
+        return printernya;
+    }
+
+    public void setPrinternya(String printernya) {
+        this.printernya = printernya;
+    }
+
 }
