@@ -52,7 +52,7 @@
                     <template name="model" var="s">
                         <listitem>
                             <listcell label="@load(s.id)"/>
-                            <listcell label="@load(s.tglOpname) @converter('formatedDate', format='dd/MMMM/yyyy HH:mm')"/>
+                            <listcell label="@load(s.tglOpname) @converter('formatedDate', format='dd-MMMM-yyyy HH:mm')"/>
                             <listcell label="@load(s.pelaksana)"/>
                             <listcell label="@load(s.jenisKas)"/>
                             <listcell label="@load(s.tglCutoff) @converter('formatedDate', format='dd-MMMM-yyyy')"/>

@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import org.avaje.agentloader.AgentLoader;
 
 /*
@@ -30,7 +32,7 @@ import org.avaje.agentloader.AgentLoader;
 public class Tes2 {
 
     BalanceDaily bd;
-    
+
     public static String format(final long nilai) {
         final DecimalFormat kursIndonesia = (DecimalFormat) NumberFormat.getCurrencyInstance();
         final DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
@@ -43,37 +45,12 @@ public class Tes2 {
     }
 
     public static void main(String[] args) {
-        System.out.println(format(123123L));
-        
-         java.util.Calendar date = java.util.Calendar.getInstance();
-            date.set(java.util.Calendar.DAY_OF_MONTH, 1);
-            System.out.println(date.getTime());
-        
-//        try {
-//            AgentLoader.loadAgentFromClasspath("avaje-ebeanorm-agent", "debug=1");
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            Date startDate = sdf.parse("2016-08-01 00:00:00");
-//            Date endDate = sdf.parse("2016-08-31 23:59:59");
-//
-//            String sql = "SELECT DATE(wkt_terima) a, SUM(nilai) b FROM ttss"
-//                    + " WHERE wkt_terima >= '2016-08-01 00:00:00'"
-//                    + " AND wkt_terima <= '2016-08-31 23:59:59'"
-//                    + " AND jenis_kas = 'KAS TRANSFER'"
-//                    + " AND tipe = 'masuk'"
-//                    + " AND tag = 'COLLECTOR'"
-//                    + " GROUP BY DATE(wkt_terima)"
-//                    + " ORDER BY DATE(wkt_terima) ASC";
-//
-//            SqlQuery sqlQuery = Ebean.createSqlQuery(sql);
-//
-//            List<SqlRow> list = sqlQuery.findList();
-//            for (SqlRow list1 : list) {
-//                System.out.println(list1.getString("a") + " | " +list1.getLong("b"));
-//            }
-//
-//        } catch (ParseException ex) {
-//            Logger.getLogger(Tes2.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
+        System.out.println("Number of print services: " + printServices.length);
+
+        for (PrintService printer : printServices) {
+            System.out.println("Printer: " + printer.getName());
+        }
     }
 
 }

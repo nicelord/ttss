@@ -172,13 +172,13 @@
             <listcell label="@load(g.custID)"/>
             <listcell label="@load(g.DKLK)"/>
             <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                <label value="@load(g.wktTerima) @converter('formatedDate', format='yyyy/MM/dd hh:mm')"/>
+                <label value="@load(g.wktTerima) @converter('formatedDate', format='yyyy-MM-dd hh:mm')"/>
             </listcell>
             <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                <label value="@load(g.tglJtTempo) @converter('formatedDate', format='yyyy/MM/dd')"/>
+                <label value="@load(g.tglJtTempo) @converter('formatedDate', format='yyyy-MM-dd')"/>
             </listcell>
             <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                <label value="@load(g.tglKliring) @converter('formatedDate', format='yyyy/MM/dd')"/>
+                <label value="@load(g.tglKliring) @converter('formatedDate', format='yyyy-MM-dd')"/>
             </listcell>
             <listcell label="@load(g.status)"/>
             <listcell>
