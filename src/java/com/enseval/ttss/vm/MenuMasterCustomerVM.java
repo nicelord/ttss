@@ -76,13 +76,18 @@ public class MenuMasterCustomerVM {
     @NotifyChange("listCustomer")
     public void hapusCustomer(@BindingParam("customernya") Customer c) {
 
-        if (Ebean.find(Giro.class).where().eq("custID", c.getId()).findList().size() > 0) {
+        if (Ebean.find(Giro.class).where().eq("customer.id", c.getId()).findList().size() > 0) {
             Messagebox.show("Salah satu giro atau lebih menggunakan customer ini", "ERROR", Messagebox.OK, Messagebox.ERROR);
             return;
         }
 
         Ebean.delete(Customer.class, c.getId());
-        listCustomer = Ebean.find(Customer.class).orderBy("id desc").findList();
+        Messagebox.show("Data customer berhasil dihapus", "INFO", Messagebox.OK, Messagebox.INFORMATION);
+        listCustomer = Ebean.find(Customer.class)
+                .where().like("id", "%" + filterId  + "%")
+                .where().like("nama", "%" + filterNama  + "%")
+                .where().like("shipto", "%" + filterShipto  + "%")
+                .orderBy("id desc").findList();
     }
 
     public List<Customer> getListCustomer() {

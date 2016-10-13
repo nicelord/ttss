@@ -13,58 +13,58 @@
           
             <window title="CUSTOMER LIST" vflex="3" apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuMasterCustomerVM')">
                 <listbox id="custList" mold="paging" width="100%" vflex="true" autopaging="true" 
-                     emptyMessage="Tidak ada data"
-                     model="@load(vm.listCustomer)"
-                     selectedItem="@bind(vm.customer)">  
+                         emptyMessage="Tidak ada data"
+                         model="@load(vm.listCustomer)"
+                         selectedItem="@bind(vm.customer)">  
                             
                     <auxhead>
-                        <auxheader>
+                        <auxheader colspan="14">
+                            
                             <longbox id="lboxId" hflex="3" value="@bind(vm.customer.id)" sclass="form-control input-primary"/> 
                         </auxheader>
                         <auxheader>
-                            <textbox id="txtNama" hflex="3" value="@load(vm.customer.nama)" sclass="form-control input-primary"/> 
-                        </auxheader>
-                        <auxheader>
-                            <textbox id="txtShipto" hflex="3" value="@load(vm.customer.shipto)" sclass="form-control input-primary"/> 
-                        </auxheader>
-                        <auxheader>
-                            <button class="btn-success" iconSclass="glyphicon glyphicon-plus" onClick="@command('saveCustomer')">TAMBAH/UPDATE</button>
-                                
+                            <button class="btn-success" iconSclass="glyphicon glyphicon-plus" onClick="@command('saveCustomer')">CARI</button>
                         </auxheader>
                     </auxhead>
-                    
-                    
-                            
-                                            
+                                     
                     <listhead>
-                        <listheader label="ID" width="100px"/>
-                        <listheader label="Nama" width="250px"/>
-                        <listheader label="Shipto" width="70%"/>
-                        <listheader label="HAPUS" width="150px"/>
+                        <listheader label="ID" width="60px"/>
+                        <listheader label="Nama"/>
+                        <listheader label="Shipto"/>
+                        <listheader label="Kota"/>
+                        <listheader label="Provinsi"/>
+                        <listheader label="Kode Pos"/>
+                        <listheader label="Nama Area"/>
+                        <listheader label="DKLK" width="40px"/>
+                        <listheader label="Credit Lmt"/>
+                        <listheader label="NPWP"/>
+                        <listheader label="Wajib Pajak"/>
+                        <listheader label="Create Date"/>
+                        <listheader label="Editor"/>
+                        <listheader label="Last Update"/>
+                        <listheader label="HAPUS"/>
                     </listhead>
-                    
-                    <auxhead>
-                        <auxheader>
-                            <textbox instant="true" hflex="3" value="@bind(vm.filterId)" sclass="form-control input-primary" onChange="@command('doFilter')"/> 
-                        </auxheader>
-                        <auxheader>
-                            <textbox instant="true" hflex="3" value="@bind(vm.filterNama)" sclass="form-control input-primary" onChange="@command('doFilter')"/> 
-                        </auxheader>
-                        <auxheader>
-                            <textbox instant="true" hflex="3" value="@bind(vm.filterShipto)" sclass="form-control input-primary" onChange="@command('doFilter')"/> 
-                        </auxheader>
-                    </auxhead>
-                    
                     
                     <template name="model" var="s">
                         <listitem sclass="custList">
-                            <listcell label="@load(s.id)"/>
-                            <listcell label="@load(s.nama)"/>
-                            <listcell label="@load(s.shipto)"/>
+                            <listcell label="@load(s.id)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.nama)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.shipto)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.kota)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.provinsi)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.kodePos)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.namaArea)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.DKLK)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.creditLimit)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.npwp)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.namaWajibPajak)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.creationDate)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.lastUpdateBy)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell label="@load(s.lastUpdateDate)" style="text-overflow: ellipsis; white-space: nowrap;"/>
                             <listcell>
-                                <button class="btn-xs btn-danger" iconSclass="glyphicon glyphicon-trash" onClick="@command('hapusCustomer',customernya=s)">HAPUS</button>
+                                <button class="btn-xs btn-danger" iconSclass="glyphicon glyphicon-trash" onClick="@command('hapusCustomer',customernya=s)"></button>
+                                <button class="btn-xs btn-success" iconSclass="glyphicon glyphicon-edit" onClick="@command('hapusCustomer',customernya=s)"></button>
                             </listcell>
-                                    
                         </listitem>
                     </template>
                     <listfoot>
