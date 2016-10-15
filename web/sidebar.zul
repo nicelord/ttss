@@ -35,6 +35,13 @@
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
                                       if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                      onClick="@command('changePage', page='menuKasKecil.zul')">
+                            <listcell iconSclass="glyphicon glyphicon-list-alt"/>
+                            <listcell label="KAS KECIL"/>
+                        </listitem>
+                        
+                        <listitem style="border-bottom: 1px dotted #cfcfcf;" 
+                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
                                       onClick="@command('changePage', page='menuBacktrap.zul')">
                             <listcell iconSclass="glyphicon glyphicon-briefcase"/>
                             <listcell label="BACKTRAP"/>
