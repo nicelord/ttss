@@ -58,7 +58,7 @@
                                 <datebox id="tglBuatSampai" value="@bind(vm.tglBuatSampai)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
                                 <div class="btn-group" hflex="3">
                                     <button label="TAMPILKAN" onClick="@command('saringTglBuat')" sclass="btn-info btn-xs" hflex="3" />
-                                    <button label="RESET" onClick="@command('resetTglBuat')" sclass="btn-default btn-xs" hflex="3" >
+                                    <button label="RESET" onClick="@command('resetTgl')" sclass="btn-default btn-xs" hflex="3" >
                                         <attribute name="onClick">
                                             tglBuatDari.setText("");
                                             tglBuatSampai.setText("");
@@ -79,7 +79,7 @@
                                 <datebox id="tglSelesaiSampai" value="@bind(vm.tglSelesaiSampai)" format="yyyy-MM-dd" constraint="no future: now or never" readonly="true" hflex="3"/>
                                 <div class="btn-group" hflex="3">
                                     <button label="TAMPILKAN" onClick="@command('saringTglSelesai')" sclass="btn-info btn-xs" hflex="3" />
-                                    <button label="RESET" onClick="@command('resetTglSelesai')" sclass="btn-default btn-xs" hflex="3" >
+                                    <button label="RESET" onClick="@command('resetTgl')" sclass="btn-default btn-xs" hflex="3" >
                                         <attribute name="onClick">
                                             tglSelesaiDari.setText("");
                                             tglSelesaiSampai.setText("");

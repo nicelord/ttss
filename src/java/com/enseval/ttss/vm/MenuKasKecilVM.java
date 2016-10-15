@@ -98,6 +98,61 @@ public class MenuKasKecilVM {
         this.saldo = nilai;
     }
 
+    @Command
+    @NotifyChange({"listKasKecil", "saldo"})
+    public void saringTglBuat() {
+        if (this.tglBuatDari != null | this.tglBuatSampai != null) {
+            this.listKasKecil = Ebean.find(KasKecil.class)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("nama", "%" + this.filterNama + "%")
+                    .or(Expr.like("dept", "%" + this.filterDept + "%"), Expr.isNull("dept"))
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("tanggalBuat", this.tglBuatDari).where().le("tanggalBuat", this.tglBuatSampai)
+                    .orderBy("nomor DESC")
+                    .findList();
+        }
+
+        Long nilai = 0L;
+        for (KasKecil kk : this.listKasKecil) {
+            nilai += kk.getNilai();
+        }
+        this.saldo = nilai;
+    }
+    
+    
+    @Command
+    @NotifyChange({"listKasKecil", "saldo"})
+    public void resetTgl(){
+        this.tglBuatDari = null;
+        this.tglBuatSampai = null;
+        this.tglSelesaiDari = null;
+        this.tglSelesaiSampai = null;
+        saring();
+    }
+    
+    @Command
+    @NotifyChange({"listKasKecil", "saldo"})
+    public void saringTglSelesai() {
+        if (this.tglSelesaiDari != null | this.tglSelesaiSampai != null) {
+            this.listKasKecil = Ebean.find(KasKecil.class)
+                    .where().like("nomor", "%" + this.filterNomor + "%")
+                    .where().like("nilai", "%" + this.filterNilai + "%")
+                    .where().like("nama", "%" + this.filterNama + "%")
+                    .or(Expr.like("dept", "%" + this.filterDept + "%"), Expr.isNull("dept"))
+                    .where().like("status", "%" + this.filterStatus + "%")
+                    .where().ge("tanggalSelesai", this.tglSelesaiDari).where().le("tanggalSelesai", this.tglSelesaiSampai)
+                    .orderBy("nomor DESC")
+                    .findList();
+        }
+
+        Long nilai = 0L;
+        for (KasKecil kk : this.listKasKecil) {
+            nilai += kk.getNilai();
+        }
+        this.saldo = nilai;
+    }
+
     public List<KasKecil> getListKasKecil() {
         return listKasKecil;
     }
