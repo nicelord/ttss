@@ -29,6 +29,7 @@ public class MenuSettingLainVM {
 
     String saldoAwal = Util.setting("saldo_awal_transfer");
     String saldoAwalDropping = Util.setting("saldo_awal_dropping");
+    String saldoAwalKasKecil = Util.setting("saldo_awal_kas_kecil");
 
     Date tglSaldoAwal = Util.toDate(Util.setting("tgl_saldo_awal"));
     String pdfPath = Util.setting("pdf_path");
@@ -66,6 +67,12 @@ public class MenuSettingLainVM {
         if (Ebean.find(Setting.class).where().eq("namaSetting", "saldo_awal_dropping").findUnique().getNilaiSetting().equals("0")) {
             set = Ebean.find(Setting.class).where().eq("namaSetting", "saldo_awal_dropping").findUnique();
             set.setNilaiSetting(saldoAwalDropping);
+            Ebean.save(set);
+        }
+        
+        if (Ebean.find(Setting.class).where().eq("namaSetting", "saldo_awal_kas_kecil").findUnique().getNilaiSetting().equals("0")) {
+            set = Ebean.find(Setting.class).where().eq("namaSetting", "saldo_awal_kas_kecil").findUnique();
+            set.setNilaiSetting(saldoAwalKasKecil);
             Ebean.save(set);
         }
 
@@ -202,6 +209,14 @@ public class MenuSettingLainVM {
 
     public void setCabang(String cabang) {
         this.cabang = cabang;
+    }
+
+    public String getSaldoAwalKasKecil() {
+        return saldoAwalKasKecil;
+    }
+
+    public void setSaldoAwalKasKecil(String saldoAwalKasKecil) {
+        this.saldoAwalKasKecil = saldoAwalKasKecil;
     }
 
  

@@ -12,11 +12,13 @@ import com.enseval.ttss.model.KasKecil;
 import com.enseval.ttss.model.TTSS;
 import com.enseval.ttss.model.User;
 import com.enseval.ttss.util.Rupiah;
+import com.enseval.ttss.util.Util;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -24,9 +26,11 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.Messagebox;
 
 /**
  *
@@ -46,11 +50,13 @@ public class MenuKasKecilVM {
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
 
-        this.listKasKecil = Ebean.find(KasKecil.class).orderBy("tanggalBuat desc").findList();
+        this.listKasKecil = Ebean.find(KasKecil.class).orderBy("nomor desc").findList();
 
-        Long nilai = 0L;
+        Long nilai = Long.parseLong(Util.setting("saldo_awal_kas_kecil"));
         for (KasKecil kk : this.listKasKecil) {
-            nilai += kk.getNilai();
+            if (kk.getStatus().equals("PENDING")) {
+                nilai -= kk.getNilai();
+            }
         }
         this.saldo = nilai;
 
@@ -78,6 +84,7 @@ public class MenuKasKecilVM {
         this.kasKecil = kasKecil;
     }
 
+    @GlobalCommand
     @Command
     @NotifyChange({"listKasKecil", "saldo"})
     public void saring() {
@@ -91,9 +98,11 @@ public class MenuKasKecilVM {
                 .orderBy("nomor DESC")
                 .findList();
 
-        Long nilai = 0L;
+        Long nilai = Long.parseLong(Util.setting("saldo_awal_kas_kecil"));
         for (KasKecil kk : this.listKasKecil) {
-            nilai += kk.getNilai();
+            if (kk.getStatus().equals("PENDING")) {
+                nilai -= kk.getNilai();
+            }
         }
         this.saldo = nilai;
     }
@@ -113,24 +122,25 @@ public class MenuKasKecilVM {
                     .findList();
         }
 
-        Long nilai = 0L;
+        Long nilai = Long.parseLong(Util.setting("saldo_awal_kas_kecil"));
         for (KasKecil kk : this.listKasKecil) {
-            nilai += kk.getNilai();
+            if (kk.getStatus().equals("PENDING")) {
+                nilai -= kk.getNilai();
+            }
         }
         this.saldo = nilai;
     }
-    
-    
+
     @Command
     @NotifyChange({"listKasKecil", "saldo"})
-    public void resetTgl(){
+    public void resetTgl() {
         this.tglBuatDari = null;
         this.tglBuatSampai = null;
         this.tglSelesaiDari = null;
         this.tglSelesaiSampai = null;
         saring();
     }
-    
+
     @Command
     @NotifyChange({"listKasKecil", "saldo"})
     public void saringTglSelesai() {
@@ -146,11 +156,24 @@ public class MenuKasKecilVM {
                     .findList();
         }
 
-        Long nilai = 0L;
+        Long nilai = Long.parseLong(Util.setting("saldo_awal_kas_kecil"));
         for (KasKecil kk : this.listKasKecil) {
-            nilai += kk.getNilai();
+            if (kk.getStatus().equals("PENDING")) {
+                nilai -= kk.getNilai();
+            }
         }
         this.saldo = nilai;
+    }
+
+    @Command
+    public void tandaiSelesai() {
+        if(kasKecil==null){
+            Messagebox.show("Tidak ada transaksi dipilih", "ERROR", Messagebox.OK, Messagebox.ERROR);
+            return;
+        }
+        Map args = new HashMap();
+        args.put("selected_kasKecil", this.kasKecil);
+        Executions.createComponents("WinKonfirmasiSelesaiKasKecil.zul", null, args);
     }
 
     public List<KasKecil> getListKasKecil() {

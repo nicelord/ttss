@@ -14,6 +14,8 @@ public class ContentVM
     public ContentVM() {
         if(new AuthenticationServiceImpl().getUserCredential().getRoles().equals("OPERATOR")){
             this.thePage = "/menuInputCashOpname.zul";
+        }else if(new AuthenticationServiceImpl().getUserCredential().getRoles().equals("KASIR_KECIL")){
+            this.thePage = "/menuKasKecil.zul";
         }else{
             this.thePage = "/menuSetoran.zul";
         }

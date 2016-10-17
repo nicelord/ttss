@@ -4,8 +4,8 @@
     <borderlayout>
         <center>
             <listbox mold="paging" width="100%" vflex="true" autopaging="true" 
-                     checkmark="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
-                     multiple="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}" 
+                     checkmark="false" 
+                     multiple="false" 
                      selectedItems="@bind(vm.selectedKasKecil)"
                      emptyMessage="Tidak ada data"
                      model="@load(vm.listKasKecil)">        
@@ -102,26 +102,37 @@
                         <listcell label="@load(s.nama.toUpperCase())" style="text-overflow: ellipsis; white-space: nowrap;"/>
                         <listcell label="@load(s.dept)"/>
                         <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                            <label value="@load(s.tanggalBuat) @converter('formatedDate', format='yyyy-MM-dd hh:mm')"/>
+                            <label value="@load(s.tanggalBuat) @converter('formatedDate', format='yyyy-MM-dd')"/>
                         </listcell>
                         <listcell style="text-overflow: ellipsis; white-space: nowrap;">
-                            <label value="@load(s.tanggalSelesai) @converter('formatedDate', format='yyyy-MM-dd hh:mm')"/>
+                            <label value="@load(s.tanggalSelesai) @converter('formatedDate', format='yyyy-MM-dd')"/>
                         </listcell>
-                        <listcell label="@load(s.status)"/>
+                        <listcell>
+                            <label 
+                                value="@load(s.status)" 
+                                sclass="label label-warning" 
+                                visible="@load(s.status.equals('PENDING'))"
+                            />
+                             <label 
+                                value="@load(s.status)" 
+                                sclass="label label-success" 
+                                visible="@load(s.status.equals('SELESAI'))"
+                            />
+                        </listcell>
                     </listitem>
                 </template>
                     
                 <listfoot>
-                    <listfooter span="6" valign="middle">
-                        <div style="float:left;">
+                    <listfooter span="8" valign="middle">
+                        <!--div style="float:left;">
                                 
                             <button onClick="@command('downloadXLS')" iconSclass="glyphicon glyphicon-download-alt" label="DOWNLOAD TO EXCEL" 
                                     if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
                             </button>
-                        </div>
+                        </div-->
                         <div style="float:right;">
                             <label value="SALDO "/>
-                            <label value="@load(vm.format(vm.saldo))"/>
+                            <label value="@load(vm.format(vm.saldo))" style="font-weight:bold;"/>
                             <label value=" "/>
                         </div>
                     </listfooter>
@@ -137,10 +148,12 @@
                             <column align="left" width="25%"/>
                             <column/>
                         </columns>
-                        <rows>       
+                        <rows>
+                                
                             <row>
                                 STATUS
-                                <label value="@load(vm.kasKecil.status)"/>
+                                <label value="@load(vm.kasKecil.status)" />
+                             
                             </row>                   
                             <row>
                                 NOMOR
@@ -173,7 +186,7 @@
                             </row>
                             <row>
                                 CTT BUAT
-                                <textbox hflex="3" value="@load(vm.kasKecil.catatanBuat)" readonly="true"/>
+                                <label hflex="3" value="@load(vm.kasKecil.catatanBuat)" />
                             </row>
                             <row>
                                 TGL SELESAI
@@ -181,18 +194,21 @@
                             </row>
                             <row>
                                 CTT SELESAI
-                                <textbox hflex="3" value="@load(vm.kasKecil.catatanSelesai)" readonly="true"/>
+                                <label hflex="3" value="@load(vm.kasKecil.catatanSelesai)"/>
                             </row> 
                             
                         </rows>
                         <foot>
                             <footer span="2">
-                                <hlayout>
-                                    <button onClick="@command('liatRevisi')" hflex="3" sclass="btn-default" iconSclass="glyphicon glyphicon-th-list" label="DAFTAR CETAKAN" 
-                                            if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-                                    <button onClick="@command('cetakUlang')" hflex="3" sclass="btn-danger" iconSclass="glyphicon glyphicon-print" label="CETAK ULANG" 
-                                            if="${sessionScope.userCredential.getRoles()=='SUPERVISOR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"/>
-                                </hlayout>
+                              
+                                <button onClick="@command('tandaiSelesai')" 
+                                if="${sessionScope.userCredential.getRoles()=='KASIR_KECIL'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                                        hflex="3" sclass="btn-success" 
+                                        iconSclass="glyphicon glyphicon-ok" 
+                                        label="TANDAI SELESAI" 
+                                        disabled="@load(vm.kasKecil.status.equals('SELESAI'))" 
+                                />
                             </footer>
                         </foot>
                     </grid>

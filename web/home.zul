@@ -6,10 +6,15 @@
     <div self="@define(content)" apply="org.zkoss.bind.BindComposer" viewModel="@id('e') @init('com.enseval.ttss.vm.ContentVM')">
      
         <include id="mainInclude" mode="defer" src="@load(e.thePage)" progressing="@load(e.thePage eq '/menuSetoran.zul' ? 'true' : 'false')" 
-                 if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"/>
+                 if="${sessionScope.userCredential.getRoles()=='KASIR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/>
         
         <include id="mainInclude" mode="defer" src="@load(e.thePage)" progressing="@load(e.thePage eq '/menuInputCashOpname.zul' ? 'true' : 'false')" 
                          if="${sessionScope.userCredential.getRoles()=='OPERATOR'}"/>
+        
+        <include id="mainInclude" mode="defer" src="@load(e.thePage)" progressing="@load(e.thePage eq '/menuKasKecil.zul' ? 'true' : 'false')" 
+                         if="${sessionScope.userCredential.getRoles()=='KASIR_KECIL'}"/>
     
     </div>
 </zk>

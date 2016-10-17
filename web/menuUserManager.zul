@@ -249,6 +249,26 @@
                                 </rows>
                             </grid>
                         </window>
+                        <window title="SETTING SALDO AWAL KAS KECIL">
+                            <grid>
+                                <columns>
+                                    <column align="right" width="30%"/>
+                                    <column/>
+                                    <column align="right" width="15%"/>
+                                    <column/>
+                                </columns>
+                                <rows>
+                                    <row>
+                                    SALDO AWAL KAS KECIL
+                                        <div class="input-group" hflex="3" width="100%">
+                                            <span class="input-group-addon">Rp.</span>
+                                            <longbox id="nilaiKasKecil" class="form-control input-primary" value="@bind(settingVM.saldoAwalKasKecil)" maxlength="20" format=",###.#" constraint="no empty,no negative" readonly="@load(settingVM.saldoAwalKasKecil eq 0?'false':'true')"/>
+                                            <span class="input-group-addon">,00</span>
+                                        </div>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </window>
                         <window title="SETTING PDF">
                             <grid>
                                 <columns>

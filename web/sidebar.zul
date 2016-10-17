@@ -19,84 +19,104 @@
                         </listhead>
                         
                         <listitem id="defaultMenu" style="border-bottom: 1px dotted #cfcfcf;" 
-                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
+                                  if="${sessionScope.userCredential.getRoles()=='KASIR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
                            
-                                      onClick="@command('changePage', page='menuSetoran.zul')">
+                                  onClick="@command('changePage', page='menuSetoran.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN MASUK"/>
                         </listitem>
                         	
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                      onClick="@command('changePage', page='menuSetoranKeluar.zul')">
+                                  if="${sessionScope.userCredential.getRoles()=='KASIR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
+                                  onClick="@command('changePage', page='menuSetoranKeluar.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="SETORAN KELUAR"/>
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                      onClick="@command('changePage', page='menuKasKecil.zul')">
+                                  if="${sessionScope.userCredential.getRoles()=='KASIR_KECIL'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
+                                  onClick="@command('changePage', page='menuKasKecil.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="KAS KECIL"/>
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                      onClick="@command('changePage', page='menuBacktrap.zul')">
+                                  if="${sessionScope.userCredential.getRoles()=='KASIR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
+                                  onClick="@command('changePage', page='menuBacktrap.zul')">
                             <listcell iconSclass="glyphicon glyphicon-briefcase"/>
                             <listcell label="BACKTRAP"/>
                         </listitem>
                   
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      onClick="@command('changePage', page='menuInputCashOpname.zul')" 
-                                      if="${sessionScope.userCredential.getRoles()=='OPERATOR'}">
+                                  onClick="@command('changePage', page='menuInputCashOpname.zul')" 
+                                  if="${sessionScope.userCredential.getRoles()=='OPERATOR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                        >
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="INPUT CASH OPNAME"/>
                         </listitem>
                         
 
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                      onClick="@command('changePage', page='menuGiroPending.zul')">
+                                  if="${sessionScope.userCredential.getRoles()=='KASIR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
+                                  onClick="@command('changePage', page='menuGiroPending.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BON GIRO"/>
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                       onClick="@command('changePage', page='menuBalanceDaily.zul')">
+                                    if="${sessionScope.userCredential.getRoles()=='KASIR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
+                                  onClick="@command('changePage', page='menuBalanceDaily.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="REKAP HARIAN"/>
                         </listitem>  
                             
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                       onClick="@command('changePage', page='menuCashOpname.zul')">
+                                     if="${sessionScope.userCredential.getRoles()=='OPERATOR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
+                                  onClick="@command('changePage', page='menuCashOpname.zul')">
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="HASIL CASH OPNAME"/>
                         </listitem>  
                             
                             
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      onClick="@command('changePage', page='menuBalance.zul')" >
+                                    if="${sessionScope.userCredential.getRoles()=='KASIR'||
+                                        sessionScope.userCredential.getRoles()=='ADMINISTRATOR' || 
+                                        sessionScope.userCredential.getRoles()=='SUPERVISOR'}"
+                                  onClick="@command('changePage', page='menuBalance.zul')" >
                             <listcell iconSclass="glyphicon glyphicon-list-alt"/>
                             <listcell label="BALANCE"/>
                         </listitem>    
                             
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
-                                      onClick="@command('changePage', page='menuMasterCustomer.zul')">
+                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                                  onClick="@command('changePage', page='menuMasterCustomer.zul')">
                             <listcell iconSclass="glyphicon glyphicon-hdd"/>
                             <listcell label="MASTER CUSTOMER"/>
                         </listitem>
              
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" 
-                                      if="${sessionScope.userCredential.getRoles()!='OPERATOR'}"
-                                      onClick="@command('changePage', page='menuUserSetting.zul')">
+                                  onClick="@command('changePage', page='menuUserSetting.zul')">
                             <listcell iconSclass="glyphicon glyphicon-user" />
                             <listcell label="PENGATURAN PROFIL"/>
                         </listitem>
                         
                         <listitem style="border-bottom: 1px dotted #cfcfcf;" onClick="@command('changePage', page='menuUserManager.zul')"
-                                      if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
+                                  if="${sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}">
                             <listcell iconSclass="z-icon-cogs"/>
                             <listcell label="PENGATURAN SISTEM"/>
                         </listitem>
