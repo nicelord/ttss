@@ -21,6 +21,7 @@ public class MenuMasterCustomerVM {
     Textbox txtShipto;
     Customer customer = new Customer();
     String filterId = "", filterNama = "", filterShipto = "";
+    String searchText = "";
 
     @AfterCompose
     public void initSetup(@ContextParam(ContextType.VIEW) Component view) {
@@ -34,10 +35,12 @@ public class MenuMasterCustomerVM {
     public void doFilter() {
 
         listCustomer = Ebean.find(Customer.class)
-                .where().like("id", "%" + filterId  + "%")
-                .where().like("nama", "%" + filterNama  + "%")
-                .where().like("shipto", "%" + filterShipto  + "%")
-                .orderBy("id desc").findList();
+                .where()
+                .or(
+                        Expr.like("shipto", "%" + this.searchText + "%"),
+                        Expr.like("nama", "%" + this.searchText + "%"))
+                .orderBy("id desc")
+                .findList();
 
     }
 
@@ -152,6 +155,14 @@ public class MenuMasterCustomerVM {
 
     public void setFilterShipto(String filterShipto) {
         this.filterShipto = filterShipto;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
     }
 
 }

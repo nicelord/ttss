@@ -20,28 +20,28 @@
                     <auxhead>
                         <auxheader colspan="14">
                             
-                            <longbox id="lboxId" hflex="3" value="@bind(vm.customer.id)" sclass="form-control input-primary"/> 
+                            <textbox id="lboxId" hflex="3" value="@bind(vm.searchText)" sclass="form-control input-primary"/> 
                         </auxheader>
                         <auxheader>
-                            <button class="btn-success" iconSclass="glyphicon glyphicon-plus" onClick="@command('saveCustomer')">CARI</button>
+                            <button class="btn-success" iconSclass="glyphicon glyphicon-search" onClick="@command('doFilter')">CARI</button>
                         </auxheader>
                     </auxhead>
                                      
-                    <listhead>
-                        <listheader label="ID" width="60px"/>
-                        <listheader label="Nama"/>
-                        <listheader label="Shipto"/>
-                        <listheader label="Kota"/>
-                        <listheader label="Provinsi"/>
-                        <listheader label="Kode Pos"/>
-                        <listheader label="Nama Area"/>
-                        <listheader label="DKLK" width="40px"/>
-                        <listheader label="Credit Lmt"/>
-                        <listheader label="NPWP"/>
-                        <listheader label="Wajib Pajak"/>
-                        <listheader label="Create Date"/>
-                        <listheader label="Editor"/>
-                        <listheader label="Last Update"/>
+                    <listhead sizable="true">
+                        <listheader sort="auto(id)" label="ID" width="60px"/>
+                        <listheader sort="auto(nama)" label="Nama"/>
+                        <listheader sort="auto(shipto)" label="Shipto"/>
+                        <listheader sort="auto(kota)" label="Kota"/>
+                        <listheader sort="auto(provinsi)" label="Provinsi"/>
+                        <listheader sort="auto(kodePos)" label="Kode Pos"/>
+                        <listheader sort="auto(namaArea)" label="Nama Area"/>
+                        <listheader sort="auto(dklk)" label="DKLK" width="40px"/>
+                        <listheader sort="auto(creditLimit)" label="Credit Lmt"/>
+                        <listheader sort="auto(npwp)" label="NPWP"/>
+                        <listheader sort="auto(wajibPajak)" label="Wajib Pajak"/>
+                        <listheader sort="auto(createDate)" label="Create Date"/>
+                        <listheader sort="auto(lastUpdateBy)" label="Editor"/>
+                        <listheader sort="auto(lastUpdateDate)" label="Last Update"/>
                         <listheader label="HAPUS"/>
                     </listhead>
                     
@@ -63,7 +63,7 @@
                             <listcell label="@load(s.lastUpdateDate)" style="text-overflow: ellipsis; white-space: nowrap;"/>
                             <listcell>
                                 <button class="btn-xs btn-danger" iconSclass="glyphicon glyphicon-trash" onClick="@command('hapusCustomer',customernya=s)"></button>
-                                <button class="btn-xs btn-success" iconSclass="glyphicon glyphicon-edit" onClick="@command('hapusCustomer',customernya=s)"></button>
+                                <button class="btn-xs btn-success" iconSclass="glyphicon glyphicon-edit" onClick="@command('')"></button>
                             </listcell>
                         </listitem>
                     </template>
