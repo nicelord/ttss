@@ -115,7 +115,7 @@ public class MailNotif {
                 + "<br/>"
                 + "<br/>"
                 + "<br/>"
-                + "<p>Account shipto customer akan segera diaktifkan oleh bagian Data Proses.</p>"
+                + "<p>Jika tidak ada tolakan, account shipto customer akan segera diaktifkan oleh bagian Data Proses.</p>"
                 + "<br/>"
                 + "<br/>"
                 + "<p><i>Note : "

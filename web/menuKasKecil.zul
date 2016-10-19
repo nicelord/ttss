@@ -177,6 +177,10 @@
                                 <label value="@load(vm.kasKecil.dept.toUpperCase())"/>
                             </row>
                             <row>
+                                KEPERLUAN
+                                <label value="@load(vm.kasKecil.keperluan.toUpperCase())"/>
+                            </row>
+                            <row>
                                 PETUGAS
                                 <label value="@load(vm.kasKecil.namaPetugas.toUpperCase())"/>
                             </row> 

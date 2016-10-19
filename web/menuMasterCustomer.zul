@@ -42,28 +42,87 @@
                         <listheader sort="auto(createDate)" label="Create Date"/>
                         <listheader sort="auto(lastUpdateBy)" label="Editor"/>
                         <listheader sort="auto(lastUpdateDate)" label="Last Update"/>
-                        <listheader label="HAPUS"/>
+                        <listheader label=""/>
                     </listhead>
                     
                     <template name="model" var="s">
                         <listitem sclass="custList">
                             <listcell label="@load(s.id)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.nama)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.shipto)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.kota)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.provinsi)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.kodePos)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.namaArea)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.DKLK)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.creditLimit)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.npwp)" style="text-overflow: ellipsis; white-space: nowrap;"/>
-                            <listcell label="@load(s.namaWajibPajak)" style="text-overflow: ellipsis; white-space: nowrap;"/>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.nama)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.shipto)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.kota)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.provinsi)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.kodePos)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.namaArea)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.DKLK)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.creditLimit)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.npwp)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
+                            <listcell style="text-overflow: ellipsis; white-space: nowrap;">
+                                <textbox 
+                                    inplace="true" 
+                                    value="@bind(s.namaWajibPajak)" 
+                                    width="99%" 
+                                    onChange="@command('saveCustomer',c=s)"/>
+                            </listcell>
                             <listcell label="@load(s.creationDate)" style="text-overflow: ellipsis; white-space: nowrap;"/>
                             <listcell label="@load(s.lastUpdateBy)" style="text-overflow: ellipsis; white-space: nowrap;"/>
                             <listcell label="@load(s.lastUpdateDate)" style="text-overflow: ellipsis; white-space: nowrap;"/>
                             <listcell>
                                 <button class="btn-xs btn-danger" iconSclass="glyphicon glyphicon-trash" onClick="@command('hapusCustomer',customernya=s)"></button>
-                                <button class="btn-xs btn-success" iconSclass="glyphicon glyphicon-edit" onClick="@command('')"></button>
                             </listcell>
                         </listitem>
                     </template>

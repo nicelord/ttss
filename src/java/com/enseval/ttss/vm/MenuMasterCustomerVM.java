@@ -35,43 +35,28 @@ public class MenuMasterCustomerVM {
     public void doFilter() {
 
         listCustomer = Ebean.find(Customer.class)
-                .where()
-                .or(
-                        Expr.like("shipto", "%" + this.searchText + "%"),
-                        Expr.like("nama", "%" + this.searchText + "%"))
-                .orderBy("id desc")
+                .where("id like '%" + this.searchText + "%' or "
+                        + "nama like '%" + this.searchText + "%' or "
+                        + "shipto like '%" + this.searchText + "%' or "
+                        + "kota like '%" + this.searchText + "%' or "
+                        + "kodePos like '%" + this.searchText + "%' or "
+                        + "namaArea like '%" + this.searchText + "%' or "
+                        + "DKLK like '%" + this.searchText + "%' or "
+                        + "creditLimit like '%" + this.searchText + "%' or "
+                        + "npwp like '%" + this.searchText + "%' or "
+                        + "namaWajibPajak like '%" + this.searchText + "%' or "
+                        + "provinsi like '%" + this.searchText + "%'")
                 .findList();
 
     }
 
     @Command
     @NotifyChange("listCustomer")
-    public void saveCustomer() {
-        Customer c = null;
-
-        try {
-            c = Ebean.find(Customer.class, lboxId.getValue());
-            c.setNama(txtNama.getValue());
-            c.setShipto(txtShipto.getValue());
-            Ebean.update(c);
-            Messagebox.show("Customer diupdate!", "INFO", Messagebox.OK, Messagebox.INFORMATION);
-            listCustomer = Ebean.find(Customer.class).orderBy("id desc").findList();
-            customer = null;
-
-        } catch (NullPointerException ex) {
-
-            c = new Customer();
-            c.setId(lboxId.getValue());
-            c.setNama(txtNama.getValue());
-            c.setShipto(txtShipto.getValue());
-            Ebean.save(c);
-
-            Messagebox.show("Customer ditambahkan", "Info", Messagebox.OK, Messagebox.INFORMATION);
-            listCustomer = Ebean.find(Customer.class).orderBy("id desc").findList();
-
-            customer = null;
-
-        }
+    public void saveCustomer(@BindingParam("c") Customer c) {
+        Customer cc = Ebean.find(Customer.class, c.getId());
+        cc = c;
+        Ebean.update(cc);
+        
 
     }
 
@@ -87,9 +72,9 @@ public class MenuMasterCustomerVM {
         Ebean.delete(Customer.class, c.getId());
         Messagebox.show("Data customer berhasil dihapus", "INFO", Messagebox.OK, Messagebox.INFORMATION);
         listCustomer = Ebean.find(Customer.class)
-                .where().like("id", "%" + filterId  + "%")
-                .where().like("nama", "%" + filterNama  + "%")
-                .where().like("shipto", "%" + filterShipto  + "%")
+                .where().like("id", "%" + filterId + "%")
+                .where().like("nama", "%" + filterNama + "%")
+                .where().like("shipto", "%" + filterShipto + "%")
                 .orderBy("id desc").findList();
     }
 
