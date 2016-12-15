@@ -12,6 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.TemporalAccessor;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,28 +39,85 @@ public class TES {
 
         List<TTSS> lst = Ebean.find(TTSS.class).where().ge("wktTerima", Util.setting("tgl_saldo_awal")).orderBy("wktTerima desc").findList();
 
-        Map<Timestamp, TTSS> byMonth = new HashMap<>();
-        for (TTSS lst1 : lst) {
-            byMonth.put(lst1.getWktTerima(), lst1);
-        }
+        Long nilaiSaldo = Long.valueOf(Util.setting("saldo_awal_transfer")) + Long.valueOf(Util.setting("saldo_awal_dropping"));
 
-        Map<Integer, Long> result = new HashMap<>();
-
-        for (Entry<Timestamp, TTSS> entrySet : byMonth.entrySet()) {
-            int key = entrySet.getKey().getMonth() + 1;
-            long value = entrySet.getValue().getNilai();
-            if(entrySet.getValue().getTipe().equals("keluar")){
-                value = ~entrySet.getValue().getNilai()+1;
+        for (int i = lst.size() - 1; i >= 0; i--) {
+            if (lst.get(i).getWktTerima().after(Util.toDate(Util.setting("tgl_saldo_awal")))) {
+                if (lst.get(i).getTipe().equals("masuk")) {
+                    lst.get(i).setSaldo(nilaiSaldo += lst.get(i).getNilai());
+                } else {
+                    lst.get(i).setSaldo(nilaiSaldo -= lst.get(i).getNilai());
+                }
             }
-            long oldValue = result.get(key) != null ? result.get(key) : 0;
-            result.put(key, oldValue + value);
 
         }
 
-        for (Entry<Integer, Long> entrySet : result.entrySet()) {
-            System.out.println("Month " + entrySet.getKey() + "- Value = " + entrySet.getValue());
+        List<Balance> bl = new ArrayList<>();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+
+        Calendar startCal = Calendar.getInstance();
+        startCal.set(Calendar.DATE, Integer.parseInt(Util.setting("tgl_saldo_awal").split("-")[2]));
+        startCal.set(Calendar.MONTH, Integer.parseInt(Util.setting("tgl_saldo_awal").split("-")[1]) - 1);
+        startCal.set(Calendar.YEAR, Integer.parseInt(Util.setting("tgl_saldo_awal").split("-")[0]));
+        Date startDate = startCal.getTime();
+
+        Calendar endCal = Calendar.getInstance();
+        Date endDate = endCal.getTime();
+
+        Calendar beginCalendar = Calendar.getInstance();
+        Calendar finishCalendar = Calendar.getInstance();
+
+        beginCalendar.setTime(startDate);
+        finishCalendar.setTime(lst.get(0).getWktTerima());
+
+
+        while (beginCalendar.before(finishCalendar)) {
+            // add one month to date per loop
+            String date = sdf.format(beginCalendar.getTime()).toUpperCase();
+            System.out.println(getFilterOutput(lst, date).size());
+            Balance b = new Balance();
+            b.setPeriode(date);
+            for (TTSS t : getFilterOutput(lst, date)) {
+                if (t.getTipe().equals("keluar")) {
+                    b.setTotalKeluar(b.getTotalKeluar() + t.getNilai());
+                } else {
+                    b.setTotalMasuk(b.getTotalMasuk() + t.getNilai());
+                }
+            }
+            bl.add(b);
+
+            beginCalendar.add(Calendar.MONTH, 1);
         }
+
+        for (Balance balance : bl) {
+            System.out.println(balance.getPeriode());
+            System.out.println(balance.getTotalKeluar());
+            System.out.println(balance.getTotalMasuk());
+        }
+
+    }
+
+    private static List<TTSS> addtobalance(List<TTSS> lines, String startDate) {
+        List<TTSS> result = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        for (TTSS line : lines) {
+            if (sdf.format(line.getWktTerima()).equals(startDate)) {
+                result.add(line);
+            }
+        }
+        return result;
+    }
+
+    private static List<TTSS> getFilterOutput(List<TTSS> lines, String month) {
+        List<TTSS> result = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        for (TTSS line : lines) {
+            if (sdf.format(line.getWktTerima()).equals(month)) {
+                result.add(line);
+            }
+        }
+        return result;
     }
 
 }

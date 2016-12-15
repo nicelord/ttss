@@ -125,6 +125,7 @@
 		<field name="wktTerima" class="java.util.Date"/>
 		<field name="nilai" class="java.lang.Long"/>
 		<field name="saldo" class="java.lang.Long"/>
+		<field name="tipe" class="java.lang.String"/>
 		<variable name="total" class="java.lang.Long" calculation="Sum">
 			<variableExpression><![CDATA[]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
@@ -139,10 +140,10 @@
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<detail>
-		<band height="281" splitType="Stretch">
+	<summary>
+		<band height="173">
 			<componentElement>
-				<reportElement key="table 3" style="table 3" x="0" y="0" width="555" height="281" uuid="ad2b3939-1823-4ecc-8493-419c395d681d"/>
+				<reportElement key="table 3" style="table 3" x="0" y="0" width="555" height="141" uuid="ad2b3939-1823-4ecc-8493-419c395d681d"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="Table Dataset 1" uuid="b09b03cc-b6ff-46eb-9518-790a6b01b697">
 						<datasetParameter name="REPORT_DATA_SOURCE">
@@ -198,14 +199,14 @@
 								<textElement>
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[TAG]]></text>
+								<text><![CDATA[TIPE]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="table 3_CH" height="30"/>
 						<jr:detailCell style="table 3_TD" height="20">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="20" uuid="1c6a5c64-aa61-4d04-a385-8bb37cb2df7b"/>
-								<textFieldExpression><![CDATA[$F{tag}]]></textFieldExpression>
+								<reportElement x="0" y="0" width="90" height="20" uuid="433468c4-091f-495c-9c84-17dcaed553c8"/>
+								<textFieldExpression><![CDATA[$F{tipe}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -292,5 +293,5 @@
 				</jr:table>
 			</componentElement>
 		</band>
-	</detail>
+	</summary>
 </jasperReport>
