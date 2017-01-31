@@ -220,6 +220,13 @@
                         visible="@load(vm.state eq 'PENDING')"
                         if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
                 />
+                <button iconSclass="glyphicon glyphicon-file" 
+                        sclass="btn-info" 
+                        onClick="@command('buatSerahTerimaGiro')"
+                        label="BUAT SERAH TERIMA"
+                        visible="@load(vm.state eq 'PENDING')"
+                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                />
                 <button 
                     onClick="@command('downloadXLS')" 
                     iconSclass="glyphicon glyphicon-download-alt" 

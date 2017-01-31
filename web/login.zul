@@ -29,7 +29,7 @@
         
         <vlayout apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.enseval.ttss.vm.LoginVM')">
             <div style="float:center;text-align: right;font: italic bold 10px arial, sans-serif;">
-                Patch-005
+                CASHMON 2
             </div>
             <window id="loginWin" title="LOGIN CASH MONITORING" border="normal" hflex="min">
                 <vbox hflex="min" align="center">

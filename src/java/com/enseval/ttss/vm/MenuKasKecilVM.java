@@ -194,7 +194,7 @@ public class MenuKasKecilVM {
 
     @Command
     public void buatTransaksi() {
-        Executions.createComponents("AddNewkasKecil.zul", (Component) null, (Map) null);
+        Executions.createComponents("AddNewKasKecil.zul", (Component) null, (Map) null);
     }
 
     public User getUserLogin() {

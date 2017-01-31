@@ -320,6 +320,68 @@ public class MenuGiroPendingVM {
         Executions.createComponents("WinKonfirmasiTglKliring.zul", null, args);
 
     }
+    
+    @Command
+    @NotifyChange({"listGiro"})
+    public void buatSerahTerimaGiro() {
+        
+        if (selectedGiro.isEmpty()) {
+            Messagebox.show("Tidak ada giro yang dipilih!", "Error", Messagebox.OK, Messagebox.ERROR);
+            return;
+        }
+        long totalNilaiSelected = 0L;
+        for (Giro g : selectedGiro) {
+            totalNilaiSelected = totalNilaiSelected+g.getNilai();
+        }
+        
+        
+        
+        
+        File filenya = new File(Util.setting("pdf_path") + "giro-acceptance.xls");
+        try {
+            InputStream streamReport = JRLoader.getFileInputStream(Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "/report/giro.acceptance.jasper");
+            JRDataSource datasource = new JRBeanCollectionDataSource(selectedGiro);
+            JRDataSource beanColDataSource = new JRBeanCollectionDataSource(selectedGiro);
+            Map map = new HashMap();
+            map.put("REPORT_DATA_SOURCE", datasource);
+            map.put("GIRO", beanColDataSource);
+            map.put("TOTAL", totalNilaiSelected);
+            map.put("CABANG", Util.setting("nama_cabang"));
+            final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
+            final OutputStream outputStream = new FileOutputStream(filenya);
+            final JRXlsExporter exporterXLS = new JRXlsExporter();
+            exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, (Object) report);
+            exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, (Object) outputStream);
+            exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.FALSE);
+            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, (Object) Boolean.FALSE);
+            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_DETECT_CELL_TYPE, (Object) Boolean.TRUE);
+            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, (Object) Boolean.TRUE);
+            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, (Object) Boolean.FALSE);
+            exporterXLS.setParameter((JRExporterParameter) JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, (Object) Boolean.FALSE);
+            exporterXLS.exportReport();
+            streamReport.close();
+            outputStream.close();
+        } catch (JRException | FileNotFoundException ex4) {
+            Logger.getLogger(MenuSetoranKeluarVM.class.getName()).log(Level.SEVERE, null, ex4);
+        } catch (IOException ex2) {
+            Logger.getLogger(MenuSetoranKeluarVM.class.getName()).log(Level.SEVERE, null, ex2);
+        }
+        FileInputStream inputStream = null;
+        try {
+            if (filenya.exists()) {
+                inputStream = new FileInputStream(filenya);
+                Filedownload.save((InputStream) inputStream, new MimetypesFileTypeMap().getContentType(filenya), filenya.getName());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        filenya.delete();
+
+        selectedGiro = new ArrayList<>();
+
+    }
+    
+    
 
     @Command
     @NotifyChange({"listGiro", "totalNilai"})
