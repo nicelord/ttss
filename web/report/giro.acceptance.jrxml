@@ -112,6 +112,8 @@
 	<parameter name="TOTAL" class="java.lang.Long"/>
 	<parameter name="GIRO" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="CABANG" class="java.lang.String"/>
+	<parameter name="USER" class="java.lang.String"/>
+	<parameter name="PENYETOR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -271,6 +273,16 @@
 				<reportElement x="372" y="72" width="15" height="20" uuid="e9231d9a-9e11-4cdb-85eb-10c3db2657b9"/>
 				<text><![CDATA[,]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="49" y="151" width="102" height="14" uuid="b3d7ddc7-11da-42b7-b6a4-96c2adae1017"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{USER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="151" width="100" height="14" uuid="16b1faf4-97a9-4d8f-9907-c9f6a3e0535a"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{PENYETOR}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 </jasperReport>

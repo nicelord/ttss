@@ -49,6 +49,8 @@ public class MenuGiroPendingVM {
     Date tglJtTempoAkhir = null;
     Date tglKliringAwal = null;
     Date tglKliringAkhir = null;
+    
+    String txtNamaPenyetor = "";
 
     List<Giro> selectedGiro;
     String state = "PENDING";
@@ -329,13 +331,16 @@ public class MenuGiroPendingVM {
             Messagebox.show("Tidak ada giro yang dipilih!", "Error", Messagebox.OK, Messagebox.ERROR);
             return;
         }
+        
+        if(txtNamaPenyetor.isEmpty()){
+            Messagebox.show("Harap isi nama penyetor!", "Error", Messagebox.OK, Messagebox.ERROR);
+            return;
+        }
+        
         long totalNilaiSelected = 0L;
         for (Giro g : selectedGiro) {
             totalNilaiSelected = totalNilaiSelected+g.getNilai();
         }
-        
-        
-        
         
         File filenya = new File(Util.setting("pdf_path") + "giro-acceptance.xls");
         try {
@@ -347,6 +352,8 @@ public class MenuGiroPendingVM {
             map.put("GIRO", beanColDataSource);
             map.put("TOTAL", totalNilaiSelected);
             map.put("CABANG", Util.setting("nama_cabang"));
+            map.put("USER", this.userLogin.getNama());
+            map.put("PENYETOR", this.txtNamaPenyetor);
             final JasperPrint report = JasperFillManager.fillReport(streamReport, map);
             final OutputStream outputStream = new FileOutputStream(filenya);
             final JRXlsExporter exporterXLS = new JRXlsExporter();
@@ -706,5 +713,15 @@ public class MenuGiroPendingVM {
     public void setTglKliringAkhir(Date tglKliringAkhir) {
         this.tglKliringAkhir = tglKliringAkhir;
     }
+
+    public String getTxtNamaPenyetor() {
+        return txtNamaPenyetor;
+    }
+
+    public void setTxtNamaPenyetor(String txtNamaPenyetor) {
+        this.txtNamaPenyetor = txtNamaPenyetor;
+    }
+    
+    
 
 }

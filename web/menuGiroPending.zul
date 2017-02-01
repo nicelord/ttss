@@ -13,7 +13,7 @@
          apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('com.enseval.ttss.vm.MenuGiroPendingVM')">        
                                              
     <!--custom-attributes org.zkoss.zul.listbox.rod="true" 
-                       if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/-->
+    if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='SUPERVISOR'}"/-->
                      
     <auxhead>
         <auxheader colspan="3">
@@ -212,28 +212,39 @@
                     
     <listfoot>
         <listfooter span="12" valign="middle">
-            <div style="float:left;">     
-                <button iconSclass="glyphicon glyphicon-forward" 
-                        sclass="btn-success" 
-                        onClick="@command('showKonfirmasiTglKliring')"
-                        label="PROSES KLIRING"
-                        visible="@load(vm.state eq 'PENDING')"
-                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
-                />
-                <button iconSclass="glyphicon glyphicon-file" 
-                        sclass="btn-info" 
-                        onClick="@command('buatSerahTerimaGiro')"
-                        label="BUAT SERAH TERIMA"
-                        visible="@load(vm.state eq 'PENDING')"
-                        if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
-                />
-                <button 
-                    onClick="@command('downloadXLS')" 
-                    iconSclass="glyphicon glyphicon-download-alt" 
-                    label="DOWNLOAD EXCEL"
-                    visible="@load(vm.state ne 'PENDING')"
-                />
+            <div style="float:left;">   
+                <hlayout>  
+                    <button iconSclass="glyphicon glyphicon-forward" 
+                            sclass="btn-success" 
+                            onClick="@command('showKonfirmasiTglKliring')"
+                            label="PROSES KLIRING"
+                            visible="@load(vm.state eq 'PENDING')"
+                            if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                    />
+                    [
+                    <textbox 
+                        value="@bind(vm.txtNamaPenyetor)"
+                        sclass="form-control input-primary" maxlength="80" style="height: 32px;" placeholder="Nama penyetor.."/>
+                
+                    <button iconSclass="glyphicon glyphicon-file" 
+                            sclass="btn-info" 
+                            onClick="@command('buatSerahTerimaGiro')"
+                            label="BUAT SERAH TERIMA"
+                            visible="@load(vm.state eq 'PENDING')"
+                            if="${sessionScope.userCredential.getRoles()=='KASIR' || sessionScope.userCredential.getRoles()=='ADMINISTRATOR'}"
+                    />
+                    ]
+                    
+               
+                    <button 
+                        onClick="@command('downloadXLS')" 
+                        iconSclass="glyphicon glyphicon-download-alt" 
+                        label="DOWNLOAD EXCEL"
+                        visible="@load(vm.state ne 'PENDING')"
+                    />
+                </hlayout>
             </div>
+            
             <div style="float:right;">
                 <label value="TOTAL NILAI "/>
                 <label value="@load(vm.format(vm.totalNilai))"/>
