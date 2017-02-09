@@ -103,6 +103,8 @@
 		<field name="nomorGiro" class="java.lang.String"/>
 		<field name="bank" class="java.lang.String"/>
 		<field name="nilai" class="java.lang.Long"/>
+		<field name="customer.nama" class="java.lang.String"/>
+		<field name="customer.id" class="java.lang.String"/>
 		<variable name="total" class="java.lang.Long" calculation="Sum">
 			<variableExpression><![CDATA[]]></variableExpression>
 			<initialValueExpression><![CDATA[0]]></initialValueExpression>
@@ -145,9 +147,9 @@
 						</datasetParameter>
 					</datasetRun>
 					<jr:column width="127" uuid="88eef490-4b5c-4427-b842-7ffcca3d1132">
-						<jr:tableHeader style="table 1_TH" height="20" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="18" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="127" height="22" uuid="11f7250a-2faa-43cb-9dd4-8c2585e9d8ee"/>
 								<textElement>
@@ -156,86 +158,106 @@
 								<text><![CDATA[NOMOR GIRO]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="22" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="22" rowSpan="1">
+						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="127" height="22" uuid="85a3d094-c6a2-496c-8249-8ea54d56a00f"/>
+								<reportElement x="0" y="0" width="127" height="30" uuid="85a3d094-c6a2-496c-8249-8ea54d56a00f"/>
 								<textFieldExpression><![CDATA[$F{nomorGiro}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="124" uuid="7422278a-6316-4829-aee4-3165d00103f3">
-						<jr:tableHeader style="table 1_TH" height="20" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="18" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+					<jr:column width="95" uuid="7422278a-6316-4829-aee4-3165d00103f3">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="103" height="22" uuid="b97eb5df-2bba-4f22-a2f5-a6400be252f4"/>
+								<reportElement x="0" y="0" width="95" height="22" uuid="b97eb5df-2bba-4f22-a2f5-a6400be252f4"/>
 								<textElement>
 									<font isBold="true"/>
 								</textElement>
 								<text><![CDATA[NAMA BANK]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="22" rowSpan="1"/>
-						<jr:detailCell style="table 1_TD" height="22" rowSpan="1">
+						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="103" height="22" uuid="5c068a24-e811-48bb-8318-d5b60fbce885"/>
+								<reportElement x="0" y="0" width="95" height="30" uuid="5c068a24-e811-48bb-8318-d5b60fbce885"/>
 								<textFieldExpression><![CDATA[$F{bank}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="136" uuid="27c870a8-a315-47c4-99b2-f374563adc90">
-						<jr:tableHeader style="table 1_TH" height="20" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="18" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+					<jr:column width="105" uuid="27c870a8-a315-47c4-99b2-f374563adc90">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="116" height="22" uuid="3d315fe6-d18f-49a3-bf86-8e4d6005ad99"/>
+								<reportElement x="0" y="0" width="105" height="22" uuid="3d315fe6-d18f-49a3-bf86-8e4d6005ad99"/>
 								<textElement>
 									<font isBold="true"/>
 								</textElement>
 								<text><![CDATA[TGL. JT BG]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="22" rowSpan="1">
+						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
+							<textField pattern="dd MMMM yyyy">
+								<reportElement x="0" y="0" width="105" height="30" uuid="4cd411cd-f5a5-4581-a0ea-c942ab2c6b0d"/>
+								<textFieldExpression><![CDATA[$F{tglJtTempo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="126" uuid="74b58fe9-a330-46a5-8d10-2eba96e94bef">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="116" height="22" uuid="74408ebe-78ad-4f62-afab-c12724b3735e"/>
+								<reportElement x="0" y="0" width="126" height="30" uuid="21306610-0985-4906-94b9-690123e9d019"/>
+								<textElement>
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[CUST]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="126" height="30" uuid="74408ebe-78ad-4f62-afab-c12724b3735e"/>
 								<textElement>
 									<font isBold="true"/>
 								</textElement>
 								<text><![CDATA[TOTAL :]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 1_TD" height="22" rowSpan="1">
-							<textField pattern="dd MMMM yyyy">
-								<reportElement x="0" y="0" width="116" height="22" uuid="4cd411cd-f5a5-4581-a0ea-c942ab2c6b0d"/>
-								<textFieldExpression><![CDATA[$F{tglJtTempo}]]></textFieldExpression>
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="126" height="30" uuid="f26f4433-319b-4df2-9b7b-608f95bf92c4"/>
+								<textFieldExpression><![CDATA[$F{customer.nama}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="167" uuid="74b58fe9-a330-46a5-8d10-2eba96e94bef">
-						<jr:tableHeader style="table 1_TH" height="20" rowSpan="1"/>
-						<jr:tableFooter style="table 1_TH" height="18" rowSpan="1"/>
-						<jr:columnHeader style="table 1_CH" height="22" rowSpan="1">
+					<jr:column width="119" uuid="ecb83c30-c688-4486-8682-90698abad6d0">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="143" height="22" uuid="18915468-3364-48c9-b020-ba3dc296523c"/>
+								<reportElement style="table 1_CH" x="0" y="0" width="119" height="30" uuid="18915468-3364-48c9-b020-ba3dc296523c"/>
 								<textElement>
 									<font isBold="true"/>
 								</textElement>
 								<text><![CDATA[NOMINAL]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="table 1_CH" height="22" rowSpan="1">
+						<jr:columnFooter height="30" rowSpan="1">
 							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="143" height="22" uuid="3cb3ba1b-e367-4a8a-bdde-27eee03c7df2"/>
+								<reportElement style="table 1_CH" x="0" y="0" width="119" height="30" uuid="3cb3ba1b-e367-4a8a-bdde-27eee03c7df2"/>
 								<textElement>
 									<font isBold="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{TOTAL}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
-						<jr:detailCell style="table 1_TD" height="22" rowSpan="1">
+						<jr:detailCell height="30" rowSpan="1">
 							<textField pattern="#,##0">
-								<reportElement x="0" y="0" width="143" height="22" uuid="f2b7362b-65c3-4fed-bdf0-e142f5da3338"/>
+								<reportElement style="Table_TD" x="0" y="0" width="119" height="30" uuid="f2b7362b-65c3-4fed-bdf0-e142f5da3338"/>
 								<textFieldExpression><![CDATA[$F{nilai}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>

@@ -131,6 +131,10 @@
                             </button>
                         </div-->
                         <div style="float:right;">
+							<label value="PENDING "/>
+                            <label value="@load(vm.format(10000000-vm.saldo))" style="font-weight:bold;"/>
+                            <label value=" "/>
+							|
                             <label value="SALDO "/>
                             <label value="@load(vm.format(vm.saldo))" style="font-weight:bold;"/>
                             <label value=" "/>
